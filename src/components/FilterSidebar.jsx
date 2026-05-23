@@ -1,25 +1,48 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, SlidersHorizontal, ChevronRight, Box, Layers, Palette, RotateCcw, Filter, Sparkles } from 'lucide-react';
+import { X, Box, Layers, Palette, RotateCcw, Filter, Sparkles } from 'lucide-react';
+import { createPortal } from 'react-dom';
 import { categories, materials, finishes } from '../data/products';
 
 const FilterSidebar = ({ 
   filters = { category: [], material: [], finish: [] }, 
   onFilterChange, 
   onClearFilters,
-  filteredCount = 0 // Add this prop with default value
+  filteredCount = 0
 }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Handle mounting for portal
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   // Prevent body scroll when mobile filter is open
   useEffect(() => {
     if (isMobileOpen) {
+      const scrollY = window.scrollY;
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.dataset.scrollY = scrollY;
     } else {
-      document.body.style.overflow = 'unset';
+      const scrollY = document.body.dataset.scrollY;
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY));
+      }
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
     };
   }, [isMobileOpen]);
 
@@ -35,17 +58,21 @@ const FilterSidebar = ({
     [filters.category, filters.material, filters.finish]
   );
 
-  // Handle clear all filters
   const handleClearAll = useCallback(() => {
     onClearFilters();
   }, [onClearFilters]);
 
-  // Handle close mobile filter
   const handleCloseMobile = useCallback(() => {
     setIsMobileOpen(false);
   }, []);
 
-  // Animation variants - moved outside for performance
+  const handleOpenMobile = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsMobileOpen(true);
+  }, []);
+
+  // Animation variants
   const slideUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -205,56 +232,93 @@ const FilterSidebar = ({
     </motion.div>
   ), [filters.category, filters.material, filters.finish, onFilterChange]);
 
-  return (
-    <>
-      {/* 1. MOBILE FLOATING ACTION BUTTON */}
+  // Mobile Filter Button Component - HIDDEN when drawer is open
+  const MobileFilterButton = () => {
+    // Don't show the button if mobile drawer is open
+    if (isMobileOpen) return null;
+    
+    return (
       <motion.button 
-        onClick={() => setIsMobileOpen(true)}
-        className="lg:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-[90] flex items-center gap-3 bg-[#1A2A4F] text-white px-6 py-3.5 rounded-full shadow-2xl shadow-[#1A2A4F]/40"
+        onClick={handleOpenMobile}
+        className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 
+                   z-[9999] flex items-center gap-3 bg-[#1A2A4F] text-white 
+                   px-6 py-3.5 rounded-full shadow-2xl 
+                   shadow-[#1A2A4F]/40 backdrop-blur-sm
+                   cursor-pointer active:scale-95 transition-transform"
+        style={{ 
+          position: 'fixed',
+          isolation: 'isolate',
+          pointerEvents: 'auto',
+          transform: 'translateX(-50%)',
+          WebkitTapHighlightColor: 'transparent'
+        }}
         initial={{ opacity: 0, y: 20, scale: 0.9 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 20, scale: 0.9 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
-        <Filter size={16} className="text-[#C9A03D]" />
-        <span className="text-[10px] font-black uppercase tracking-[0.2em]">Filter</span>
+        <Filter size={16} className="text-[#C9A03D] pointer-events-none" />
+        <span className="text-[10px] font-black uppercase tracking-[0.2em] pointer-events-none">
+          Filter
+        </span>
         {hasActiveFilters && (
           <motion.span 
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="w-5 h-5 bg-[#C9A03D] rounded-full flex items-center justify-center text-[10px] font-bold"
+            className="w-5 h-5 bg-[#C9A03D] rounded-full flex items-center justify-center text-[10px] font-bold pointer-events-none"
           >
             {totalActiveCount}
           </motion.span>
         )}
       </motion.button>
+    );
+  };
 
-      {/* 2. MOBILE FULL-SCREEN OVERLAY */}
-      <AnimatePresence mode="wait">
-        {isMobileOpen && (
+  return (
+    <>
+      {/* 1. MOBILE FILTER BUTTON - HIDDEN WHEN DRAWER IS OPEN */}
+      {mounted && createPortal(
+        <MobileFilterButton />,
+        document.body
+      )}
+
+      {/* 2. MOBILE DRAWER OVERLAY */}
+      {mounted && isMobileOpen && createPortal(
+        <AnimatePresence mode="wait">
           <motion.div 
-            className="lg:hidden fixed inset-0 z-[100]"
+            className="fixed inset-0 z-[9998]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
+            {/* Backdrop - Visible blurred background */}
             <motion.div 
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm" 
               onClick={handleCloseMobile}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             />
+            
+            {/* Drawer */}
             <motion.div 
-              className="absolute bottom-0 inset-x-0 bg-white rounded-t-[3rem] max-h-[90vh] overflow-y-auto"
+              className="absolute bottom-0 inset-x-0 bg-white rounded-t-[2rem] max-h-[85vh] overflow-y-auto shadow-2xl"
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              style={{ zIndex: 9999 }}
             >
-              <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 px-6 pt-8 pb-4 border-b border-gray-100">
+              {/* Pull indicator */}
+              <div className="sticky top-0 bg-white z-20 px-6 pt-3 pb-2">
+                <div className="w-12 h-1 bg-gray-200 rounded-full mx-auto mb-2" />
+              </div>
+              
+              {/* Header - with CLOSE button instead of filter button */}
+              <div className="sticky top-6 bg-white z-20 px-6 pt-2 pb-4">
                 <div className="flex justify-between items-center">
                   <div>
                     <h3 className="text-xl font-bold text-[#1A2A4F]">Filter Collection</h3>
@@ -275,17 +339,21 @@ const FilterSidebar = ({
                 </div>
               </div>
               
-              <div className="p-6">
+              {/* Filter Content */}
+              <div className="px-6 pb-6">
                 <FilterContent />
                 
-                {/* Active Filters Summary on Mobile */}
+                {/* Active Filters Summary */}
                 {hasActiveFilters && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="mt-8 pt-6 border-t border-gray-100"
                   >
-                    <p className="text-[9px] font-black text-[#C9A03D] uppercase tracking-[0.3em] mb-3">Active Filters</p>
+                    <p className="text-[9px] font-black text-[#C9A03D] uppercase tracking-[0.3em] mb-3 flex items-center gap-1">
+                      <Sparkles size={10} />
+                      Active Filters
+                    </p>
                     <div className="flex flex-wrap gap-2">
                       <AnimatePresence>
                         {[...(filters.category || []), ...(filters.material || []), ...(filters.finish || [])].map((tag) => (
@@ -297,6 +365,16 @@ const FilterSidebar = ({
                             className="flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-full"
                           >
                             <span className="text-[10px] font-medium text-[#1A2A4F]">{tag}</span>
+                            <button
+                              onClick={() => {
+                                if (filters.category?.includes(tag)) onFilterChange('category', tag, false);
+                                if (filters.material?.includes(tag)) onFilterChange('material', tag, false);
+                                if (filters.finish?.includes(tag)) onFilterChange('finish', tag, false);
+                              }}
+                              className="text-gray-400 hover:text-red-500 transition-colors"
+                            >
+                              <X size={12} />
+                            </button>
                           </motion.div>
                         ))}
                       </AnimatePresence>
@@ -305,23 +383,22 @@ const FilterSidebar = ({
                 )}
               </div>
               
-              <div className="sticky bottom-0 bg-white p-6 pt-4 border-t border-gray-100">
+              {/* Bottom action buttons */}
+              <div className="sticky bottom-0 bg-white/95 backdrop-blur-md p-6 pt-4 border-t border-gray-100 z-20">
                 <div className="flex gap-3">
-                  {hasActiveFilters && (
-                    <motion.button 
-                      onClick={handleClearAll}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="flex-1 py-3.5 bg-gray-100 text-gray-600 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em]"
-                    >
-                      Clear All
-                    </motion.button>
-                  )}
                   <motion.button 
                     onClick={handleCloseMobile}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex-1 py-3.5 bg-[#1A2A4F] text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-lg"
+                    className="flex-1 py-3.5 bg-gray-100 text-gray-600 rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-gray-200 transition-colors"
+                  >
+                    Close
+                  </motion.button>
+                  <motion.button 
+                    onClick={handleCloseMobile}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex-1 py-3.5 bg-[#1A2A4F] text-white rounded-xl font-bold text-[10px] uppercase tracking-[0.2em] shadow-lg hover:shadow-xl transition-all"
                   >
                     Show Results ({filteredCount})
                   </motion.button>
@@ -329,10 +406,11 @@ const FilterSidebar = ({
               </div>
             </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>,
+        document.body
+      )}
 
-      {/* 3. DESKTOP STICKY SIDEBAR */}
+      {/* 3. DESKTOP STICKY SIDEBAR - UNCHANGED */}
       <motion.aside 
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}

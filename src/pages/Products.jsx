@@ -53,7 +53,6 @@ export default function Products() {
     category: [],
     material: [],
     finish: [],
-    // priceRange: '' ← REMOVED for showcasing
   });
 
   // Automatically initialize selected category from URL search parameters
@@ -67,7 +66,6 @@ export default function Products() {
   // Unified callback capturing input mutations from our sidebar checkboxes and radios
   const handleFilterChange = useCallback((filterType, value, isChecked) => {
     setFilters(prev => {
-      // Price range filter removed
       if (filterType === 'category' || filterType === 'material' || filterType === 'finish') {
         if (isChecked) {
           return { ...prev, [filterType]: [...(prev[filterType] || []), value] };
@@ -85,7 +83,6 @@ export default function Products() {
       category: [],
       material: [],
       finish: [],
-      // priceRange: '' ← REMOVED
     });
     setSearchQuery('');
   }, []);
@@ -121,8 +118,6 @@ export default function Products() {
       if (filters.finish?.length > 0 && !filters.finish.includes(product.finish)) {
         return false;
       }
-
-      // 5. Price filter REMOVED - Products are for showcasing only
 
       return true;
     });
@@ -200,6 +195,7 @@ export default function Products() {
               filters={filters}
               onFilterChange={handleFilterChange}
               onClearFilters={handleClearFilters}
+              filteredCount={filteredProducts.length}
             />
           </motion.div>
 
