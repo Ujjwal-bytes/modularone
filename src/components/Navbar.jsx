@@ -393,18 +393,7 @@ export default function Navbar() {
             </AnimatePresence>
 
             {/* Scroll indicator dot */}
-            <AnimatePresence>
-                {scrolled && (
-                    <motion.div 
-                        className="absolute -bottom-1 left-1/2 transform -translate-x-1/2"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                    >
-                        <div className="w-1 h-1 rounded-full bg-[#C9A03D]" />
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            
         </motion.nav>
     );
 }
