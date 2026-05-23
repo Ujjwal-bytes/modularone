@@ -57,7 +57,7 @@ export default function Products() {
   });
 
   // Use the observer hook to detect when products section is visible
-  const { sectionRef, isVisible: isProductsSectionVisible } = useSectionObserver('products-section', 0.1);
+  const { sectionRef, isVisible: isProductsSectionVisible } = useSectionObserver(0.1);
 
   // Automatically initialize selected category from URL search parameters
   useEffect(() => {

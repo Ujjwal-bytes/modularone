@@ -1,8 +1,8 @@
 // hooks/useSectionObserver.js
 import { useEffect, useState, useRef } from 'react';
 
-export const useSectionObserver = (sectionId, threshold = 0.1) => {
-  const [isVisible, setIsVisible] = useState(false);
+export const useSectionObserver = (threshold = 0.1) => {
+  const [isVisible, setIsVisible] = useState(true); // Default to true to show button initially
   const sectionRef = useRef(null);
 
   useEffect(() => {
