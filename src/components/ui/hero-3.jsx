@@ -2,14 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from 'react-router-dom';
 
 const AnimatedMarqueeHero = ({
   images = [
-    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80",
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80",
     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80",
     "https://images.unsplash.com/photo-1616137466211-f922a5f2e43c?w=1600&q=80",
-    "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1600&q=80"
+    "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600607687920-4e2a2efbdb8d?w=1600&q=80",
+    "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?w=1600&q=80"
   ],
   autoPlayInterval = 5000,
   titles = [
@@ -29,23 +30,29 @@ const AnimatedMarqueeHero = ({
 }) => {
   const [index, setIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [imageErrors, setImageErrors] = useState({});
+  const navigate = useNavigate();
 
   // Auto-play only when not hovered
   useEffect(() => {
     if (isHovered) return;
-    
+
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
     }, autoPlayInterval);
-    
+
     return () => clearInterval(interval);
   }, [images.length, autoPlayInterval, isHovered]);
 
   // Preload images for smoother transitions
   useEffect(() => {
-    images.forEach((src) => {
+    images.forEach((src, i) => {
       const img = new Image();
       img.src = src;
+      img.onerror = () => {
+        console.error(`Failed to load image ${i}: ${src}`);
+        setImageErrors(prev => ({ ...prev, [i]: true }));
+      };
     });
   }, [images]);
 
@@ -61,13 +68,22 @@ const AnimatedMarqueeHero = ({
     setIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  // Fallback image in case Unsplash images fail
+  const getImageUrl = (originalUrl, index) => {
+    if (imageErrors[index]) {
+      // Fallback to a reliable placeholder
+      return `https://placehold.co/1920x1080/1A2A4F/white?text=Modular+One`;
+    }
+    return originalUrl;
+  };
+
   return (
-    <section 
+    <section
       className="relative w-full h-screen overflow-hidden bg-black"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background Images with Crossfade Animation - NO BLACK SCREEN */}
+      {/* Background Images with Crossfade Animation */}
       <AnimatePresence initial={false} mode="wait">
         <motion.div
           key={index}
@@ -75,15 +91,16 @@ const AnimatedMarqueeHero = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ 
-            duration: 0.8, 
+          transition={{
+            duration: 0.8,
             ease: "easeInOut"
           }}
         >
           <img
-            src={images[index]}
+            src={getImageUrl(images[index], index)}
             alt={titles[index]}
             className="w-full h-full object-cover"
+            onError={() => setImageErrors(prev => ({ ...prev, [index]: true }))}
           />
           {/* Dark Overlay for better text readability */}
           <div className="absolute inset-0 bg-black/30" />
@@ -99,7 +116,7 @@ const AnimatedMarqueeHero = ({
           transition={{ duration: 0.6, delay: 0.2 }}
           className="max-w-4xl mx-auto"
         >
-          <motion.h1 
+          <motion.h1
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 tracking-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -107,8 +124,8 @@ const AnimatedMarqueeHero = ({
           >
             {titles[index]}
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             className="text-base md:text-lg lg:text-xl text-white/90 mb-8 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -116,17 +133,24 @@ const AnimatedMarqueeHero = ({
           >
             {subtitles[index]}
           </motion.p>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             className="flex gap-4 justify-center flex-wrap"
           >
-            <button className="px-6 py-3 bg-white text-gray-900 rounded-full font-semibold text-sm uppercase tracking-wider hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <button
+              onClick={() => navigate('/products')}
+              className="px-6 py-3 bg-white text-gray-900 rounded-full font-semibold text-sm uppercase tracking-wider hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            >
               Explore Collection
             </button>
-            <button className="px-6 py-3 bg-transparent border-2 border-white text-white rounded-full font-semibold text-sm uppercase tracking-wider hover:bg-white hover:text-gray-900 transition-all duration-300 transform hover:-translate-y-1">
+
+            <button
+              onClick={() => navigate('/contact')}
+              className="px-6 py-3 bg-transparent border-2 border-white text-white rounded-full font-semibold text-sm uppercase tracking-wider hover:bg-white hover:text-gray-900 transition-all duration-300 transform hover:-translate-y-1"
+            >
               Contact Us
             </button>
           </motion.div>
@@ -143,14 +167,14 @@ const AnimatedMarqueeHero = ({
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
         </svg>
       </button>
-      
+
       <button
         onClick={nextSlide}
         className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 md:w-12 md:h-12 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/20 transition-all duration-300 group"
         aria-label="Next slide"
       >
         <svg className="w-5 h-5 md:w-6 md:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <strokeLinecap className="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
         </svg>
       </button>
 
@@ -160,11 +184,10 @@ const AnimatedMarqueeHero = ({
           <button
             key={i}
             onClick={() => goToSlide(i)}
-            className={`transition-all duration-500 rounded-full ${
-              index === i 
-                ? "w-10 bg-white" 
-                : "w-2 bg-white/40 hover:bg-white/60"
-            } h-2`}
+            className={`transition-all duration-500 rounded-full ${index === i
+              ? "w-10 bg-white"
+              : "w-2 bg-white/40 hover:bg-white/60"
+              } h-2`}
             aria-label={`Go to slide ${i + 1}`}
           />
         ))}
