@@ -9,16 +9,10 @@ const FilterSidebar = ({
   onFilterChange, 
   onClearFilters,
   filteredCount = 0,
-  isProductsSectionVisible = true
+  isProductsSectionVisible = false
 }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-
-  // Debug logs
-  useEffect(() => {
-    console.log('FilterSidebar - isProductsSectionVisible:', isProductsSectionVisible);
-    console.log('FilterSidebar - isMobileOpen:', isMobileOpen);
-  }, [isProductsSectionVisible, isMobileOpen]);
 
   // Handle mounting for portal
   useEffect(() => {
@@ -76,7 +70,6 @@ const FilterSidebar = ({
   const handleOpenMobile = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('Opening mobile drawer');
     setIsMobileOpen(true);
   }, []);
 
@@ -240,50 +233,54 @@ const FilterSidebar = ({
     </motion.div>
   ), [filters.category, filters.material, filters.finish, onFilterChange]);
 
-  // Mobile Filter Button Component - Now checks section visibility
+  // Mobile Filter Button Component - VISIBLE WHEN PRODUCTS GRID IS IN VIEW
   const MobileFilterButton = () => {
-    // Debug log to check values
-    console.log('MobileFilterButton render - isMobileOpen:', isMobileOpen);
-    console.log('MobileFilterButton render - isProductsSectionVisible:', isProductsSectionVisible);
-    console.log('MobileFilterButton render - should show:', !isMobileOpen && isProductsSectionVisible);
-    
-    // Don't show the button if:
-    // 1. Mobile drawer is open, OR
-    // 2. Products section is NOT visible
+    // Only show when products grid is visible and drawer is closed
     if (isMobileOpen || !isProductsSectionVisible) return null;
     
     return (
-      <button 
+      <motion.button 
         onClick={handleOpenMobile}
-        className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 
-                   z-[9999] flex items-center gap-3 bg-[#1A2A4F] text-white 
-                   px-6 py-3.5 rounded-full shadow-2xl 
-                   shadow-[#1A2A4F]/40 backdrop-blur-sm
-                   cursor-pointer active:scale-95 transition-transform"
+        className="lg:hidden fixed bottom-0 left-0 right-0 
+                   z-[9999] flex items-center justify-between 
+                   bg-[#1A2A4F] text-white px-6 py-4 
+                   shadow-2xl shadow-[#1A2A4F]/30
+                   cursor-pointer active:scale-[0.98] transition-all
+                   border-t border-white/10"
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 100, opacity: 0 }}
+        transition={{ type: "spring", stiffness: 400, damping: 30 }}
         style={{ 
           position: 'fixed',
           isolation: 'isolate',
           pointerEvents: 'auto',
-         
           WebkitTapHighlightColor: 'transparent'
         }}
       >
-        <Filter size={16} className="text-[#C9A03D] pointer-events-none" />
-        <span className="text-[10px] font-black uppercase tracking-[0.2em] pointer-events-none">
-          Filter
-        </span>
-        {hasActiveFilters && (
-          <span className="w-5 h-5 bg-[#C9A03D] rounded-full flex items-center justify-center text-[10px] font-bold pointer-events-none">
-            {totalActiveCount}
+        <div className="flex items-center gap-3">
+          <Filter size={18} className="text-[#C9A03D]" />
+          <span className="text-[12px] font-black uppercase tracking-[0.2em]">
+            Filter Products
           </span>
+        </div>
+        {hasActiveFilters && (
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] text-white/60">
+              Active
+            </span>
+            <span className="w-6 h-6 bg-[#C9A03D] rounded-full flex items-center justify-center text-[11px] font-bold text-[#1A2A4F]">
+              {totalActiveCount}
+            </span>
+          </div>
         )}
-      </button>
+      </motion.button>
     );
   };
 
   return (
     <>
-      {/* 1. MOBILE FILTER BUTTON - HIDDEN WHEN DRAWER IS OPEN OR SECTION NOT VISIBLE */}
+      {/* 1. MOBILE FILTER BUTTON - VISIBLE WHEN PRODUCTS GRID IS IN VIEW */}
       {mounted && createPortal(
         <MobileFilterButton />,
         document.body
@@ -299,16 +296,14 @@ const FilterSidebar = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Backdrop - Visible blurred background */}
             <motion.div 
-              className="absolute inset-0 bg-black/40 backdrop-blur-sm" 
+              className="absolute inset-0 bg-black/60 backdrop-blur-md" 
               onClick={handleCloseMobile}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             />
             
-            {/* Drawer */}
             <motion.div 
               className="absolute bottom-0 inset-x-0 bg-white rounded-t-[2rem] max-h-[85vh] overflow-y-auto shadow-2xl"
               initial={{ y: '100%' }}
@@ -317,12 +312,10 @@ const FilterSidebar = ({
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               style={{ zIndex: 9999 }}
             >
-              {/* Pull indicator */}
               <div className="sticky top-0 bg-white z-20 px-6 pt-3 pb-2">
                 <div className="w-12 h-1 bg-gray-200 rounded-full mx-auto mb-2" />
               </div>
               
-              {/* Header - with CLOSE button instead of filter button */}
               <div className="sticky top-6 bg-white z-20 px-6 pt-2 pb-4">
                 <div className="flex justify-between items-center">
                   <div>
@@ -344,11 +337,9 @@ const FilterSidebar = ({
                 </div>
               </div>
               
-              {/* Filter Content */}
               <div className="px-6 pb-6">
                 <FilterContent />
                 
-                {/* Active Filters Summary */}
                 {hasActiveFilters && (
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
@@ -388,7 +379,6 @@ const FilterSidebar = ({
                 )}
               </div>
               
-              {/* Bottom action buttons */}
               <div className="sticky bottom-0 bg-white/95 backdrop-blur-md p-6 pt-4 border-t border-gray-100 z-20">
                 <div className="flex gap-3">
                   <motion.button 
@@ -415,7 +405,7 @@ const FilterSidebar = ({
         document.body
       )}
 
-      {/* 3. DESKTOP STICKY SIDEBAR - UNCHANGED */}
+      {/* 3. DESKTOP STICKY SIDEBAR */}
       <motion.aside 
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
@@ -454,7 +444,6 @@ const FilterSidebar = ({
           
           <FilterContent />
 
-          {/* Dynamic Active Summary Desktop */}
           <AnimatePresence>
             {hasActiveFilters && (
               <motion.div 

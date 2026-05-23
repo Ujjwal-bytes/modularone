@@ -56,8 +56,8 @@ export default function Products() {
     finish: [],
   });
 
-  // Use the observer hook to detect when products section is visible
-  const { sectionRef, isVisible: isProductsSectionVisible } = useSectionObserver(0.1);
+  // Observer to detect when products grid is visible
+  const { sectionRef, isVisible: isProductsSectionVisible } = useSectionObserver(0);
 
   // Automatically initialize selected category from URL search parameters
   useEffect(() => {
@@ -139,8 +139,8 @@ export default function Products() {
         <meta name="description" content="Browse our complete collection of premium modular kitchens, wardrobes, office interiors, and more." />
       </Helmet>
 
-      {/* Main Products Section with ref for observer */}
-      <div ref={sectionRef} id="products-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      {/* Main Products Section */}
+      <div id="products-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         
         {/* Editorial Heading Panel */}
         <motion.div 
@@ -206,7 +206,7 @@ export default function Products() {
           </motion.div>
 
           {/* Right Layout Area: Matching Product Grid Container */}
-          <div className="lg:col-span-3">
+          <div ref={sectionRef} className="lg:col-span-3">
             <motion.div 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
