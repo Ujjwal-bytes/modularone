@@ -146,7 +146,7 @@ export default function Products() {
         >
           <motion.h1 
             variants={staggerItem}
-            className="text-4xl font-serif font-bold text-gray-900 tracking-tight mb-3"
+            className="text-4xl font-serif font-bold text-gray-900 tracking-tight mb-3 mt-12"
           >
             Our Collections
           </motion.h1>
