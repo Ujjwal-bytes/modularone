@@ -135,7 +135,7 @@ export default function Products() {
         <meta name="description" content="Browse our complete collection of premium modular kitchens, wardrobes, office interiors, and more." />
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         
         {/* Editorial Heading Panel */}
         <motion.div 
@@ -146,7 +146,7 @@ export default function Products() {
         >
           <motion.h1 
             variants={staggerItem}
-            className="text-4xl font-serif font-bold text-gray-900 tracking-tight mb-3 mt-12"
+            className="text-4xl  font-bold text-gray-900 tracking-tight mb-3 mt-12"
           >
             Our Collections
           </motion.h1>
