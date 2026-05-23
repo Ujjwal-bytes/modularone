@@ -6,32 +6,30 @@ import { useNavigate } from 'react-router-dom';
 
 const AnimatedMarqueeHero = ({
   images = [
+    "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1600&q=80",
+    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1600&q=80",
     "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80",
-    "https://images.unsplash.com/photo-1616137466211-f922a5f2e43c?w=1600&q=80",
-    "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1600&q=80",
-    "https://images.unsplash.com/photo-1600607687920-4e2a2efbdb8d?w=1600&q=80",
-    "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?w=1600&q=80"
+
+    "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1600&q=80"
   ],
   autoPlayInterval = 5000,
   titles = [
     "Premium Modular Solutions",
     "Design Your Dream Space",
     "Crafted to Perfection",
-    "Where Quality Meets Elegance",
+
     "Transform Your Interiors"
   ],
   subtitles = [
     "Discover our exclusive collection of premium modular kitchens, wardrobes, and interiors",
     "Custom designs tailored to your lifestyle and preferences",
     "Precision engineering meets aesthetic excellence",
-    "Experience the pinnacle of modular craftsmanship",
+
     "Bring your vision to life with our expert team"
   ]
 }) => {
   const [index, setIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [imageErrors, setImageErrors] = useState({});
-  const navigate = useNavigate();
 
   // Auto-play only when not hovered
   useEffect(() => {
@@ -46,13 +44,9 @@ const AnimatedMarqueeHero = ({
 
   // Preload images for smoother transitions
   useEffect(() => {
-    images.forEach((src, i) => {
+    images.forEach((src) => {
       const img = new Image();
       img.src = src;
-      img.onerror = () => {
-        console.error(`Failed to load image ${i}: ${src}`);
-        setImageErrors(prev => ({ ...prev, [i]: true }));
-      };
     });
   }, [images]);
 
@@ -68,22 +62,13 @@ const AnimatedMarqueeHero = ({
     setIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  // Fallback image in case Unsplash images fail
-  const getImageUrl = (originalUrl, index) => {
-    if (imageErrors[index]) {
-      // Fallback to a reliable placeholder
-      return `https://placehold.co/1920x1080/1A2A4F/white?text=Modular+One`;
-    }
-    return originalUrl;
-  };
-
   return (
     <section
       className="relative w-full h-screen overflow-hidden bg-black"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Background Images with Crossfade Animation */}
+      {/* Background Images with Crossfade Animation - NO BLACK SCREEN */}
       <AnimatePresence initial={false} mode="wait">
         <motion.div
           key={index}
@@ -97,10 +82,9 @@ const AnimatedMarqueeHero = ({
           }}
         >
           <img
-            src={getImageUrl(images[index], index)}
+            src={images[index]}
             alt={titles[index]}
             className="w-full h-full object-cover"
-            onError={() => setImageErrors(prev => ({ ...prev, [index]: true }))}
           />
           {/* Dark Overlay for better text readability */}
           <div className="absolute inset-0 bg-black/30" />
