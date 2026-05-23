@@ -264,7 +264,7 @@ const FilterSidebar = ({
           position: 'fixed',
           isolation: 'isolate',
           pointerEvents: 'auto',
-          transform: 'translateX(-50%)',
+         
           WebkitTapHighlightColor: 'transparent'
         }}
       >
