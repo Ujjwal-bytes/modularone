@@ -6,8 +6,9 @@ import { Search, RotateCcw } from 'lucide-react';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import FilterSidebar from '../components/FilterSidebar';
+import { useSectionObserver } from '../hooks/useSectionObserver'; // Import the hook
 
-// Animation variants
+// Animation variants (same as before)
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
@@ -54,6 +55,9 @@ export default function Products() {
     material: [],
     finish: [],
   });
+
+  // Use the observer hook to detect when products section is visible
+  const { sectionRef, isVisible: isProductsSectionVisible } = useSectionObserver('products-section', 0.1);
 
   // Automatically initialize selected category from URL search parameters
   useEffect(() => {
@@ -135,7 +139,8 @@ export default function Products() {
         <meta name="description" content="Browse our complete collection of premium modular kitchens, wardrobes, office interiors, and more." />
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      {/* Main Products Section with ref for observer */}
+      <div ref={sectionRef} id="products-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         
         {/* Editorial Heading Panel */}
         <motion.div 
@@ -146,7 +151,7 @@ export default function Products() {
         >
           <motion.h1 
             variants={staggerItem}
-            className="text-4xl  font-bold text-gray-900 tracking-tight mb-3 mt-12"
+            className="text-4xl font-bold text-gray-900 tracking-tight mb-3 mt-12"
           >
             Our Collections
           </motion.h1>
@@ -196,6 +201,7 @@ export default function Products() {
               onFilterChange={handleFilterChange}
               onClearFilters={handleClearFilters}
               filteredCount={filteredProducts.length}
+              isProductsSectionVisible={isProductsSectionVisible} // Pass visibility to sidebar
             />
           </motion.div>
 
@@ -243,7 +249,6 @@ export default function Products() {
                   ))}
                 </motion.div>
               ) : (
-                /* Minimalistic Zero State Area */
                 <motion.div 
                   key="empty-state"
                   variants={scaleIn}

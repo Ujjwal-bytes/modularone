@@ -8,7 +8,8 @@ const FilterSidebar = ({
   filters = { category: [], material: [], finish: [] }, 
   onFilterChange, 
   onClearFilters,
-  filteredCount = 0
+  filteredCount = 0,
+  isProductsSectionVisible = true // New prop to control button visibility
 }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -232,10 +233,12 @@ const FilterSidebar = ({
     </motion.div>
   ), [filters.category, filters.material, filters.finish, onFilterChange]);
 
-  // Mobile Filter Button Component - HIDDEN when drawer is open
+  // Mobile Filter Button Component - Now checks section visibility
   const MobileFilterButton = () => {
-    // Don't show the button if mobile drawer is open
-    if (isMobileOpen) return null;
+    // Don't show the button if:
+    // 1. Mobile drawer is open, OR
+    // 2. Products section is NOT visible
+    if (isMobileOpen || !isProductsSectionVisible) return null;
     
     return (
       <motion.button 
@@ -278,7 +281,7 @@ const FilterSidebar = ({
 
   return (
     <>
-      {/* 1. MOBILE FILTER BUTTON - HIDDEN WHEN DRAWER IS OPEN */}
+      {/* 1. MOBILE FILTER BUTTON - HIDDEN WHEN DRAWER IS OPEN OR SECTION NOT VISIBLE */}
       {mounted && createPortal(
         <MobileFilterButton />,
         document.body
