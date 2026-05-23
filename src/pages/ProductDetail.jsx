@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Star, CheckCircle, XCircle, Download, ShoppingCart, Phone, ArrowRight, Heart, ChevronLeft } from 'lucide-react';
+import { Star, CheckCircle, XCircle, Download, Phone, ArrowRight, Heart, ChevronLeft } from 'lucide-react';
 import { products } from '../data/products';
-import { addToWishlist, removeFromWishlist, isInWishlist, addToQuoteCart, isInQuoteCart } from '../utils/localStorage';
+import { addToWishlist, removeFromWishlist, isInWishlist } from '../utils/localStorage';
 
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
-  const [inQuoteCart, setInQuoteCart] = useState(false);
 
   const product = products.find(p => p.id === parseInt(id));
 
   useEffect(() => {
     if (product) {
       setIsWishlisted(isInWishlist(product.id));
-      setInQuoteCart(isInQuoteCart(product.id));
     }
   }, [product]);
 
@@ -25,7 +23,6 @@ export default function ProductDetail() {
     const handleStorageChange = () => {
       if (product) {
         setIsWishlisted(isInWishlist(product.id));
-        setInQuoteCart(isInQuoteCart(product.id));
       }
     };
 
@@ -56,10 +53,6 @@ export default function ProductDetail() {
     }
   };
 
-  const handleAddToQuote = () => {
-    addToQuoteCart(product);
-    setInQuoteCart(true);
-  };
 
   const handleWhatsApp = () => {
     const message = `Hi, I'm interested in ${product.name}. Please share more details.`;
@@ -224,18 +217,6 @@ export default function ProductDetail() {
             <div className="space-y-3">
               <div className="flex gap-3">
                 <button
-                  onClick={handleAddToQuote}
-                  disabled={inQuoteCart}
-                  className={`flex-1 py-4 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 ${
-                    inQuoteCart
-                      ? 'bg-gray-100 text-gray-500 cursor-not-allowed'
-                      : 'bg-[#C9A03D] text-white hover:bg-[#DDB45E]'
-                  }`}
-                >
-                  <ShoppingCart size={20} />
-                  {inQuoteCart ? 'Added to Quote' : 'Get Quote'}
-                </button>
-                <button
                   onClick={handleWishlistToggle}
                   className="p-4 border-2 border-gray-200 rounded-xl hover:border-[#C9A03D] transition-colors"
                 >
@@ -244,6 +225,7 @@ export default function ProductDetail() {
                     className={isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600'}
                   />
                 </button>
+                <div className="flex-1" />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <button

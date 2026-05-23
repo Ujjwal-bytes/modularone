@@ -48,62 +48,6 @@ export const getWishlistCount = () => {
   return getWishlist().length;
 };
 
-// Quote Cart localStorage utilities
-export const getQuoteCart = () => {
-  try {
-    const quoteCart = localStorage.getItem('modularOne_quoteCart');
-    return quoteCart ? JSON.parse(quoteCart) : [];
-  } catch (error) {
-    console.error('Error reading quote cart from localStorage:', error);
-    return [];
-  }
-};
-
-export const addToQuoteCart = (product) => {
-  try {
-    const quoteCart = getQuoteCart();
-    if (!quoteCart.find(item => item.id === product.id)) {
-      quoteCart.push({ ...product, quantity: 1 });
-      localStorage.setItem('modularOne_quoteCart', JSON.stringify(quoteCart));
-      return true;
-    }
-    return false;
-  } catch (error) {
-    console.error('Error adding to quote cart:', error);
-    return false;
-  }
-};
-
-export const removeFromQuoteCart = (productId) => {
-  try {
-    const quoteCart = getQuoteCart();
-    const updatedCart = quoteCart.filter(item => item.id !== productId);
-    localStorage.setItem('modularOne_quoteCart', JSON.stringify(updatedCart));
-    return true;
-  } catch (error) {
-    console.error('Error removing from quote cart:', error);
-    return false;
-  }
-};
-
-export const clearQuoteCart = () => {
-  try {
-    localStorage.removeItem('modularOne_quoteCart');
-    return true;
-  } catch (error) {
-    console.error('Error clearing quote cart:', error);
-    return false;
-  }
-};
-
-export const isInQuoteCart = (productId) => {
-  const quoteCart = getQuoteCart();
-  return quoteCart.some(item => item.id === productId);
-};
-
-export const getQuoteCartCount = () => {
-  return getQuoteCart().length;
-};
 
 // Dark mode localStorage utility
 export const getDarkMode = () => {

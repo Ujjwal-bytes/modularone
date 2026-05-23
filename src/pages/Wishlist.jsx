@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Heart, Trash2, ArrowRight } from 'lucide-react';
-import { getWishlist, removeFromWishlist, addToQuoteCart } from '../utils/localStorage';
+import { getWishlist, removeFromWishlist } from '../utils/localStorage';
 import { products } from '../data/products';
 
 export default function Wishlist() {
@@ -26,10 +26,6 @@ export default function Wishlist() {
     setWishlist(getWishlist());
   };
 
-  const handleAddToQuote = (product) => {
-    addToQuoteCart(product);
-    alert('Added to quote cart!');
-  };
 
   const wishlistProducts = products.filter(p => wishlist.some(w => parseInt(w.id) === parseInt(p.id)));
 
@@ -40,7 +36,7 @@ export default function Wishlist() {
         <meta name="description" content="View your saved products and get quotes." />
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         {/* Header */}
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -95,14 +91,6 @@ export default function Wishlist() {
                     {product.material} • {product.finish}
                   </p>
 
-                  <div className="flex items-center justify-end">
-                    <button
-                      onClick={() => handleAddToQuote(product)}
-                      className="px-4 py-2 bg-[#1A2A4F] text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
-                    >
-                      Get Quote
-                    </button>
-                  </div>
                 </div>
               </div>
             ))}

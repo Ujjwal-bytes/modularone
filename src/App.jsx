@@ -18,7 +18,6 @@ const Contact = lazy(() => import("./pages/Contact"));
 const GetQuote = lazy(() => import("./pages/GetQuote"));
 const FurnitureShowcase = lazy(() => import("./pages/FurnitureShowcase"));
 const Wishlist = lazy(() => import("./pages/Wishlist"));
-const QuoteCart = lazy(() => import("./pages/QuoteCart"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 
 export default function App() {
@@ -47,7 +46,6 @@ export default function App() {
                     <Route path="/get-quote" element={<GetQuote />} />
                     <Route path="/furniture-showcase" element={<FurnitureShowcase />} />
                     <Route path="/wishlist" element={<Wishlist />} />
-                    <Route path="/quote" element={<QuoteCart />} />
                   </Routes>
                 </Suspense>
               </Layout>

@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, FileText, ArrowRight, Layers, Ruler, Eye, CheckCircle } from 'lucide-react';
-import { addToWishlist, removeFromWishlist, isInWishlist, addToQuoteCart } from '../utils/localStorage';
+import { Heart, ArrowRight, Layers, Ruler, Eye, CheckCircle } from 'lucide-react';
+import { addToWishlist, removeFromWishlist, isInWishlist } from '../utils/localStorage';
 
 const ProductCard = React.memo(({ product, index = 0 }) => {
   const [isWishlisted, setIsWishlisted] = useState(() => isInWishlist(product.id));
   const [currentImage, setCurrentImage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationType, setNotificationType] = useState('quote');
+  const [notificationType, setNotificationType] = useState('wishlist');
 
   // Sync wishlist status when product changes
   useEffect(() => {
@@ -40,13 +40,6 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
     setShowNotification(true);
   }, [isWishlisted, product]);
 
-  const handleAddToQuote = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    addToQuoteCart(product);
-    setNotificationType('quote');
-    setShowNotification(true);
-  }, [product]);
 
   const handleImageChange = useCallback((index, e) => {
     e.preventDefault();
@@ -57,14 +50,12 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
   // Memoize notification content
   const notification = useMemo(() => {
     switch(notificationType) {
-      case 'quote':
-        return { icon: FileText, text: 'Added to RFQ List', bgColor: '#1A2A4F' };
       case 'wishlist':
         return { icon: Heart, text: 'Added to Wishlist', bgColor: '#C9A03D' };
       case 'removed':
         return { icon: CheckCircle, text: 'Removed from Wishlist', bgColor: '#4A5568' };
       default:
-        return { icon: FileText, text: 'Added to RFQ List', bgColor: '#1A2A4F' };
+        return { icon: Heart, text: 'Added to Wishlist', bgColor: '#C9A03D' };
     }
   }, [notificationType]);
 
@@ -307,25 +298,7 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
           </div>
 
           {/* Actions Section */}
-          <div className="w-full flex items-center justify-between pt-5 border-t border-gray-100">
-            <motion.button
-              onClick={handleAddToQuote}
-              className="group/btn flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-[#1A2A4F] transition-all"
-              variants={buttonVariants}
-              initial="initial"
-              whileHover="hover"
-              whileTap="tap"
-              aria-label="Add to quote"
-            >
-              <motion.div 
-                className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center group-hover/btn:border-[#1A2A4F] group-hover/btn:bg-gray-50 transition-all"
-                whileHover={{ rotate: 5 }}
-              >
-                <FileText size={14} />
-              </motion.div>
-              <span className="hidden sm:inline">Quote</span>
-            </motion.button>
-
+          <div className="w-full flex items-center justify-end pt-5 border-t border-gray-100">
             <motion.div
               variants={buttonVariants}
               initial="initial"

@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Heart, 
-  ShoppingCart, 
+ 
   Menu, 
   X, 
   Sparkles, 
@@ -17,12 +17,11 @@ import {
   Settings,
   HelpCircle
 } from "lucide-react";
-import { getWishlistCount, getQuoteCartCount } from "../utils/localStorage";
+import { getWishlistCount } from "../utils/localStorage";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [wishlistCount, setWishlistCount] = useState(0);
-    const [quoteCount, setQuoteCount] = useState(0);
     const [scrolled, setScrolled] = useState(false);
     const [isHovered, setIsHovered] = useState(null);
     const location = useLocation();
@@ -44,14 +43,12 @@ export default function Navbar() {
     // Update counts when location changes
     useEffect(() => {
         setWishlistCount(getWishlistCount());
-        setQuoteCount(getQuoteCartCount());
     }, [location]);
 
     // Listen for storage events
     useEffect(() => {
         const handleStorageChange = () => {
             setWishlistCount(getWishlistCount());
-            setQuoteCount(getQuoteCartCount());
         };
         window.addEventListener('storage', handleStorageChange);
         return () => window.removeEventListener('storage', handleStorageChange);
@@ -276,32 +273,6 @@ export default function Navbar() {
                             </Link>
                         </motion.div>
                         <motion.div 
-                            variants={iconButtonVariants}
-                            whileHover="hover"
-                            whileTap="tap"
-                        >
-                            <Link
-                                to="/quote"
-                                className="relative p-2 rounded-lg text-[#4A5568] hover:text-[#1A2A4F] hover:bg-gray-50 transition-all duration-200"
-                                aria-label="Quote Cart"
-                            >
-                                <ShoppingCart size={20} />
-                                <AnimatePresence>
-                                    {quoteCount > 0 && (
-                                        <motion.span 
-                                            className="absolute -top-1 -right-1 bg-[#C9A03D] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-sm"
-                                            variants={badgeVariants}
-                                            initial="initial"
-                                            animate="animate"
-                                            exit="exit"
-                                        >
-                                            {quoteCount > 9 ? '9+' : quoteCount}
-                                        </motion.span>
-                                    )}
-                                </AnimatePresence>
-                            </Link>
-                        </motion.div>
-                        <motion.div 
                             variants={ctaButtonVariants}
                             whileHover="hover"
                             whileTap="tap"
@@ -327,18 +298,6 @@ export default function Navbar() {
                             {wishlistCount > 0 && (
                                 <span className="absolute -top-1 -right-1 bg-[#C9A03D] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
                                     {wishlistCount > 9 ? '9+' : wishlistCount}
-                                </span>
-                            )}
-                        </Link>
-                        <Link
-                            to="/quote"
-                            className="relative p-2 text-[#4A5568] hover:text-[#1A2A4F]"
-                            aria-label="Quote Cart"
-                        >
-                            <ShoppingCart size={20} />
-                            {quoteCount > 0 && (
-                                <span className="absolute -top-1 -right-1 bg-[#C9A03D] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                                    {quoteCount > 9 ? '9+' : quoteCount}
                                 </span>
                             )}
                         </Link>

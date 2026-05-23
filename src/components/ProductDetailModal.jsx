@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { X, Star, CheckCircle, XCircle, Download, ShoppingCart, Phone, ArrowRight, Heart } from 'lucide-react';
-import { addToWishlist, removeFromWishlist, isInWishlist, addToQuoteCart, isInQuoteCart } from '../utils/localStorage';
+import { X, Star, CheckCircle, XCircle, Download, Phone, ArrowRight, Heart } from 'lucide-react';
+import { addToWishlist, removeFromWishlist, isInWishlist } from '../utils/localStorage';
 
 const ProductDetailModal = ({ product, onClose, relatedProducts = [] }) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(isInWishlist(product.id));
-  const [inQuoteCart, setInQuoteCart] = useState(isInQuoteCart(product.id));
 
   useEffect(() => {
     setIsWishlisted(isInWishlist(product.id));
-    setInQuoteCart(isInQuoteCart(product.id));
   }, [product.id]);
 
   useEffect(() => {
     const handleStorageChange = () => {
       setIsWishlisted(isInWishlist(product.id));
-      setInQuoteCart(isInQuoteCart(product.id));
     };
 
     window.addEventListener('storage', handleStorageChange);
@@ -32,10 +29,6 @@ const ProductDetailModal = ({ product, onClose, relatedProducts = [] }) => {
     }
   };
 
-  const handleAddToQuote = () => {
-    addToQuoteCart(product);
-    setInQuoteCart(true);
-  };
 
   const handleWhatsApp = () => {
     const message = `Hi, I'm interested in ${product.name}. Please share more details.`;
@@ -193,18 +186,6 @@ const ProductDetailModal = ({ product, onClose, relatedProducts = [] }) => {
               <div className="space-y-3">
                 <div className="flex gap-3">
                   <button
-                    onClick={handleAddToQuote}
-                    disabled={inQuoteCart}
-                    className={`flex-1 py-4 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 ${
-                      inQuoteCart
-                        ? 'bg-gray-100 text-gray-500 cursor-not-allowed'
-                        : 'bg-[#C9A03D] text-white hover:bg-[#DDB45E]'
-                    }`}
-                  >
-                    <ShoppingCart size={20} />
-                    {inQuoteCart ? 'Added to Quote' : 'Get Quote for This Design'}
-                  </button>
-                  <button
                     onClick={handleWishlistToggle}
                     className="p-4 border-2 border-gray-200 rounded-xl hover:border-[#C9A03D] transition-colors"
                   >
@@ -213,6 +194,7 @@ const ProductDetailModal = ({ product, onClose, relatedProducts = [] }) => {
                       className={isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-600'}
                     />
                   </button>
+                  <div className="flex-1" />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <button
