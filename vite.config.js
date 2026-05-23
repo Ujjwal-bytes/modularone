@@ -10,7 +10,6 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000,
     minify: 'esbuild',
     sourcemap: false,
-    // Remove manualChunks completely - let Vite handle it automatically
   },
   server: {
     port: 5173,
