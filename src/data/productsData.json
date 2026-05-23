@@ -1,0 +1,434 @@
+[
+  {
+    "id": "k1",
+    "category": "Kitchen",
+    "subCategory": "Kitchen Designing Service",
+    "title": "Bespoke Culinary Space Planning",
+    "description": "Comprehensive structural blueprint layouts optimized carefully for spatial ergonomics and high-end residential workflows.",
+    "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "k2",
+    "category": "Kitchen",
+    "subCategory": "Modular Kitchen Designing Service",
+    "title": "Integrated Modular Infrastructure",
+    "description": "Full-service digital modeling and spatial tailoring for completely modular, multi-tier residential kitchen systems.",
+    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "k3",
+    "category": "Kitchen",
+    "subCategory": "Modular Kitchen Cabinets",
+    "title": "Premium Acrylic Pull-Out Carcasses",
+    "description": "Heavy-duty waterproof marine plywood cabinets layered with high-gloss anti-scratch acrylic front fascias.",
+    "image": "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "k4",
+    "category": "Kitchen",
+    "subCategory": "Wooden Modular Kitchen",
+    "title": "Natural Teak Architectural Kitchen",
+    "description": "Premium configuration engineered with solid plantation teak veneers, treated surfaces, and matte clear protective seals.",
+    "image": "https://images.unsplash.com/photo-1565538810844-1e1194fa0900?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "k5",
+    "category": "Kitchen",
+    "subCategory": "L Shaped Modular Kitchen",
+    "title": "Ergonomic L-Configuration System",
+    "description": "Maximizes corner surface footprint utilizing premium continuous stone worktops and integrated pull-out corner carousels.",
+    "image": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "k6",
+    "category": "Kitchen",
+    "subCategory": "UPVC Modular Kitchen",
+    "title": "Anti-Corrosive Termite-Proof UPVC Line",
+    "description": "High-durability alternative profiles constructed from reinforced unplasticized PVC, ideal for high-humidity coastal zones.",
+    "image": "https://images.unsplash.com/photo-1599423300746-b62533397364?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "k7",
+    "category": "Kitchen",
+    "subCategory": "Laminated Modular Kitchen",
+    "title": "High-Pressure Matte Suede Laminates",
+    "description": "Thick premium antibacterial laminate surfaces finished with seamless laser edge banding to eliminate moisture ingress.",
+    "image": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "k8",
+    "category": "Kitchen",
+    "subCategory": "Kitchen Remodeling Services",
+    "title": "Turnkey Culinary Structural Overhaul",
+    "description": "Complete strip-down and reconstruction service including plumbing rerouting, civil modifications, and appliance framing.",
+    "image": "https://images.unsplash.com/photo-1556909212-d5b604d7c992?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "k9",
+    "category": "Kitchen",
+    "subCategory": "Modular Kitchen Cabinets",
+    "title": "Fluted Glass Upper Showcase Units",
+    "description": "Anodized aluminum slim profile frames holding micro-fluted translucent glass fronts with touch-to-open operations.",
+    "image": "https://images.unsplash.com/photo-1576675784201-0e142b423952?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "k10",
+    "category": "Kitchen",
+    "subCategory": "L Shaped Modular Kitchen",
+    "title": "Urban Compact L-System Matrix",
+    "description": "Designed for streamlined city apartments, featuring smart multi-functional tier hardware and integrated task lighting.",
+    "image": "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w11",
+    "category": "Wardrobe",
+    "subCategory": "Wardrobe Designing Service",
+    "title": "Bespoke Master Suite Wardrobe Blueprint",
+    "description": "Custom conceptual zoning layouts mapping internal storage ratios, hanging depths, and automated internal arrays.",
+    "image": "https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w12",
+    "category": "Wardrobe",
+    "subCategory": "Sliding Wardrobe Designing Service",
+    "title": "Flush In-Line Sliding System",
+    "description": "Premium German-engineered soft-close tracking mechanisms that sit completely flush when closed for an uninterrupted surface.",
+    "image": "https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w13",
+    "category": "Wardrobe",
+    "subCategory": "Openable Wardrobe Designing Service",
+    "title": "Floor-to-Ceiling Contemporary Hinged Line",
+    "description": "Classic structural layouts paired with heavy-duty hidden cup hinges and full-length vertical custom aluminum profile pulls.",
+    "image": "https://images.unsplash.com/photo-1558882224-cca166733360?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w14",
+    "category": "Wardrobe",
+    "subCategory": "Sliding Wardrobe Designing Service",
+    "title": "Tinted Glass Sliding Wardrobe Console",
+    "description": "Smoked bronze safety glass doors supported by floor-mounted dampening track arrays and motion-triggered internal LED ribbons.",
+    "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w15",
+    "category": "Wardrobe",
+    "subCategory": "Openable Wardrobe Designing Service",
+    "title": "Classic Matte Lacquer Shaker System",
+    "description": "Traditional architectural multi-step routing on premium MDF shutters finished in custom non-yellowing PU matte coats.",
+    "image": "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w16",
+    "category": "Wardrobe",
+    "subCategory": "Wardrobe Designing Service",
+    "title": "Walk-In Dressing Suite Architecture",
+    "description": "Luxurious open-frame island layouts featuring specialized plush velvet-lined watch winders and jewelry pull-outs.",
+    "image": "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w17",
+    "category": "Wardrobe",
+    "subCategory": "Sliding Wardrobe Designing Service",
+    "title": "Textured Leatherette Face Sliding System",
+    "description": "Artisan sliding wardrobe doors upholstered with premium anti-fungal textured eco-leather sheets and contrast stitching accents.",
+    "image": "https://images.unsplash.com/photo-1617806118233-18e1db207f62?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w18",
+    "category": "Wardrobe",
+    "subCategory": "Openable Wardrobe Designing Service",
+    "title": "Minimalist High-Gloss Monochrome Line",
+    "description": "Pure white seamless doors utilizing click-to-open latches to entirely eliminate external visual projections.",
+    "image": "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w19",
+    "category": "Wardrobe",
+    "subCategory": "Wardrobe Designing Service",
+    "title": "Attic Sloped Corner Custom Wardrobe",
+    "description": "Specialized configuration framing built directly into angular architecture profiles, eliminating lost dead space.",
+    "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w20",
+    "category": "Wardrobe",
+    "subCategory": "Sliding Wardrobe Designing Service",
+    "title": "Dual-Tone Charcoal & Oak Track Unit",
+    "description": "Asymmetrical door designs pairing dark charcoal super-matte panels with warm textured horizontal oak accents.",
+    "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l21",
+    "category": "Living Room",
+    "subCategory": "Living Room Interior Designing Service",
+    "title": "Full Lounge Concept Master Planning",
+    "description": "Complete structural layout plans focusing on ceiling lighting drops, spatial balance ratios, and traffic pathing vectors.",
+    "image": "https://images.unsplash.com/photo-1618221393713-c49626335622?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l22",
+    "category": "Living Room",
+    "subCategory": "Living Room Interior",
+    "title": "Floating Low-Profile Media Console",
+    "description": "Bespoke media console finished in book-matched exotic veneers with hidden routing channels for clean device management.",
+    "image": "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l23",
+    "category": "Living Room",
+    "subCategory": "Door Design Service",
+    "title": "Bespoke Oversized Pivot Entry Door",
+    "description": "Heavy-core security main entry systems fitted with commercial hydraulic floor springs and smart biometric locks.",
+    "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l24",
+    "category": "Living Room",
+    "subCategory": "Wooden Door Designing Service",
+    "title": "Solid Burma Teak Internal Doorways",
+    "description": "Exquisitely joined solid hardwood panel frames featuring premium brushed brass latches and heavy-duty magnetic dampening buffers.",
+    "image": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l25",
+    "category": "Living Room",
+    "subCategory": "Flat Interior Designing",
+    "title": "Urban Apartment Open-Plan Remodel",
+    "description": "Comprehensive modification transforming cramped layouts into open continuous lounges using structural glass dividers.",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l26",
+    "category": "Living Room",
+    "subCategory": "Living Room Interior Designing Service",
+    "title": "Acoustic Wall Panel Panelization",
+    "description": "Placing sound-dampening acoustic fabric wall layers hidden behind precision-spaced hardwood slat grids.",
+    "image": "https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l27",
+    "category": "Living Room",
+    "subCategory": "Living Room Interior",
+    "title": "Seamless Quartzite Mantel Feature Wall",
+    "description": "Slab-matched back-lit translucent exotic stone backdrops integrated cleanly alongside continuous fireplace simulations.",
+    "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l28",
+    "category": "Living Room",
+    "subCategory": "Door Design Service",
+    "title": "Minimal Frameless In-Wall Flush Doors",
+    "description": "Hidden raw-aluminum door frames designed to mount completely sub-flush to plasterboard walls for seamless integration.",
+    "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l29",
+    "category": "Living Room",
+    "subCategory": "Wooden Door Designing Service",
+    "title": "CNC-Routed Modern Geometrical Shutter",
+    "description": "Precision machine-etched 3D linear patterns carved onto commercial-grade external-ply block-boards, sealed with weather-resistant finishes.",
+    "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l30",
+    "category": "Living Room",
+    "subCategory": "Flat Interior Designing",
+    "title": "Duplex Core Premium Lounge Redesign",
+    "description": "High-ceiling architectural transformations adding custom floating metal-framed glass staircases and structural book towers.",
+    "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o31",
+    "category": "Office",
+    "subCategory": "Office Designing Service",
+    "title": "Corporate Master Layout Infrastructure",
+    "description": "Strategic corporate zoning workflows framing structural data paths, HVAC placements, and team ergonomics blueprints.",
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o32",
+    "category": "Office",
+    "subCategory": "Office Furniture Designing Service",
+    "title": "Ergonomic Sit-to-Stand Executive Desking",
+    "description": "Custom linear desks with motorized dual-stage raising legs, memory preset hubs, and sub-surface integrated wire snake paths.",
+    "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o33",
+    "category": "Office",
+    "subCategory": "Office Workstation Designing Service",
+    "title": "Four-Way Modular Cluster Workstations",
+    "description": "High-efficiency team hubs featuring fabric acoustic desk privacy partitions and integrated central wire containment tracks.",
+    "image": "https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o34",
+    "category": "Office",
+    "subCategory": "Corporate Interior Designing",
+    "title": "Minimal Commercial Reception Lobby",
+    "description": "Polished high-strength poured concrete panels matching solid terrazzo counter reception structures and backlighting logs.",
+    "image": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o35",
+    "category": "Office",
+    "subCategory": "Conference Room Designing",
+    "title": "Acoustic-Treated High-Tech Boardroom Suite",
+    "description": "Features integrated audio-visual mic ceiling drops, automated black-out shades, and native smart connectivity portals.",
+    "image": "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o36",
+    "category": "Office",
+    "subCategory": "Office Designing Service",
+    "title": "Bespoke Collaborative Breakout Hubs",
+    "description": "Dynamic open-concept lounge systems configured with integrated charging ports, whiteboard wall cladding, and casual seating panels.",
+    "image": "https://images.unsplash.com/photo-1531538606174-0f90ff5dce83?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o37",
+    "category": "Office",
+    "subCategory": "Office Furniture Designing Service",
+    "title": "Modular Storage Filing Architecture",
+    "description": "High-density floating storage wall panels configured with keyless electronic locks and durable powder-coated steel carcasses.",
+    "image": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o38",
+    "category": "Office",
+    "subCategory": "Office Workstation Designing Service",
+    "title": "Linear Coding Desk System Matrix",
+    "description": "Extended length solid wood workbench systems tailored with full-length steel structural cable basins underneath, minimizing clutter.",
+    "image": "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o39",
+    "category": "Office",
+    "subCategory": "Corporate Interior Designing",
+    "title": "Executive Suite Private Office Architecture",
+    "description": "Premium walnut wall treatments paired with hidden personal storage compartments and architectural overhead lighting rings.",
+    "image": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o40",
+    "category": "Office",
+    "subCategory": "Conference Room Designing",
+    "title": "Compact Huddle Room Spatial Planning",
+    "description": "Optimized multi-tier layout plans maximizing functionality inside glass-enclosed small group collaboration cells.",
+    "image": "https://images.unsplash.com/photo-1517502884422-41eaaced0168?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "b41",
+    "category": "Bedroom",
+    "subCategory": "Bedroom Interior Designing",
+    "title": "Minimalist Master Suite Layout Scheme",
+    "description": "Bespoke master blueprints coordinating acoustic headboard extensions, ambient floating light profiles, and custom window treatments.",
+    "image": "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "b42",
+    "category": "Bedroom",
+    "subCategory": "Wooden Bed",
+    "title": "Low-Slung White Oak Bed Base",
+    "description": "Japanese-inspired minimalist low platform frame crafted completely from solid kiln-dried white oak timbers.",
+    "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "b43",
+    "category": "Bedroom",
+    "subCategory": "Wooden King Size Bed",
+    "title": "Premium Winged Fabric Headboard King Bed",
+    "description": "Extra-wide structural master frame upholstered in custom bouclé fabric with built-in side floating nightstands.",
+    "image": "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "b44",
+    "category": "Bedroom",
+    "subCategory": "Bedroom Interior Designing",
+    "title": "Guest Suite Dual-Zone Spatial Layout",
+    "description": "Clever floor zoning mapping multi-functional hidden study desks alongside premium fold-out platform bed integrations.",
+    "image": "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "b45",
+    "category": "Bedroom",
+    "subCategory": "Wooden Bed",
+    "title": "Walnut Platform Floating Bed Construction",
+    "description": "Inwardly recessed metal support frame bases creating a beautiful floating optical illusion, finished in American walnut.",
+    "image": "https://images.unsplash.com/photo-1617806118233-18e1db207f62?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "b46",
+    "category": "Bedroom",
+    "subCategory": "Wooden King Size Bed",
+    "title": "Hydraulic Storage Lift King Platform Bed",
+    "description": "Heavy-duty gas assist lift framing revealing high-volume sub-mattress dust-proof storage zones, built on commercial metal grid spines.",
+    "image": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "b47",
+    "category": "Bedroom",
+    "subCategory": "Bedroom Interior Designing",
+    "title": "Junior Suite Modular Spatial Blueprint",
+    "description": "Ergonomic teenage bedroom schemes integrating floating book rows, playful task lighting layouts, and integrated wardrobe transitions.",
+    "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "b48",
+    "category": "Bedroom",
+    "subCategory": "Wooden Bed",
+    "title": "Spindle-Back Ash Hardwood Frame Bed",
+    "description": "Mid-century architectural references featuring organic slender tapered spindle backrests turned from solid white ash hardwood.",
+    "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "b49",
+    "category": "Bedroom",
+    "subCategory": "Wooden King Size Bed",
+    "title": "Monolithic Micro-Cement Paneled King Console",
+    "description": "An ultra-modern industrial platform design wrapped in textured concrete finishes with integrated warm lower glow bars.",
+    "image": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "b50",
+    "category": "Bedroom",
+    "subCategory": "Bedroom Interior Designing",
+    "title": "Attic Master Loft Bedroom Conversion",
+    "description": "Highly specialized spatial designs incorporating roof sky-light alignment fields and low vertical clearances mapped directly into luxury framing.",
+    "image": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "k51",
+    "category": "Kitchen",
+    "subCategory": "Kitchen Designing Service",
+    "title": "Island Kitchen Core Space Architecture",
+    "description": "Bespoke layout mapping for generous central gourmet islands combining integrated undermount prep sinks and cantilevered breakfast bar seating.",
+    "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "w52",
+    "category": "Wardrobe",
+    "subCategory": "Wardrobe Designing Service",
+    "title": "Multi-Generational Multi-Tier Master Wardrobe Planning",
+    "description": "Advanced volumetric tracking mapping personal dressing distributions across specialized long-coat columns and dynamic accessory pull-out boxes.",
+    "image": "https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "l53",
+    "category": "Living Room",
+    "subCategory": "Living Room Interior",
+    "title": "Suspended Architectural Linear Floating Shelf",
+    "description": "Extra-long matte polyurethane floating wall platforms designed using internal structural steel blind anchors for zero visible bracket hardware.",
+    "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "o54",
+    "category": "Office",
+    "subCategory": "Office Furniture Designing Service",
+    "title": "Ergonomic Acoustic Privacy Telephone Pods",
+    "description": "Bespoke structural columns designed with soundproof multi-layer double insulated glass panels and dynamic internal air-cycling extraction fans.",
+    "image": "https://images.unsplash.com/photo-1517502884422-41eaaced0168?auto=format&fit=crop&w=800&q=80"
+  }
+]
