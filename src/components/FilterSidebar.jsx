@@ -4,9 +4,9 @@ import { X, Box, Layers, Palette, RotateCcw, Filter, Sparkles } from 'lucide-rea
 import { createPortal } from 'react-dom';
 import { categories, materials, finishes } from '../data/products';
 
-const FilterSidebar = ({ 
-  filters = { category: [], material: [], finish: [] }, 
-  onFilterChange, 
+const FilterSidebar = ({
+  filters = { category: [], material: [], finish: [] },
+  onFilterChange,
   onClearFilters,
   filteredCount = 0,
   isProductsSectionVisible = false
@@ -47,14 +47,14 @@ const FilterSidebar = ({
     };
   }, [isMobileOpen]);
 
-  const hasActiveFilters = useMemo(() => 
-    (filters.category?.length > 0) || 
-    (filters.material?.length > 0) || 
+  const hasActiveFilters = useMemo(() =>
+    (filters.category?.length > 0) ||
+    (filters.material?.length > 0) ||
     (filters.finish?.length > 0),
     [filters.category, filters.material, filters.finish]
   );
 
-  const totalActiveCount = useMemo(() => 
+  const totalActiveCount = useMemo(() =>
     (filters.category?.length || 0) + (filters.material?.length || 0) + (filters.finish?.length || 0),
     [filters.category, filters.material, filters.finish]
   );
@@ -76,8 +76,8 @@ const FilterSidebar = ({
   // Animation variants
   const slideUp = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.4, ease: "easeOut" }
     }
@@ -96,22 +96,22 @@ const FilterSidebar = ({
 
   const staggerItem = {
     hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       transition: { duration: 0.3, ease: "easeOut" }
     }
   };
 
   const FilterContent = useMemo(() => () => (
-    <motion.div 
+    <motion.div
       variants={staggerContainer}
       initial="visible"
       className="space-y-10"
     >
       {/* Space Type */}
       <motion.section variants={slideUp}>
-        <motion.h4 
+        <motion.h4
           whileHover={{ x: 5 }}
           className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-5 flex items-center gap-2"
         >
@@ -123,7 +123,7 @@ const FilterSidebar = ({
           </motion.div>
           Space Type
         </motion.h4>
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           className="grid grid-cols-1 gap-2"
         >
@@ -134,11 +134,10 @@ const FilterSidebar = ({
                 key={category.id}
                 variants={staggerItem}
                 onClick={() => onFilterChange('category', category.id, !isChecked)}
-                className={`relative flex items-center justify-between px-4 py-3 rounded-xl border transition-all duration-300 overflow-hidden ${
-                  isChecked 
-                    ? 'bg-[#1A2A4F] border-[#1A2A4F] text-white shadow-lg' 
+                className={`relative flex items-center justify-between px-4 py-3 rounded-xl border transition-all duration-300 overflow-hidden ${isChecked
+                    ? 'bg-[#1A2A4F] border-[#1A2A4F] text-white shadow-lg'
                     : 'bg-gray-50 border-transparent text-gray-600 hover:border-gray-200 hover:bg-white'
-                }`}
+                  }`}
                 whileHover={{ scale: 1.02, x: 3 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -147,7 +146,7 @@ const FilterSidebar = ({
                   {category.count}
                 </span>
                 {isChecked && (
-                  <motion.div 
+                  <motion.div
                     layoutId={`active-bg-${category.id}`}
                     className="absolute inset-0 bg-gradient-to-r from-[#1A2A4F] to-[#2A3D6B]"
                     initial={{ opacity: 0 }}
@@ -163,14 +162,14 @@ const FilterSidebar = ({
 
       {/* Materials */}
       <motion.section variants={slideUp}>
-        <motion.h4 
+        <motion.h4
           whileHover={{ x: 5 }}
           className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-5 flex items-center gap-2"
         >
           <Layers size={14} className="text-[#C9A03D]" />
           Core Substrates
         </motion.h4>
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           className="flex flex-wrap gap-2"
         >
@@ -181,11 +180,10 @@ const FilterSidebar = ({
                 key={mat}
                 variants={staggerItem}
                 onClick={() => onFilterChange('material', mat, !isChecked)}
-                className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest border transition-all ${
-                  isChecked 
-                    ? 'bg-[#C9A03D] border-[#C9A03D] text-white shadow-lg shadow-[#C9A03D]/20' 
+                className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest border transition-all ${isChecked
+                    ? 'bg-[#C9A03D] border-[#C9A03D] text-white shadow-lg shadow-[#C9A03D]/20'
                     : 'bg-white border-gray-100 text-gray-400 hover:border-[#1A2A4F] hover:text-[#1A2A4F]'
-                }`}
+                  }`}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -198,14 +196,14 @@ const FilterSidebar = ({
 
       {/* Finishes */}
       <motion.section variants={slideUp}>
-        <motion.h4 
+        <motion.h4
           whileHover={{ x: 5 }}
           className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-5 flex items-center gap-2"
         >
           <Palette size={14} className="text-[#C9A03D]" />
           Surface Finishes
         </motion.h4>
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           className="grid grid-cols-2 gap-2"
         >
@@ -216,11 +214,10 @@ const FilterSidebar = ({
                 key={fin}
                 variants={staggerItem}
                 onClick={() => onFilterChange('finish', fin, !isChecked)}
-                className={`py-3 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all ${
-                  isChecked 
-                    ? 'border-[#1A2A4F] bg-[#1A2A4F] text-white shadow-md' 
+                className={`py-3 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all ${isChecked
+                    ? 'border-[#1A2A4F] bg-[#1A2A4F] text-white shadow-md'
                     : 'border-gray-100 bg-white text-gray-400 hover:border-[#1A2A4F] hover:text-[#1A2A4F] hover:bg-gray-50'
-                }`}
+                  }`}
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -237,9 +234,9 @@ const FilterSidebar = ({
   const MobileFilterButton = () => {
     // Only show when products grid is visible and drawer is closed
     if (isMobileOpen || !isProductsSectionVisible) return null;
-    
+
     return (
-      <motion.button 
+      <motion.button
         onClick={handleOpenMobile}
         className="lg:hidden fixed bottom-0 left-0 right-0 
                    z-[9999] flex items-center justify-between 
@@ -251,16 +248,16 @@ const FilterSidebar = ({
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 100, opacity: 0 }}
         transition={{ type: "spring", stiffness: 400, damping: 30 }}
-        style={{ 
+        style={{
           position: 'fixed',
           isolation: 'isolate',
           pointerEvents: 'auto',
           WebkitTapHighlightColor: 'transparent'
         }}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center gap-3 w-full">
           <Filter size={18} className="text-[#C9A03D]" />
-          <span className="text-[12px] font-black uppercase tracking-[0.2em]">
+          <span className="text-[12px] font-black uppercase tracking-[0.2em] text-white">
             Filter Products
           </span>
         </div>
@@ -289,22 +286,22 @@ const FilterSidebar = ({
       {/* 2. MOBILE DRAWER OVERLAY */}
       {mounted && isMobileOpen && createPortal(
         <AnimatePresence mode="wait">
-          <motion.div 
+          <motion.div
             className="fixed inset-0 z-[9998] lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <motion.div 
-              className="absolute inset-0 bg-black/60 backdrop-blur-md" 
+            <motion.div
+              className="absolute inset-0 bg-black/60 backdrop-blur-md"
               onClick={handleCloseMobile}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             />
-            
-            <motion.div 
+
+            <motion.div
               className="absolute bottom-0 inset-x-0 bg-white rounded-t-[2rem] max-h-[85vh] overflow-y-auto shadow-2xl"
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
@@ -315,7 +312,7 @@ const FilterSidebar = ({
               <div className="sticky top-0 bg-white z-20 px-6 pt-3 pb-2">
                 <div className="w-12 h-1 bg-gray-200 rounded-full mx-auto mb-2" />
               </div>
-              
+
               <div className="sticky top-6 bg-white z-20 px-6 pt-2 pb-4">
                 <div className="flex justify-between items-center">
                   <div>
@@ -326,8 +323,8 @@ const FilterSidebar = ({
                       </p>
                     )}
                   </div>
-                  <motion.button 
-                    onClick={handleCloseMobile} 
+                  <motion.button
+                    onClick={handleCloseMobile}
                     className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center"
                     whileHover={{ scale: 1.1, rotate: 90 }}
                     whileTap={{ scale: 0.9 }}
@@ -336,12 +333,12 @@ const FilterSidebar = ({
                   </motion.button>
                 </div>
               </div>
-              
+
               <div className="px-6 pb-6">
                 <FilterContent />
-                
+
                 {hasActiveFilters && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="mt-8 pt-6 border-t border-gray-100"
@@ -353,7 +350,7 @@ const FilterSidebar = ({
                     <div className="flex flex-wrap gap-2">
                       <AnimatePresence>
                         {[...(filters.category || []), ...(filters.material || []), ...(filters.finish || [])].map((tag) => (
-                          <motion.div 
+                          <motion.div
                             key={tag}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
@@ -378,10 +375,10 @@ const FilterSidebar = ({
                   </motion.div>
                 )}
               </div>
-              
+
               <div className="sticky bottom-0 bg-white/95 backdrop-blur-md p-6 pt-4 border-t border-gray-100 z-20">
                 <div className="flex gap-3">
-                  <motion.button 
+                  <motion.button
                     onClick={handleCloseMobile}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -389,7 +386,7 @@ const FilterSidebar = ({
                   >
                     Close
                   </motion.button>
-                  <motion.button 
+                  <motion.button
                     onClick={handleCloseMobile}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -406,13 +403,13 @@ const FilterSidebar = ({
       )}
 
       {/* 3. DESKTOP STICKY SIDEBAR */}
-      <motion.aside 
+      <motion.aside
         initial={{ opacity: 0, x: -30 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
         className="hidden lg:block w-full max-w-[340px] sticky top-28 h-[calc(100vh-140px)] overflow-y-auto pr-4 custom-scrollbar"
       >
-        <motion.div 
+        <motion.div
           whileHover={{ y: -2 }}
           className="bg-white rounded-[2rem] p-8 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300"
         >
@@ -420,7 +417,7 @@ const FilterSidebar = ({
             <div>
               <h3 className="text-xl font-bold text-[#1A2A4F] tracking-tight">Filters</h3>
               {hasActiveFilters && (
-                <motion.p 
+                <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   className="text-[9px] text-[#C9A03D] font-bold uppercase mt-1"
@@ -430,8 +427,8 @@ const FilterSidebar = ({
               )}
             </div>
             {hasActiveFilters && (
-              <motion.button 
-                onClick={handleClearAll} 
+              <motion.button
+                onClick={handleClearAll}
                 className="p-2 text-gray-300 hover:text-[#C9A03D] transition-colors"
                 whileHover={{ scale: 1.1, rotate: 180 }}
                 whileTap={{ scale: 0.9 }}
@@ -441,12 +438,12 @@ const FilterSidebar = ({
               </motion.button>
             )}
           </div>
-          
+
           <FilterContent />
 
           <AnimatePresence>
             {hasActiveFilters && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
@@ -460,7 +457,7 @@ const FilterSidebar = ({
                 <div className="flex flex-wrap gap-2">
                   <AnimatePresence>
                     {[...(filters.category || []), ...(filters.material || []), ...(filters.finish || [])].map((tag) => (
-                      <motion.div 
+                      <motion.div
                         key={tag}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
