@@ -7,11 +7,11 @@ const Preloader = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // A slightly longer, more confident duration
+    // A slightly shorter, more confident duration for a fast, snappy reveal
     const timer = setTimeout(() => {
       setIsVisible(false);
       if (onComplete) onComplete();
-    }, 2800);
+    }, 2000);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -19,31 +19,29 @@ const Preloader = ({ onComplete }) => {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#FAFAFA]"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#FDFDFC]"
           exit={{ 
-            y: "-100%", 
-            transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1] } 
+            opacity: 0,
+            transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } 
           }}
         >
           <div className="flex flex-col items-center">
-            {/* Letter-by-letter reveal for extra premium feel */}
-            <motion.div className="overflow-hidden">
-              <motion.h1 
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl md:text-5xl font-light text-[#1A2A4F] tracking-[0.3em] uppercase"
-              >
-                Modular One
-              </motion.h1>
-            </motion.div>
+            {/* Brand Title with Letter Spacing */}
+            <motion.h1 
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="text-3xl md:text-5xl font-light text-[#1A2A4F] tracking-[0.3em] uppercase"
+            >
+              Modular One
+            </motion.h1>
 
-            {/* A subtle, expanding light indicator */}
+            {/* Architectural Line Divider */}
             <motion.div 
-              className="mt-6 h-[1px] bg-[#1A2A4F]"
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: "60px", opacity: 1 }}
-              transition={{ delay: 0.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="h-[1px] bg-[#C9A03D] mt-8"
+              initial={{ width: 0 }}
+              animate={{ width: "120px" }}
+              transition={{ delay: 0.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
         </motion.div>
