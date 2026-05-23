@@ -9,10 +9,16 @@ const FilterSidebar = ({
   onFilterChange, 
   onClearFilters,
   filteredCount = 0,
-  isProductsSectionVisible = true // New prop to control button visibility
+  isProductsSectionVisible = true
 }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  // Debug logs
+  useEffect(() => {
+    console.log('FilterSidebar - isProductsSectionVisible:', isProductsSectionVisible);
+    console.log('FilterSidebar - isMobileOpen:', isMobileOpen);
+  }, [isProductsSectionVisible, isMobileOpen]);
 
   // Handle mounting for portal
   useEffect(() => {
@@ -70,6 +76,7 @@ const FilterSidebar = ({
   const handleOpenMobile = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log('Opening mobile drawer');
     setIsMobileOpen(true);
   }, []);
 
@@ -235,13 +242,18 @@ const FilterSidebar = ({
 
   // Mobile Filter Button Component - Now checks section visibility
   const MobileFilterButton = () => {
+    // Debug log to check values
+    console.log('MobileFilterButton render - isMobileOpen:', isMobileOpen);
+    console.log('MobileFilterButton render - isProductsSectionVisible:', isProductsSectionVisible);
+    console.log('MobileFilterButton render - should show:', !isMobileOpen && isProductsSectionVisible);
+    
     // Don't show the button if:
     // 1. Mobile drawer is open, OR
     // 2. Products section is NOT visible
     if (isMobileOpen || !isProductsSectionVisible) return null;
     
     return (
-      <motion.button 
+      <button 
         onClick={handleOpenMobile}
         className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 
                    z-[9999] flex items-center gap-3 bg-[#1A2A4F] text-white 
@@ -255,27 +267,17 @@ const FilterSidebar = ({
           transform: 'translateX(-50%)',
           WebkitTapHighlightColor: 'transparent'
         }}
-        initial={{ opacity: 0, y: 20, scale: 0.9 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 20, scale: 0.9 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
         <Filter size={16} className="text-[#C9A03D] pointer-events-none" />
         <span className="text-[10px] font-black uppercase tracking-[0.2em] pointer-events-none">
           Filter
         </span>
         {hasActiveFilters && (
-          <motion.span 
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="w-5 h-5 bg-[#C9A03D] rounded-full flex items-center justify-center text-[10px] font-bold pointer-events-none"
-          >
+          <span className="w-5 h-5 bg-[#C9A03D] rounded-full flex items-center justify-center text-[10px] font-bold pointer-events-none">
             {totalActiveCount}
-          </motion.span>
+          </span>
         )}
-      </motion.button>
+      </button>
     );
   };
 
@@ -291,7 +293,7 @@ const FilterSidebar = ({
       {mounted && isMobileOpen && createPortal(
         <AnimatePresence mode="wait">
           <motion.div 
-            className="fixed inset-0 z-[9998]"
+            className="fixed inset-0 z-[9998] lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -6,7 +6,7 @@ import { Search, RotateCcw } from 'lucide-react';
 import { products } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import FilterSidebar from '../components/FilterSidebar';
-import { useSectionObserver } from '../hooks/useSectionObserver'; // Import the hook
+import { useSectionObserver } from '../hooks/useSectionObserver';
 
 // Animation variants (same as before)
 const fadeInUp = {
@@ -201,7 +201,7 @@ export default function Products() {
               onFilterChange={handleFilterChange}
               onClearFilters={handleClearFilters}
               filteredCount={filteredProducts.length}
-              isProductsSectionVisible={isProductsSectionVisible} // Pass visibility to sidebar
+              isProductsSectionVisible={isProductsSectionVisible}
             />
           </motion.div>
 
