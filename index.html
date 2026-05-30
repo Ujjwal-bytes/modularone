@@ -18,559 +18,73 @@
 </html> -->
 
 
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="description" content="Modular One is currently undergoing scheduled maintenance to deliver an enhanced experience. We'll be back online soon." />
-    <title>Modular One | Elevated Maintenance Experience</title>
-    <!-- Tailwind CSS + Google Fonts + Additional UI Enhancements -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Update | Modular One</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-    <!-- Font Awesome 6 (free icons) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: 'Inter', sans-serif;
-        background: radial-gradient(circle at 10% 20%, rgba(249, 250, 251, 1) 0%, rgba(226, 232, 240, 0.8) 100%);
-        overflow-x: hidden;
-        position: relative;
-      }
-
-      /* animated gradient mesh / orb background */
-      .bg-orb {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        overflow: hidden;
-        pointer-events: none;
-      }
-
-      .orb-1 {
-        position: absolute;
-        top: -20%;
-        left: -10%;
-        width: 70%;
-        height: 70%;
-        background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0) 70%);
-        border-radius: 50%;
-        filter: blur(80px);
-        animation: floatOrb 22s infinite alternate ease-in-out;
-      }
-
-      .orb-2 {
-        position: absolute;
-        bottom: -15%;
-        right: -5%;
-        width: 65%;
-        height: 65%;
-        background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, rgba(139,92,246,0) 70%);
-        border-radius: 50%;
-        filter: blur(90px);
-        animation: floatOrbReverse 18s infinite alternate ease-in-out;
-      }
-
-      .orb-3 {
-        position: absolute;
-        top: 40%;
-        right: 25%;
-        width: 45%;
-        height: 45%;
-        background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, rgba(6,182,212,0) 70%);
-        border-radius: 50%;
-        filter: blur(70px);
-        animation: floatSoft 20s infinite alternate;
-      }
-
-      @keyframes floatOrb {
-        0% { transform: translate(0, 0) scale(1); }
-        100% { transform: translate(4%, 6%) scale(1.1); }
-      }
-      @keyframes floatOrbReverse {
-        0% { transform: translate(0, 0) scale(1); }
-        100% { transform: translate(-5%, -8%) scale(1.15); }
-      }
-      @keyframes floatSoft {
-        0% { transform: translate(0, 0) rotate(0deg); }
-        100% { transform: translate(2%, -3%) rotate(5deg); }
-      }
-
-      /* custom card shine */
-      .glass-card {
-        background: rgba(255, 255, 255, 0.92);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.02);
-        transition: transform 0.25s ease, box-shadow 0.3s ease;
-      }
-      .glass-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 32px 48px -16px rgba(0, 0, 0, 0.25);
-      }
-
-      /* progress bar custom animation */
-      .task-progress-fill {
-        transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-      }
-
-      /* countdown digit styling */
-      .countdown-digit {
-        background: rgba(0, 0, 0, 0.04);
-        backdrop-filter: blur(4px);
-        border-radius: 1rem;
-        font-weight: 700;
-        font-feature-settings: "tnum";
-        font-variant-numeric: tabular-nums;
-      }
-
-      /* animated pulse ring for status */
-      .pulse-ring {
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
-        animation: pulse-green 1.8s infinite;
-      }
-      @keyframes pulse-green {
-        0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
-        70% { box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-      }
-
-      /* smooth scroll behavior */
-      html {
-        scroll-behavior: smooth;
-      }
-
-      /* custom styles for the subscribe input */
-      .input-focus-ring:focus {
-        outline: none;
-        ring: 2px solid #3b82f6;
-        border-color: transparent;
-        box-shadow: 0 0 0 3px rgba(59,130,246,0.4);
-      }
-
-      /* animated loading dots (for maintenance status) */
-      .dot-flashing {
-        position: relative;
-        width: 8px;
-        height: 8px;
-        border-radius: 5px;
-        background-color: #3b82f6;
-        animation: dotFlashing 1s infinite linear alternate;
-        animation-delay: 0.5s;
-      }
-      .dot-flashing::before, .dot-flashing::after {
-        content: '';
-        display: inline-block;
-        position: absolute;
-        top: 0;
-        width: 8px;
-        height: 8px;
-        border-radius: 5px;
-        background-color: #3b82f6;
-      }
-      .dot-flashing::before {
-        left: -12px;
-        animation: dotFlashing 1s infinite alternate;
-        animation-delay: 0s;
-      }
-      .dot-flashing::after {
-        left: 12px;
-        animation: dotFlashing 1s infinite alternate;
-        animation-delay: 1s;
-      }
-      @keyframes dotFlashing {
-        0% { background-color: #3b82f6; }
-        50%, 100% { background-color: rgba(59,130,246,0.2); }
-      }
+      body { font-family: 'Inter', sans-serif; background: #0f172a; }
+      .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
   </head>
-  <body class="antialiased relative min-h-screen flex items-center justify-center p-4 md:p-8">
+  <body class="min-h-screen flex items-center justify-center p-6 text-white">
 
-    <!-- Animated background orbs for premium full-screen atmosphere -->
-    <div class="bg-orb">
-      <div class="orb-1"></div>
-      <div class="orb-2"></div>
-      <div class="orb-3"></div>
-    </div>
+    <main class="w-full max-w-2xl glass rounded-3xl p-10 md:p-16 shadow-2xl">
+      <div class="flex items-center gap-4 mb-8">
+        <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+          <i class="fas fa-cubes text-xl"></i>
+        </div>
+        <h1 class="text-3xl font-bold">Modular One</h1>
+      </div>
 
-    <!-- Main container: full width, max-w-7xl, fully responsive, covers entire screen dynamically -->
-    <div class="relative z-10 w-full max-w-7xl mx-auto my-6 md:my-10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+      <div class="space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-sm font-medium">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+          </span>
+          Scheduled System Maintenance
+        </div>
         
-        <!-- LEFT COLUMN: Brand, description, detailed maintenance info & contact -->
-        <div class="glass-card rounded-3xl p-6 md:p-8 transition-all duration-300">
-          <!-- Modular One branding with icon -->
-          <div class="flex items-center gap-3 mb-6">
-            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-md">
-              <i class="fas fa-cubes text-white text-xl"></i>
-            </div>
-            <div>
-              <h2 class="text-2xl font-bold text-gray-800 tracking-tight">Modular One</h2>
-              <p class="text-xs text-gray-500 uppercase tracking-wider">Next‑gen infrastructure</p>
-            </div>
-          </div>
-          
-          <div class="mb-8">
-            <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 text-sm font-medium px-4 py-1.5 rounded-full border border-amber-200/70 mb-5">
-              <i class="fas fa-tools text-amber-500 text-xs"></i>
-              <span>Scheduled upgrade window</span>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 mb-4 leading-tight">
-              Elevating<br>your experience
-            </h1>
-            <p class="text-gray-600 text-lg leading-relaxed border-l-4 border-blue-400 pl-5">
-              We're deploying significant performance enhancements, security upgrades, and a new modular architecture. 
-              Our team is working diligently to bring you a faster, more resilient platform.
-            </p>
-          </div>
+        <h2 class="text-4xl font-extrabold tracking-tight">We're improving our infrastructure.</h2>
+        <p class="text-slate-400 text-lg leading-relaxed">
+          Modular One is currently undergoing scheduled upgrades to enhance platform stability and security. We are working hard to complete these improvements and appreciate your patience.
+        </p>
 
-          <!-- live system tasks / maintenance steps (improved UI) -->
-          <div class="bg-gray-50/80 rounded-2xl p-5 mb-8 border border-gray-100 shadow-sm">
-            <div class="flex justify-between items-center mb-3">
-              <h3 class="font-semibold text-gray-800 flex items-center gap-2"><i class="fas fa-list-check text-blue-500"></i> Maintenance roadmap</h3>
-              <span class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-medium">Live progress</span>
-            </div>
-            <div class="space-y-4">
-              <!-- Task 1 -->
-              <div>
-                <div class="flex justify-between text-sm font-medium text-gray-700 mb-1">
-                  <span><i class="fas fa-database text-indigo-400 mr-2"></i> Database clustering & replication</span>
-                  <span>92%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                  <div class="bg-gradient-to-r from-indigo-500 to-blue-500 h-2 rounded-full task-progress-fill" style="width: 92%"></div>
-                </div>
-              </div>
-              <!-- Task 2 -->
-              <div>
-                <div class="flex justify-between text-sm font-medium text-gray-700 mb-1">
-                  <span><i class="fas fa-rocket text-blue-400 mr-2"></i> Edge CDN & caching layer</span>
-                  <span>78%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                  <div class="bg-gradient-to-r from-blue-500 to-cyan-500 h-2 rounded-full task-progress-fill" style="width: 78%"></div>
-                </div>
-              </div>
-              <!-- Task 3 -->
-              <div>
-                <div class="flex justify-between text-sm font-medium text-gray-700 mb-1">
-                  <span><i class="fas fa-shield-alt text-emerald-500 mr-2"></i> Zero‑trust security hardening</span>
-                  <span>100%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                  <div class="bg-gradient-to-r from-emerald-500 to-teal-500 h-2 rounded-full" style="width: 100%"></div>
-                </div>
-              </div>
-              <!-- Task 4 (dynamic indicator) -->
-              <div>
-                <div class="flex justify-between text-sm font-medium text-gray-700 mb-1">
-                  <span><i class="fas fa-chart-line text-purple-400 mr-2"></i> Real‑time analytics engine</span>
-                  <span>64%</span>
-                </div>
-                <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                  <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full task-progress-fill" style="width: 64%"></div>
-                </div>
-              </div>
-            </div>
-            <div class="mt-4 pt-2 text-xs text-gray-500 flex items-center gap-2">
-              <i class="fas fa-sync-alt fa-fw text-blue-400"></i> 
-              <span>Estimated finalization: within next 2 hours — live updates every minute</span>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-6">
+          <div class="p-4 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3">
+            <i class="fas fa-shield-halved text-blue-400"></i>
+            <span class="text-sm">Infrastructure Hardening</span>
           </div>
-          
-          <!-- Support & contact block (enhanced) -->
-          <div class="flex flex-wrap gap-4 items-center justify-between mt-6 pt-2 border-t border-gray-200/70">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
-                <i class="fas fa-headset text-blue-600 text-lg"></i>
-              </div>
-              <div>
-                <p class="text-sm font-medium text-gray-900">24/7 Priority Support</p>
-                <a href="mailto:support@modularone.com" class="text-sm text-blue-600 hover:text-blue-800 transition flex items-center gap-1">
-                  support@modularone.com <i class="fas fa-arrow-right text-xs"></i>
-                </a>
-              </div>
-            </div>
-            <div class="flex gap-3">
-              <a href="#" class="text-gray-500 hover:text-gray-700 transition bg-gray-100 hover:bg-gray-200 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-twitter"></i></a>
-              <a href="#" class="text-gray-500 hover:text-gray-700 transition bg-gray-100 hover:bg-gray-200 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-github"></i></a>
-              <a href="#" class="text-gray-500 hover:text-gray-700 transition bg-gray-100 hover:bg-gray-200 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-linkedin-in"></i></a>
-            </div>
+          <div class="p-4 rounded-xl bg-white/5 border border-white/5 flex items-center gap-3">
+            <i class="fas fa-database text-blue-400"></i>
+            <span class="text-sm">Database Optimization</span>
           </div>
         </div>
 
-        <!-- RIGHT COLUMN: Countdown, progress tracker, notif form & dynamic updates -->
-        <div class="glass-card rounded-3xl p-6 md:p-8 flex flex-col gap-7">
-          <!-- real-time countdown timer (endtime = 2h from page load) -->
-          <div>
-            <div class="flex items-center gap-2 mb-3">
-              <i class="fas fa-hourglass-half text-blue-500 text-xl"></i>
-              <h3 class="text-xl font-bold text-gray-800">Estimated return</h3>
-              <span class="ml-auto text-xs bg-gray-100 px-2 py-1 rounded-full">countdown</span>
-            </div>
-            <div class="grid grid-cols-4 gap-3 text-center">
-              <div class="bg-white/70 backdrop-blur-sm rounded-xl py-3 shadow-sm border border-gray-100">
-                <span id="countdownHours" class="countdown-digit text-3xl md:text-4xl font-black text-gray-800 block">02</span>
-                <span class="text-xs text-gray-500 uppercase tracking-wider">Hours</span>
-              </div>
-              <div class="bg-white/70 backdrop-blur-sm rounded-xl py-3 shadow-sm border border-gray-100">
-                <span id="countdownMinutes" class="countdown-digit text-3xl md:text-4xl font-black text-gray-800 block">00</span>
-                <span class="text-xs text-gray-500 uppercase tracking-wider">Minutes</span>
-              </div>
-              <div class="bg-white/70 backdrop-blur-sm rounded-xl py-3 shadow-sm border border-gray-100">
-                <span id="countdownSeconds" class="countdown-digit text-3xl md:text-4xl font-black text-gray-800 block">00</span>
-                <span class="text-xs text-gray-500 uppercase tracking-wider">Seconds</span>
-              </div>
-              <div class="bg-white/70 backdrop-blur-sm rounded-xl py-3 shadow-sm border border-gray-100 flex flex-col items-center justify-center">
-                <i class="fas fa-check-circle text-green-500 text-xl"></i>
-                <span class="text-[11px] font-medium text-gray-600 mt-1">live sync</span>
-              </div>
-            </div>
-            <div class="mt-3 text-center text-xs text-gray-500 flex justify-center items-center gap-1">
-              <span class="inline-block w-2 h-2 rounded-full bg-green-500 pulse-ring"></span>
-              Maintenance window progress active
-            </div>
-          </div>
-          
-          <!-- dynamic progress bar for overall maintenance phase -->
-          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-5">
-            <div class="flex justify-between text-sm font-semibold text-gray-700 mb-2">
-              <span>Overall system upgrade</span>
-              <span id="overallPercent" class="text-blue-700">68%</span>
-            </div>
-            <div class="w-full bg-gray-200/80 rounded-full h-3 overflow-hidden shadow-inner">
-              <div id="overallProgressFill" class="bg-gradient-to-r from-blue-600 to-indigo-600 h-3 rounded-full transition-all duration-700 ease-out" style="width: 68%"></div>
-            </div>
-            <p class="text-xs text-gray-600 mt-3 flex items-center gap-1"><i class="fas fa-microchip"></i> Automated deployment pipeline — phase 3 of 5</p>
-          </div>
-          
-          <!-- Notify me form ( modern subscription ) -->
-          <div class="bg-white/60 rounded-2xl border border-gray-200/80 p-5">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                <i class="fas fa-bell text-blue-600 text-sm"></i>
-              </div>
-              <h4 class="font-bold text-gray-800">Get notified when we're back</h4>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-3">
-              <input type="email" id="notifyEmail" placeholder="work@example.com" class="flex-1 px-4 py-3 rounded-xl border border-gray-200 bg-white/90 text-gray-800 focus:ring-2 focus:ring-blue-300 outline-none transition shadow-sm" />
-              <button id="notifyBtn" class="bg-gray-900 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 shadow-md flex items-center justify-center gap-2">
-                <i class="far fa-envelope"></i> Notify Me
-              </button>
-            </div>
-            <p class="text-xs text-gray-500 mt-3 flex items-center gap-1"><i class="fas fa-lock text-gray-400"></i> No spam, only one alert when maintenance ends.</p>
-          </div>
-          
-          <!-- Live status updates & additional info (makes UI vibrant) -->
-          <div class="border-t border-gray-200 pt-5">
-            <div class="flex justify-between items-center mb-3">
-              <h4 class="font-semibold text-gray-800 flex items-center gap-2"><i class="fas fa-waveform text-blue-500"></i> Real-time system status</h4>
-              <div class="dot-flashing"></div>
-            </div>
-            <div class="space-y-2 text-sm">
-              <div class="flex justify-between items-center border-b border-gray-100 pb-2">
-                <span><i class="fas fa-cloud-upload-alt text-emerald-500 w-5"></i> API Gateway</span>
-                <span class="text-emerald-600 font-medium"><i class="fas fa-circle text-[8px] mr-1 align-middle text-emerald-500"></i> Operational</span>
-              </div>
-              <div class="flex justify-between items-center border-b border-gray-100 pb-2">
-                <span><i class="fas fa-database text-amber-500 w-5"></i> Primary Database</span>
-                <span class="text-amber-600 font-medium"><i class="fas fa-sync-alt text-[10px] mr-1"></i> Migrating</span>
-              </div>
-              <div class="flex justify-between items-center border-b border-gray-100 pb-2">
-                <span><i class="fas fa-bolt text-blue-400 w-5"></i> CDN Edge</span>
-                <span class="text-blue-600 font-medium"><i class="fas fa-charging-station"></i> Rebalancing</span>
-              </div>
-              <div class="flex justify-between items-center pt-1">
-                <span><i class="fas fa-chart-simple text-purple-400 w-5"></i> Monitoring Stack</span>
-                <span class="text-gray-700 text-xs bg-gray-100 px-2 py-0.5 rounded-full">All green</span>
-              </div>
-            </div>
-            <div class="mt-4 text-center text-xs text-gray-400 flex flex-wrap gap-x-4 gap-y-1 justify-between">
-              <span><i class="far fa-clock"></i> Last updated: just now</span>
-              <span><i class="fas fa-code-branch"></i> Build: v3.2.0-rc</span>
-            </div>
-          </div>
-          
-          <!-- Support alternative quick contact link (original mail) -->
-          <div class="mt-2 text-center">
-            <a href="mailto:support@modularone.com" class="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-800 transition bg-blue-50 px-4 py-2 rounded-full">
-              <i class="fas fa-life-ring"></i> Emergency contact: support@modularone.com
-            </a>
-          </div>
+        <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-4">
+          <a href="mailto:support@modularone.com" class="flex-1 text-center bg-white text-slate-900 py-3 rounded-xl font-semibold hover:bg-slate-200 transition">
+            Contact Support
+          </a>
+          <button id="notifyBtn" class="flex-1 bg-blue-600 py-3 rounded-xl font-semibold hover:bg-blue-500 transition">
+            Get Email Alert
+          </button>
         </div>
       </div>
-      
-      <!-- footer / additional credits for better UI coverage -->
-      <div class="mt-10 text-center text-gray-400 text-xs flex flex-wrap justify-center gap-4 opacity-70">
-        <span>© 2026 Modular One — Infrastructure excellence</span>
-        <span class="w-1 h-1 rounded-full bg-gray-300 inline-block"></span>
-        <span><i class="far fa-heart"></i> Scheduled maintenance</span>
-        <span class="w-1 h-1 rounded-full bg-gray-300 inline-block"></span>
-        <span>ETD: ~2 hours</span>
-      </div>
-    </div>
+    </main>
 
-    <!-- JavaScript: countdown timer, dynamic overall progress, notification placeholder, smooth interactions -->
     <script>
-      (function() {
-        // Set end time for countdown: 2 hours from page load (7200000 ms)
-        const startTime = Date.now();
-        const MAINTENANCE_DURATION = 2 * 60 * 60 * 1000; // 2 hours in ms
-        let endTime = startTime + MAINTENANCE_DURATION;
-        
-        // DOM elements
-        const hoursSpan = document.getElementById('countdownHours');
-        const minutesSpan = document.getElementById('countdownMinutes');
-        const secondsSpan = document.getElementById('countdownSeconds');
-        const overallPercentSpan = document.getElementById('overallPercent');
-        const overallProgressFill = document.getElementById('overallProgressFill');
-        const notifyBtn = document.getElementById('notifyBtn');
-        const notifyEmailInput = document.getElementById('notifyEmail');
-        
-        // Function to update countdown & overall progress based on elapsed time
-        function updateTimers() {
-          const now = Date.now();
-          let remaining = endTime - now;
-          
-          // If remaining time is negative, set to zero and display "back online" state
-          if (remaining <= 0) {
-            remaining = 0;
-            if (hoursSpan && minutesSpan && secondsSpan) {
-              hoursSpan.innerText = '00';
-              minutesSpan.innerText = '00';
-              secondsSpan.innerText = '00';
-            }
-            // Also set overall progress to 100% if completed
-            if (overallPercentSpan && overallProgressFill) {
-              overallPercentSpan.innerText = '100%';
-              overallProgressFill.style.width = '100%';
-            }
-            // show special message optional but not required
-            return;
-          }
-          
-          // Calculate hours, minutes, seconds
-          const hours = Math.floor(remaining / (1000 * 60 * 60));
-          const minutes = Math.floor((remaining % (3600000)) / 60000);
-          const seconds = Math.floor((remaining % 60000) / 1000);
-          
-          if (hoursSpan) hoursSpan.innerText = hours < 10 ? '0' + hours : '' + hours;
-          if (minutesSpan) minutesSpan.innerText = minutes < 10 ? '0' + minutes : '' + minutes;
-          if (secondsSpan) secondsSpan.innerText = seconds < 10 ? '0' + seconds : '' + seconds;
-          
-          // Update overall progress percentage: elapsed / total duration
-          const elapsed = now - startTime;
-          let percentComplete = (elapsed / MAINTENANCE_DURATION) * 100;
-          percentComplete = Math.min(100, Math.max(0, percentComplete));
-          // But to give a dynamic more realistic look, we also consider tasks overall floor but match countdown progress
-          // Simulate fine progress: combine with base tasks shown ( visually )
-          let displayPercent = Math.floor(percentComplete);
-          // Ensure not below 5% for first seconds
-          if (displayPercent < 3 && elapsed > 0) displayPercent = 3;
-          if (overallPercentSpan) overallPercentSpan.innerText = displayPercent + '%';
-          if (overallProgressFill) overallProgressFill.style.width = displayPercent + '%';
+      document.getElementById('notifyBtn').addEventListener('click', () => {
+        const email = prompt("Enter your email address, and we'll notify you as soon as we're back online:");
+        if (email) {
+          alert("Thanks! We've added your address to the restoration notification list.");
         }
-        
-        // Update every second
-        let interval = setInterval(updateTimers, 1000);
-        updateTimers();
-        
-        // Handle case when countdown ends -> clear interval and show success indicator
-        function checkCompletion() {
-          if (Date.now() >= endTime) {
-            clearInterval(interval);
-            // optional subtle UI change
-            const countdownContainer = document.querySelector('.countdown-digit');
-            if (countdownContainer) {
-              // Add optional confirmation text
-              const parent = document.getElementById('countdownHours')?.parentElement?.parentElement;
-              if (parent && !document.getElementById('completionBadge')) {
-                const badge = document.createElement('div');
-                badge.id = 'completionBadge';
-                badge.className = 'text-center mt-2 bg-green-100 text-green-700 text-xs font-semibold py-1 px-3 rounded-full inline-block mx-auto';
-                badge.innerHTML = '<i class="fas fa-check-circle mr-1"></i> System is back online!';
-                if(parent.parentElement) parent.parentElement.appendChild(badge);
-              }
-            }
-          } else {
-            setTimeout(checkCompletion, 500);
-          }
-        }
-        setTimeout(checkCompletion, 1000);
-        
-        // Notify Me button functionality with local storage simulation + sweet alert style (simple)
-        notifyBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          const email = notifyEmailInput.value.trim();
-          const emailRegex = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/;
-          if (!email) {
-            alert('✨ Please enter your email address to receive the restoration notification.');
-            return;
-          }
-          if (!emailRegex.test(email)) {
-            alert('⚠️ Please enter a valid email address (e.g., name@example.com)');
-            return;
-          }
-          // Simulate subscription success
-          alert(`🎉 Thanks! We'll notify ${email} the moment Modular One is fully operational.`);
-          notifyEmailInput.value = '';
-          // Optional: store in localStorage to remember intent
-          localStorage.setItem('modular_notify_email', email);
-        });
-        
-        // prefill with saved email if exists
-        const savedEmail = localStorage.getItem('modular_notify_email');
-        if (savedEmail && notifyEmailInput) {
-          notifyEmailInput.value = savedEmail;
-        }
-        
-        // Additional dynamic adjustments: enhance progress bars animation on load
-        const allTaskBars = document.querySelectorAll('.task-progress-fill');
-        if (allTaskBars.length) {
-          // Force reflow to ensure widths are visible
-          allTaskBars.forEach(bar => {
-            const width = bar.style.width;
-            bar.style.width = '0%';
-            setTimeout(() => { bar.style.width = width; }, 50);
-          });
-        }
-        
-        // Make overall progress fill smoothly animated (already has transition)
-        // Handling background tasks micro interactions: update endtime if needed but no reset
-        // Additionally ensure that full-screen coverage remains
-        window.addEventListener('resize', () => {});
-        
-        // Also display console info regarding maintenance
-        console.log('Modular One | Maintenance UI active — full screen experience enhanced');
-      })();
+      });
     </script>
-    <!-- Extra style to ensure full screen coverage even on small devices -->
-    <style>
-      @media (max-width: 640px) {
-        .glass-card {
-          backdrop-filter: blur(8px);
-        }
-        body {
-          padding: 0.75rem;
-        }
-      }
-      /* ensure min height always covers screen */
-      body {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    </style>
   </body>
 </html>
