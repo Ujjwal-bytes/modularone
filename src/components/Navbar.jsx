@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Heart, 
- 
-  Menu, 
-  X, 
-  Sparkles, 
-  Home, 
-  Info, 
-  Package, 
-  Images, 
-  Phone, 
-  User,
-  LogIn,
-  Settings,
-  HelpCircle
+import {
+    Heart,
+
+    Menu,
+    X,
+    Sparkles,
+    Home,
+    Info,
+    Package,
+    Images,
+    Phone,
+    User,
+    LogIn,
+    Settings,
+    HelpCircle
 } from "lucide-react";
 import { getWishlistCount } from "../utils/localStorage";
 
@@ -83,15 +83,15 @@ export default function Navbar() {
     };
 
     const mobileMenuVariants = {
-        hidden: { 
-            height: 0, 
+        hidden: {
+            height: 0,
             opacity: 0,
             transition: { duration: 0.3, ease: "easeInOut" }
         },
-        visible: { 
-            height: 'auto', 
+        visible: {
+            height: 'auto',
             opacity: 1,
-            transition: { 
+            transition: {
                 duration: 0.4,
                 ease: [0.25, 0.1, 0.25, 1],
                 staggerChildren: 0.05,
@@ -102,8 +102,8 @@ export default function Navbar() {
 
     const mobileItemVariants = {
         hidden: { x: -20, opacity: 0 },
-        visible: { 
-            x: 0, 
+        visible: {
+            x: 0,
             opacity: 1,
             transition: { duration: 0.3 }
         }
@@ -111,11 +111,11 @@ export default function Navbar() {
 
     const badgeVariants = {
         initial: { scale: 0 },
-        animate: { 
+        animate: {
             scale: 1,
             transition: { type: "spring", stiffness: 500, damping: 15 }
         },
-        exit: { 
+        exit: {
             scale: 0,
             transition: { duration: 0.2 }
         }
@@ -123,12 +123,12 @@ export default function Navbar() {
 
     const logoVariants = {
         initial: { opacity: 0, scale: 0.8 },
-        animate: { 
-            opacity: 1, 
+        animate: {
+            opacity: 1,
             scale: 1,
             transition: { duration: 0.5, delay: 0.1 }
         },
-        hover: { 
+        hover: {
             scale: 1.05,
             transition: { duration: 0.2 }
         }
@@ -145,15 +145,14 @@ export default function Navbar() {
     };
 
     return (
-        <motion.nav 
+        <motion.nav
             variants={navVariants}
             initial="initial"
             animate="animate"
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-                scrolled 
-                    ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100" 
-                    : "bg-white border-b border-gray-100"
-            }`}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+                ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
+                : "bg-white border-b border-gray-100"
+                }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16 md:h-20">
@@ -188,7 +187,7 @@ export default function Navbar() {
                                 </div>
                             </div>
                             {/* Subtle shine effect on hover */}
-                            <motion.div 
+                            <motion.div
                                 className="absolute -inset-1 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 pointer-events-none"
                                 initial={{ x: '-100%' }}
                                 whileHover={{ x: '100%' }}
@@ -202,8 +201,8 @@ export default function Navbar() {
                         {navLinks.map((link) => {
                             const Icon = link.icon;
                             return (
-                                <motion.div 
-                                    key={link.name} 
+                                <motion.div
+                                    key={link.name}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onHoverStart={() => setIsHovered(link.name)}
@@ -211,16 +210,15 @@ export default function Navbar() {
                                 >
                                     <Link
                                         to={link.path}
-                                        className={`relative flex items-center gap-1.5 text-sm font-medium transition-all duration-300 ${
-                                            isActive(link.path)
-                                                ? "text-[#C9A03D]"
-                                                : "text-[#4A5568] hover:text-[#1A2A4F]"
-                                        }`}
+                                        className={`relative flex items-center gap-1.5 text-sm font-medium transition-all duration-300 ${isActive(link.path)
+                                            ? "text-[#C9A03D]"
+                                            : "text-[#4A5568] hover:text-[#1A2A4F]"
+                                            }`}
                                     >
                                         <Icon size={16} />
                                         <span>{link.name}</span>
                                         {isActive(link.path) && (
-                                            <motion.span 
+                                            <motion.span
                                                 className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#C9A03D] rounded-full"
                                                 layoutId="activeNav"
                                                 initial={{ opacity: 0, scaleX: 0 }}
@@ -230,7 +228,7 @@ export default function Navbar() {
                                         )}
                                         {/* Hover underline effect */}
                                         {!isActive(link.path) && isHovered === link.name && (
-                                            <motion.span 
+                                            <motion.span
                                                 className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#1A2A4F] rounded-full"
                                                 initial={{ scaleX: 0 }}
                                                 animate={{ scaleX: 1 }}
@@ -246,33 +244,36 @@ export default function Navbar() {
 
                     {/* Desktop Icons */}
                     <div className="hidden md:flex items-center space-x-2">
-                        <motion.div 
+                        <motion.div
                             variants={iconButtonVariants}
                             whileHover="hover"
                             whileTap="tap"
                         >
                             <Link
                                 to="/wishlist"
-                                className="relative p-2 rounded-lg text-[#4A5568] hover:text-[#1A2A4F] hover:bg-gray-50 transition-all duration-200"
+                                className="pl-2 pr-2 py-2 rounded-lg text-[#4A5568] hover:text-[#1A2A4F] hover:bg-gray-50 transition-all duration-200 flex items-center justify-center"
                                 aria-label="Wishlist"
                             >
-                                <Heart size={20} />
-                                <AnimatePresence>
-                                    {wishlistCount > 0 && (
-                                        <motion.span 
-                                            className="absolute -top-1 -right-1 bg-[#C9A03D] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-sm"
-                                            variants={badgeVariants}
-                                            initial="initial"
-                                            animate="animate"
-                                            exit="exit"
-                                        >
-                                            {wishlistCount > 9 ? '9+' : wishlistCount}
-                                        </motion.span>
-                                    )}
-                                </AnimatePresence>
+                                <div className="relative inline-block">
+                                    <Heart size={20} />
+
+                                    <AnimatePresence>
+                                        {wishlistCount > 0 && (
+                                            <motion.span
+                                                className="absolute -top-1.5 -right-1.5 bg-[#C9A03D] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm"
+                                                variants={badgeVariants}
+                                                initial="initial"
+                                                animate="animate"
+                                                exit="exit"
+                                            >
+                                                {wishlistCount > 9 ? '9+' : wishlistCount}
+                                            </motion.span>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
                             </Link>
                         </motion.div>
-                        <motion.div 
+                        <motion.div
                             variants={ctaButtonVariants}
                             whileHover="hover"
                             whileTap="tap"
@@ -338,7 +339,7 @@ export default function Navbar() {
             {/* Mobile menu with icons */}
             <AnimatePresence>
                 {isOpen && (
-                    <motion.div 
+                    <motion.div
                         className="md:hidden overflow-hidden"
                         variants={mobileMenuVariants}
                         initial="hidden"
@@ -359,11 +360,10 @@ export default function Navbar() {
                                             <Link
                                                 to={link.path}
                                                 onClick={handleMenuClose}
-                                                className={`flex items-center gap-3 px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${
-                                                    isActive(link.path)
-                                                        ? "text-[#C9A03D] bg-amber-50"
-                                                        : "text-[#4A5568] hover:text-[#1A2A4F] hover:bg-gray-50"
-                                                }`}
+                                                className={`flex items-center gap-3 px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${isActive(link.path)
+                                                    ? "text-[#C9A03D] bg-amber-50"
+                                                    : "text-[#4A5568] hover:text-[#1A2A4F] hover:bg-gray-50"
+                                                    }`}
                                             >
                                                 <Icon size={18} />
                                                 <span>{link.name}</span>
@@ -371,7 +371,7 @@ export default function Navbar() {
                                         </motion.div>
                                     );
                                 })}
-                                <motion.div 
+                                <motion.div
                                     className="pt-4 px-4"
                                     variants={mobileItemVariants}
                                     whileHover={{ scale: 1.02 }}
@@ -393,7 +393,7 @@ export default function Navbar() {
             </AnimatePresence>
 
             {/* Scroll indicator dot */}
-            
+
         </motion.nav>
     );
 }
