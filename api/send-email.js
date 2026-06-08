@@ -51,6 +51,7 @@
 //     return res.status(500).json({ message: 'Failed to send email', error: error.message });
 //   }
 // }
+
 import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
