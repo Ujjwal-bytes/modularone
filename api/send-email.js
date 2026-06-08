@@ -82,6 +82,7 @@ export default async function handler(req, res) {
     ? `New Quote Request from ${fullName}` 
     : `New Contact Message from ${fullName}`;
 
+  // Check if logo exists in public folder
   let logoPath = null;
   const possiblePaths = [
     path.join(process.cwd(), 'public', 'logoss.png'),
@@ -97,6 +98,7 @@ export default async function handler(req, res) {
     }
   }
 
+  // Prepare attachments
   const attachments = [];
   if (logoPath) {
     attachments.push({
@@ -107,15 +109,13 @@ export default async function handler(req, res) {
     });
   }
 
-  // NEW DESIGN WITH #9D00FF ACCENT COLOR
+  // Refined Premium UI Template
   const htmlContent = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <meta name="color-scheme" content="light only">
-      <meta name="supported-color-schemes" content="light">
       <title>${subject}</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -123,251 +123,218 @@ export default async function handler(req, res) {
       
       <style type="text/css">
         body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important; }
-        body { 
-          height: 100% !important; 
-          margin: 0 !important; 
-          padding: 0 !important; 
-          width: 100% !important; 
-          background-color: #0A0A0A !important;
-          font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Arial, sans-serif !important;
-        }
-        
-        /* Dark mode override to keep dark background */
-        @media (prefers-color-scheme: dark) {
-          body {
-            background-color: #0A0A0A !important;
-          }
-        }
-        
-        /* Force all text colors */
-        .force-white {
-          color: #ffffff !important;
-        }
-        
-        .force-dark {
-          color: #0A0A0A !important;
-        }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important; border: 0 !important; }
+        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #F8F6FC; }
 
         @media screen and (max-width: 600px) {
           .wrapper-table { width: 100% !important; max-width: 100% !important; }
-          .content-padding { padding: 30px 20px !important; }
-          .card-padding { padding: 20px 16px !important; }
-          .btn-stack { 
-            display: block !important; 
-            width: 100% !important; 
-            margin: 10px 0 !important; 
-            text-align: center !important;
-            box-sizing: border-box !important;
-          }
-          .stack-column { 
-            display: block !important; 
-            width: 100% !important; 
-            text-align: left !important; 
-            padding-left: 0 !important;
-            border-left: none !important;
-          }
-          .budget-text { font-size: 28px !important; }
-          .heading-large { font-size: 18px !important; }
-        }
-        
-        @media screen and (max-width: 380px) {
-          .content-padding { padding: 20px 16px !important; }
-          .card-padding { padding: 16px 12px !important; }
-          .btn-stack { padding: 12px 20px !important; font-size: 13px !important; }
-          .budget-text { font-size: 24px !important; }
+          .card-padding { padding: 30px 20px !important; }
+          .inner-padding { padding: 20px 16px !important; }
+          .btn-block { display: block !important; width: 100% !important; text-align: center !important; }
+          .btn-spacing { padding: 14px 24px !important; display: block !important; margin-bottom: 12px !important; }
+          .btn-spacing-secondary { padding: 14px 24px !important; display: block !important; }
+          .footer-column { display: block !important; width: 100% !important; padding-left: 0 !important; margin-bottom: 24px !important; }
+          .detail-row { display: block !important; width: 100% !important; text-align: left !important; }
+          .detail-val { display: block !important; width: 100% !important; text-align: left !important; padding-top: 4px !important; }
         }
       </style>
     </head>
-    
-    <body style="margin: 0; padding: 30px 0; background-color: #0A0A0A; font-family: 'Montserrat', Arial, sans-serif;">
-      
-      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #0A0A0A;">
+    <body style="margin: 0; padding: 40px 16px; background-color: #F8F6FC; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Arial, sans-serif;">
+
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
-          <td align="center" style="padding: 0 10px;">
+          <td align="center">
             
-            <!-- Main Email Container -->
-            <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="560" style="background-color: #0A0A0A; max-width: 560px; width: 100%;">
+            <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="540" style="background-color: #ffffff; border-radius: 28px; box-shadow: 0px 16px 40px rgba(157, 0, 255, 0.05); width: 100%; max-width: 540px; border-collapse: separate !important; overflow: hidden;">
               
-              <!-- TOP PURPLE ACCENT BANNER - #9D00FF -->
               <tr>
-                <td style="background-color: #9D00FF; padding: 40px 20px 35px 20px; text-align: center; border-radius: 28px 28px 0 0;">
+                <td style="background-color: #9D00FF; padding: 40px 30px; text-align: center;">
                   ${logoPath ? 
-                    `<img src="cid:logo@modularone.com" alt="Modular One" style="height: 48px; width: auto; margin-bottom: 15px;">` : 
-                    `<div style="font-size: 24px; font-weight: 900; color: #ffffff; letter-spacing: 6px; text-transform: uppercase;">
-                      MODULAR ONE
-                    </div>`
+                    `<img src="cid:logo@modularone.com" alt="Modular One" style="height: 48px; width: auto; display: inline-block;">` : 
+                    `<div style="font-size: 22px; font-weight: 900; letter-spacing: 3px; color: #ffffff;">MODULAR ONE</div>`
                   }
-                  <div style="font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); margin-top: 12px; letter-spacing: 1px;">
-                    PREMIUM MODULAR SOLUTIONS
+                  <div style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); margin-top: 10px; letter-spacing: 1.5px; text-transform: uppercase;">
+                    Premium Modular Solutions
                   </div>
                 </td>
               </tr>
 
-              <!-- HERO SECTION -->
               <tr>
-                <td class="content-padding" style="padding: 45px 45px 25px 45px; text-align: center; background-color: #0A0A0A;">
-                  <div style="display: inline-block; background-color: rgba(157, 0, 255, 0.12); padding: 6px 16px; border-radius: 40px; margin-bottom: 20px;">
-                    <span style="font-size: 11px; font-weight: 700; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">
-                      ${isQuote ? 'New Quote Request' : 'New Lead Alert'}
-                    </span>
-                  </div>
-                  <h1 style="margin: 0 0 15px 0; font-size: 28px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">
-                    Client Enquiry
-                  </h1>
-                  <p style="margin: 0; color: #A0A0A0; font-size: 14px; line-height: 1.6; font-weight: 400;">
-                    A new inbound lead has been received from the modular one platform. Review the client specifications below.
-                  </p>
-                </td>
-              </tr>
-
-              <!-- MAIN DETAILS CARD WITH GLASS MORPHISM -->
-              <tr>
-                <td class="content-padding" style="padding: 15px 45px; background-color: #0A0A0A;">
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background: linear-gradient(135deg, #141414 0%, #111111 100%); border: 1px solid rgba(157, 0, 255, 0.2); border-radius: 24px; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);">
+                <td class="card-padding" style="padding: 40px 45px 20px 45px;">
+                  
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: center;">
                     <tr>
-                      <td class="card-padding" style="padding: 28px 30px;">
-                        
-                        <!-- Header with Icon and Date -->
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid rgba(157, 0, 255, 0.2); padding-bottom: 18px; margin-bottom: 22px;">
-                          <tr>
-                            <td>
-                              <span style="font-size: 14px; font-weight: 800; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Client Specifications</span>
-                            </td>
-                            <td align="right">
-                              <span style="font-size: 11px; color: #666666; font-weight: 500;">${new Date().toLocaleDateString('en-IN')}</span>
-                            </td>
-                          </tr>
-                        </table>
-
-                        <!-- Client Details -->
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                          <!-- Name -->
-                          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 12px 0; font-size: 13px; color: #888888; font-weight: 500; width: 130px;">Full Name</td>
-                            <td align="right" style="padding: 12px 0; font-size: 14px; color: #ffffff; font-weight: 700;">${fullName}</td>
-                          </tr>
-                          
-                          <!-- Email -->
-                          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 12px 0; font-size: 13px; color: #888888; font-weight: 500;">Email Address</td>
-                            <td align="right" style="padding: 12px 0; font-size: 13px; color: #9D00FF; font-weight: 500;">
-                              <a href="mailto:${email}" style="color: #9D00FF; text-decoration: none;">${email}</a>
-                            </td>
-                          </tr>
-                          
-                          <!-- Phone -->
-                          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 12px 0; font-size: 13px; color: #888888; font-weight: 500;">Phone Number</td>
-                            <td align="right" style="padding: 12px 0; font-size: 14px; color: #ffffff; font-weight: 600;">${phone}</td>
-                          </tr>
-                          
-                          ${service ? `
-                          <!-- Service Type -->
-                          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td style="padding: 12px 0; font-size: 13px; color: #888888; font-weight: 500;">Service Type</td>
-                            <td align="right" style="padding: 12px 0; font-size: 13px; color: #ffffff; font-weight: 500;">${service}</td>
-                          </tr>
-                          ` : ''}
-                          
-                          ${details ? `
-                          <!-- Project Scope -->
-                          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                            <td valign="top" style="padding: 12px 0; font-size: 13px; color: #888888; font-weight: 500;">Project Scope</td>
-                            <td align="right" style="padding: 12px 0; font-size: 13px; color: #cccccc; line-height: 1.5;">${details}</td>
-                          </tr>
-                          ` : ''}
-                          
-                          <!-- Budget Highlight -->
-                          <tr>
-                            <td style="padding: 18px 0 12px 0; border-top: 1px solid rgba(157, 0, 255, 0.2); font-size: 13px; color: #ffffff; font-weight: 800;">Budget Estimate</td>
-                            <td align="right" style="padding: 18px 0 12px 0; border-top: 1px solid rgba(157, 0, 255, 0.2);">
-                              <span class="budget-text" style="font-size: 22px; font-weight: 900; color: #9D00FF;">
-                                ${budget ? `₹${parseInt(budget).toLocaleString()}` : 'To Be Discussed'}
-                              </span>
-                            </td>
-                          </tr>
-                        </table>
-
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-
-              <!-- CLIENT MESSAGE SECTION -->
-              ${message ? `
-              <tr>
-                <td class="content-padding" style="padding: 25px 45px 15px 45px; background-color: #0A0A0A;">
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                      <td style="padding-bottom: 12px;">
-                        <span style="font-size: 11px; font-weight: 800; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Client Message</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="background-color: #141414; border-radius: 20px; padding: 20px 24px; border-left: 3px solid #9D00FF;">
-                        <p style="margin: 0; font-size: 13px; color: #e0e0e0; line-height: 1.7; font-style: normal;">
-                          "${message.replace(/\n/g, '<br>')}"
+                      <td>
+                        <div style="display: inline-block; background-color: rgba(157, 0, 255, 0.08); padding: 6px 16px; border-radius: 40px; margin-bottom: 16px;">
+                          <span style="font-size: 11px; font-weight: 700; color: #9D00FF; text-transform: uppercase; letter-spacing: 0.5px;">
+                            ${isQuote ? 'New Quote Request' : 'New Lead Alert'}
+                          </span>
+                        </div>
+                        <h1 style="margin: 0 0 10px 0; font-size: 26px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.5px;">
+                          Client Enquiry
+                        </h1>
+                        <p style="margin: 0; color: #666666; font-size: 14px; line-height: 1.5;">
+                          A new inbound lead has been received. Review the client specifications below.
                         </p>
                       </td>
                     </tr>
                   </table>
-                </td>
-              </tr>
-              ` : ''}
 
-              <!-- ACTION BUTTONS - PURPLE THEME -->
-              <tr>
-                <td class="content-padding" style="padding: 20px 45px 40px 45px; background-color: #0A0A0A;">
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 32px; border: 1px solid #EAEAEA; border-radius: 20px; border-collapse: separate !important;">
                     <tr>
-                      <td align="center">
-                        <a href="tel:${phone}" class="btn-stack" style="display: inline-block; background-color: #9D00FF; color: #ffffff; font-weight: 700; text-decoration: none; padding: 14px 32px; font-size: 13px; border-radius: 40px; margin: 0 6px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(157, 0, 255, 0.3);">
-                          Call Client
-                        </a>
-                        <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" class="btn-stack" style="display: inline-block; background-color: transparent; color: #9D00FF; font-weight: 600; text-decoration: none; padding: 13px 32px; font-size: 13px; border-radius: 40px; border: 2px solid #9D00FF; margin: 0 6px; text-transform: uppercase; letter-spacing: 1px;">
-                          WhatsApp
-                        </a>
+                      <td class="inner-padding" style="padding: 24px 28px;">
+                        
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F0F0F0; padding-bottom: 14px; margin-bottom: 14px;">
+                          <tr>
+                            <td class="detail-row" style="font-size: 13px; font-weight: 800; color: #9D00FF; text-transform: uppercase; letter-spacing: 0.5px;">
+                              Client Specifications
+                            </td>
+                            <td class="detail-val" align="right" style="font-size: 12px; color: #999999; font-weight: 500;">
+                              ${new Date().toLocaleDateString('en-IN')}
+                            </td>
+                          </tr>
+                        </table>
+
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F8F8F8; padding: 10px 0;">
+                          <tr>
+                            <td class="detail-row" style="font-size: 13px; color: #777777; font-weight: 500;">Full Name</td>
+                            <td class="detail-val" align="right" style="font-size: 14px; color: #1A1A1A; font-weight: 700;">${fullName}</td>
+                          </tr>
+                        </table>
+
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F8F8F8; padding: 10px 0;">
+                          <tr>
+                            <td class="detail-row" style="font-size: 13px; color: #777777; font-weight: 500;">Email Address</td>
+                            <td class="detail-val" align="right" style="font-size: 13px; font-weight: 600;">
+                              <a href="mailto:${email}" style="color: #9D00FF; text-decoration: none; word-break: break-all;">${email}</a>
+                            </td>
+                          </tr>
+                        </table>
+
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F8F8F8; padding: 10px 0;">
+                          <tr>
+                            <td class="detail-row" style="font-size: 13px; color: #777777; font-weight: 500;">Phone Number</td>
+                            <td class="detail-val" align="right" style="font-size: 14px; color: #1A1A1A; font-weight: 600;">${phone}</td>
+                          </tr>
+                        </table>
+
+                        ${service ? `
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F8F8F8; padding: 10px 0;">
+                          <tr>
+                            <td class="detail-row" style="font-size: 13px; color: #777777; font-weight: 500;">Service Type</td>
+                            <td class="detail-val" align="right" style="font-size: 13px; color: #1A1A1A; font-weight: 600;">${service}</td>
+                          </tr>
+                        </table>
+                        ` : ''}
+
+                        ${details ? `
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F8F8F8; padding: 10px 0;">
+                          <tr>
+                            <td class="detail-row" valign="top" style="font-size: 13px; color: #777777; font-weight: 500; padding-bottom: 4px;">Project Scope</td>
+                            <td class="detail-val" align="right" style="font-size: 13px; color: #555555; font-weight: 500; max-width: 240px;">${details}</td>
+                          </tr>
+                        </table>
+                        ` : ''}
+
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 14px; padding-top: 14px;">
+                          <tr>
+                            <td style="font-size: 13px; font-weight: 800; color: #1A1A1A;">Budget Estimate</td>
+                            <td align="right" style="font-size: 22px; font-weight: 900; color: #9D00FF;">
+                              ${budget ? `₹${parseInt(budget).toLocaleString('en-IN')}` : 'To Be Discussed'}
+                            </td>
+                          </tr>
+                        </table>
+
                       </td>
                     </tr>
                   </table>
+
+                  ${message ? `
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 24px;">
+                    <tr>
+                      <td>
+                        <div style="font-size: 11px; font-weight: 800; color: #9D00FF; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+                          Client Message
+                        </div>
+                        <div style="background-color: #FAF9FD; border-radius: 16px; padding: 18px 22px; border-left: 4px solid #9D00FF;">
+                          <p style="margin: 0; font-size: 13px; color: #444444; line-height: 1.6; font-weight: 500;">
+                            ${message.replace(/\n/g, '<br>')}
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  ` : ''}
+
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 32px; text-align: center;">
+                    <tr>
+                      <td>
+                        <table border="0" cellpadding="0" cellspacing="0" class="btn-block" style="display: inline-block; vertical-align: middle; border-collapse: separate !important;">
+                          <tr>
+                            <td align="center" valign="middle" style="background-color: #9D00FF; border-radius: 40px;">
+                              <a href="tel:${phone}" class="btn-spacing" style="display: inline-block; padding: 14px 36px; font-size: 13px; font-weight: 700; color: #ffffff; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Call Client
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+
+                        <span class="btn-block" style="display: inline-block; width: 12px; height: 10px;"></span>
+
+                        <table border="0" cellpadding="0" cellspacing="0" class="btn-block" style="display: inline-block; vertical-align: middle; border-collapse: separate !important;">
+                          <tr>
+                            <td align="center" valign="middle" style="border: 2px solid #9D00FF; border-radius: 40px; background-color: transparent;">
+                              <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" class="btn-spacing-secondary" style="display: inline-block; padding: 12px 34px; font-size: 13px; font-weight: 700; color: #9D00FF; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px;">
+                                WhatsApp
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+                        
+                        </td>
+                    </tr>
+                  </table>
+
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 36px; margin-bottom: 10px;">
+                    <tr>
+                      <td style="background: linear-gradient(90deg, transparent, #9D00FF, transparent); height: 1px; font-size: 1px; line-height: 1px;">&nbsp;</td>
+                    </tr>
+                  </table>
+
                 </td>
               </tr>
 
-              <!-- DIVIDER -->
               <tr>
-                <td style="padding: 0 45px;">
-                  <div style="height: 1px; background: linear-gradient(90deg, transparent, #9D00FF, transparent);"></div>
-                </td>
-              </tr>
-
-              <!-- FOOTER SECTION -->
-              <tr>
-                <td class="content-padding" style="background: linear-gradient(135deg, #0F0F0F 0%, #0A0A0A 100%); padding: 35px 45px; border-radius: 0 0 28px 28px;">
+                <td class="card-padding" style="padding: 10px 45px 36px 45px;">
                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
-                      <td class="stack-column" valign="top" style="font-size: 12px; line-height: 1.8; padding-bottom: 20px;">
-                        <strong style="font-size: 13px; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Need Help?</strong><br />
-                        <span style="color: #888888;">Contact support team</span><br />
+                      <td class="footer-column" width="50%" valign="top" style="font-size: 12px; line-height: 1.6; font-family: 'Montserrat', Arial, sans-serif;">
+                        <strong style="font-size: 12px; color: #9D00FF; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Need Help?</strong>
+                        <span style="color: #888888; font-weight: 500;">Contact support team</span><br />
                         <a href="mailto:support@modularone.com" style="color: #9D00FF; text-decoration: none; font-weight: 600;">support@modularone.com</a>
                       </td>
-                      <td class="stack-column" valign="top" align="right" style="font-size: 12px; line-height: 1.8; border-left: 1px solid rgba(157, 0, 255, 0.2); padding-left: 25px;">
-                        <strong style="font-size: 13px; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Location</strong><br />
-                        <span style="color: #888888;">Golani Naka, Vasai East<br />Mumbai, Maharashtra - 401208</span>
+                      
+                      <td class="footer-column" width="50%" valign="top" style="padding-left: 20px; font-size: 12px; line-height: 1.6; font-family: 'Montserrat', Arial, sans-serif;">
+                        <strong style="font-size: 12px; color: #9D00FF; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Location</strong>
+                        <span style="color: #888888; font-weight: 500;">Golani Naka, Vasai East<br />Mumbai - 401208</span>
                       </td>
                     </tr>
                   </table>
-                  <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05);">
-                    <span style="font-size: 10px; color: #555555;">Modular One • Premium Modular Solutions • System Generated Email</span>
-                  </div>
+
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 30px; border-top: 1px solid #F0F0F0; padding-top: 20px; text-align: center;">
+                    <tr>
+                      <td style="font-size: 11px; color: #A1A1A1; font-weight: 500; letter-spacing: 0.2px;">
+                        Modular One • Premium Modular Solutions
+                      </td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
 
-            </table>
-          </td>
+            </table> </td>
         </tr>
       </table>
+
     </body>
     </html>
   `;
@@ -379,7 +346,7 @@ export default async function handler(req, res) {
     Name: ${fullName}
     Email: ${email}
     Phone: ${phone}
-    ${budget ? `Budget: ₹${budget}` : ''}
+    ${budget ? `Budget: ₹${parseInt(budget).toLocaleString('en-IN')}` : ''}
     ${service ? `Service: ${service}` : ''}
     ${details ? `Details: ${details}` : ''}
     ${message ? `Message: ${message}` : ''}
