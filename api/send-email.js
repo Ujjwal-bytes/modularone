@@ -104,304 +104,156 @@ export default async function handler(req, res) {
     });
   }
 
-  // Premium White & Luxury Minimal UI
+  // Exact Integrated UI Component Template
   const htmlContent = `
-    <!DOCTYPE html>
-    <html>
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <title>${subject}</title>
-      <style>
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          border-radius: 0 !important;
-        }
-        body {
-          font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-          background-color: #ffffff;
-          color: #000000;
-          padding: 40px 20px;
-          -webkit-font-smoothing: antialiased;
-        }
-        .email-wrapper {
-          width: 100%;
-          max-width: 600px;
-          margin: 0 auto;
-          background: #ffffff;
-          border: 2px solid #000000;
-          padding: 40px;
-        }
-        /* Header Section */
-        .email-header {
-          border-bottom: 2px solid #000000;
-          padding-bottom: 24px;
-          margin-bottom: 24px;
-        }
-        .logo-container {
-          margin-bottom: 16px;
-        }
-        .logo {
-          max-width: 140px;
-          height: auto;
-        }
-        .company-name {
-          font-size: 32px;
-          font-weight: 900;
-          letter-spacing: -1px;
-          color: #000000;
-          text-transform: uppercase;
-          line-height: 1.1;
-        }
-        .company-tagline {
-          font-size: 11px;
-          color: #444444;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          margin-top: 6px;
-          font-weight: 400;
-        }
-        .premium-badge {
-          display: inline-block;
-          border: 1px solid #000000;
-          color: #000000;
-          background: #D4A373;
-          padding: 5px 14px;
-          font-size: 9px;
-          font-weight: 700;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-          margin-top: 16px;
-        }
-        /* Content Mapping */
-        .email-content {
-          margin-bottom: 24px;
-        }
-        .greeting {
-          font-size: 18px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          color: #000000;
-          margin-bottom: 8px;
-        }
-        .greeting-sub {
-          color: #444444;
-          font-size: 13px;
-          line-height: 1.5;
-          margin-bottom: 24px;
-        }
-        /* Data Matrix Box */
-        .info-card {
-          border: 1px solid #000000;
-          background: #ffffff;
-          padding: 24px;
-          margin-bottom: 24px;
-        }
-        .info-title {
-          font-size: 11px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 1.5px;
-          color: #000000;
-          border-left: 4px solid #D4A373;
-          padding-left: 10px;
-          margin-bottom: 16px;
-        }
-        .info-row {
-          display: flex;
-          padding: 10px 0;
-          border-bottom: 1px solid #e5e5e5;
-        }
-        .info-row:last-child {
-          border-bottom: none;
-        }
-        .info-label {
-          width: 130px;
-          font-size: 12px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          color: #000000;
-        }
-        .info-value {
-          flex: 1;
-          font-size: 13px;
-          color: #111111;
-          font-weight: 400;
-        }
-        .info-value a {
-          color: #000000;
-          text-decoration: underline;
-        }
-        /* Clean Message Space */
-        .message-box {
-          background: rgba(212, 163, 115, 0.06);
-          padding: 20px;
-          border-left: 4px solid #D4A373;
-          margin-top: 12px;
-        }
-        .message-text {
-          font-size: 13px;
-          color: #222222;
-          line-height: 1.6;
-        }
-        /* CTA Link Triggers */
-        .action-buttons {
-          margin-top: 32px;
-          padding-top: 24px;
-          border-top: 1px solid #e5e5e5;
-          text-align: center;
-        }
-        .action-btn {
-          display: inline-block;
-          background: #000000;
-          color: #ffffff;
-          text-decoration: none;
-          padding: 12px 22px;
-          margin: 6px;
-          font-size: 11px;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          border: 1px solid #000000;
-          transition: all 0.2s ease;
-        }
-        .action-btn-secondary {
-          background: #ffffff;
-          color: #000000;
-        }
-        /* Footer Protocol */
-        .email-footer {
-          border-top: 2px solid #000000;
-          padding-top: 24px;
-          text-align: center;
-        }
-        .footer-text {
-          font-size: 11px;
-          color: #444444;
-          line-height: 1.6;
-        }
-        .footer-links {
-          margin-top: 12px;
-        }
-        .footer-links a {
-          color: #000000;
-          text-decoration: none;
-          font-size: 11px;
-          font-weight: 600;
-          margin: 0 8px;
-        }
-        @media (max-width: 600px) {
-          .email-wrapper {
-            padding: 20px;
-          }
-          .info-row {
-            flex-direction: column;
-          }
-          .info-label {
-            width: 100%;
-            margin-bottom: 4px;
-          }
-          .action-btn {
-            display: block;
-            margin: 8px 0;
-            text-align: center;
-          }
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+      
+      <style type="text/css">
+        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important; }
+        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #F8F9FA; }
+
+        @media screen and (max-width: 600px) {
+          .wrapper-table { width: 100% !important; max-width: 420px !important; }
+          .card-padding { padding: 24px !important; }
+          .footer-left, .footer-right { display: block !important; width: 100% !important; text-align: left !important; }
+          .footer-right { padding-top: 16px !important; }
+          .btn-block { display: block !important; width: 100% !important; text-align: center !important; }
         }
       </style>
     </head>
-    <body>
-      <div class="email-wrapper">
-        <div class="email-header">
-          <div class="logo-container">
-            ${logoPath ? '<img src="cid:logo@modularone.com" alt="Modular One Logo" class="logo">' : ''}
-          </div>
-          <div class="company-name">MODULAR ONE</div>
-          <div class="company-tagline">Premium Modular Furniture Solutions</div>
-          <div class="premium-badge">${isQuote ? 'Quote Request' : 'New Enquiry'}</div>
-        </div>
+    <body style="margin: 0; padding: 60px 0; background-color: #F8F9FA; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;">
 
-        <div class="email-content">
-          <div class="greeting">System Alert</div>
-          <div class="greeting-sub">An inbound platform form transaction has occurred. Details for individual client <strong>${fullName}</strong> have been cataloged below.</div>
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+          <td align="center" style="padding: 0 15px;">
+            
+            <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="460" style="background-color: #ffffff; border-radius: 32px; box-shadow: 0px 16px 48px rgba(0, 0, 0, 0.04); border: 1px solid #EAEAEF;">
+              <tr>
+                <td class="card-padding" style="padding: 36px;">
+                  
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td valign="middle">
+                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate !important;">
+                          <tr>
+                            <td align="center" valign="middle" width="48" height="48" style="background-color: #F8F9FA; border: 1px solid #EAEAEF; border-radius: 50%; font-size: 16px; font-weight: 800; color: #111111;">
+                              ${logoPath ? `<img src="cid:logo@modularone.com" alt="M1" style="max-width: 32px; max-height: 32px; display: block;">` : 'M1'}
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td align="right" valign="top">
+                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate !important;">
+                          <tr>
+                            <td style="background-color: #ECECEF; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; color: #4A4A52; letter-spacing: 0.2px;">
+                              ${isQuote ? 'Quote Request' : 'New Request'}
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
 
-          <div class="info-card">
-            <div class="info-title">Client Specifications</div>
-            
-            <div class="info-row">
-              <div class="info-label">Full Name</div>
-              <div class="info-value">${fullName}</div>
-            </div>
-            
-            <div class="info-row">
-              <div class="info-label">Email Address</div>
-              <div class="info-value">
-                <a href="mailto:${email}">${email}</a>
-              </div>
-            </div>
-            
-            <div class="info-row">
-              <div class="info-label">Phone Number</div>
-              <div class="info-value">
-                <a href="tel:${phone}">${phone}</a>
-              </div>
-            </div>
-            
-            ${budget ? `
-            <div class="info-row">
-              <div class="info-label">Budget Range</div>
-              <div class="info-value">₹${budget}</div>
-            </div>
-            ` : ''}
-            
-            ${service ? `
-            <div class="info-row">
-              <div class="info-label">Service Type</div>
-              <div class="info-value">${service}</div>
-            </div>
-            ` : ''}
-            
-            ${details ? `
-            <div class="info-row">
-              <div class="info-label">Project Scope</div>
-              <div class="info-value">${details}</div>
-            </div>
-            ` : ''}
-          </div>
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 24px;">
+                    <tr>
+                      <td>
+                        <div style="font-size: 13px; font-weight: 600; color: #6C6C78; margin-bottom: 4px;">
+                          Modular One <span style="font-weight: 400; color: #A1A1AA; margin-left: 4px;">• Inbound</span>
+                        </div>
+                        <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: #111111; letter-spacing: -0.5px;">
+                          ${service ? service : 'General Consultation'}
+                        </h2>
+                        <div style="font-size: 13px; font-weight: 500; color: #4A4A52; margin-top: 6px; line-height: 1.4;">
+                          Client: <span style="font-weight: 700; color: #111111;">${fullName}</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
 
-          ${message ? `
-          <div class="info-title">Client Statement</div>
-          <div class="message-box">
-            <p class="message-text">${message.replace(/\n/g, '<br>')}</p>
-          </div>
-          ` : ''}
+                  ${details ? `
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 16px;">
+                    <tr>
+                      <td style="font-size: 0; line-height: 0;">
+                        <div style="display: inline-block; background-color: #F1F1F4; padding: 6px 14px; border-radius: 10px; font-size: 12px; font-weight: 500; color: #2D2D35; margin-right: 8px; margin-bottom: 8px;">
+                          ${details}
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                  ` : ''}
 
-          <div class="action-buttons">
-            <a href="tel:${phone}" class="action-btn">Call Client</a>
-            <a href="https://wa.me/${phone}" class="action-btn action-btn-secondary">WhatsApp</a>
-            <a href="mailto:${email}" class="action-btn action-btn-secondary">Email Response</a>
-          </div>
-        </div>
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 8px;">
+                    <tr>
+                      <td style="font-size: 13px; color: #4A4A52; padding: 2px 0;">
+                        <span style="font-weight: 600; color: #111111;">Email:</span> <a href="mailto:${email}" style="color: #6C6C78; text-decoration: none;">${email}</a>
+                      </td>
+                    </tr>
+                  </table>
 
-        <div class="email-footer">
-          <div class="footer-text">
-            <strong>Modular One HQ</strong><br>
-            Golani Naka, Vasai East, Vasai-Virar<br>
-            Maharashtra - 401208
-          </div>
-          <div class="footer-links">
-            <a href="https://modularone.vercel.app">Website</a> •
-            <a href="https://instagram.com">Instagram</a> •
-            <a href="https://facebook.com">Facebook</a>
-          </div>
-          <div class="footer-text" style="margin-top: 16px; font-size: 10px; opacity: 0.6;">
-            Automated internal transaction transmission routing. Please handle within regular service window matrices.
-          </div>
-        </div>
-      </div>
+                  ${message ? `
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 12px; margin-bottom: 12px;">
+                    <tr>
+                      <td style="font-size: 13px; color: #6C6C78; line-height: 1.5; font-weight: 400;">
+                        ${message.replace(/\n/g, '<br>')}
+                      </td>
+                    </tr>
+                  </table>
+                  ` : ''}
+
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px; margin-bottom: 24px;">
+                    <tr>
+                      <td style="border-top: 1px solid #EAEAEF; font-size: 1px; line-height: 1px;">&nbsp;</td>
+                    </tr>
+                  </table>
+
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr>
+                      <td class="footer-left" valign="middle">
+                        <div style="font-size: 20px; font-weight: 700; color: #111111; letter-spacing: -0.5px;">
+                          ${budget ? `₹${budget}` : 'Contact Matrix'}
+                        </div>
+                        <div style="font-size: 12px; color: #A1A1AA; font-weight: 500; margin-top: 2px;">
+                          Vasai, Mumbai
+                        </div>
+                      </td>
+                      
+                      <td class="footer-right" align="right" valign="middle">
+                        <table border="0" cellpadding="0" cellspacing="0" class="btn-block" style="border-collapse: separate !important;">
+                          <tr>
+                            <td align="center" valign="middle" style="background-color: #111111; border-radius: 12px;">
+                              <a href="tel:${phone}" class="btn-block" style="display: inline-block; padding: 12px 24px; font-size: 13px; font-weight: 600; color: #ffffff; text-decoration: none; letter-spacing: -0.1px;">
+                                Review Lead
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+
+                </td>
+              </tr>
+            </table> <table border="0" cellpadding="0" cellspacing="0" width="460" style="margin-top: 24px; text-align: center;">
+              <tr>
+                <td style="font-size: 12px; color: #A1A1AA; font-weight: 400;">
+                  Internal Distribution • <a href="https://modularone.vercel.app" style="color: #6C6C78; text-decoration: none; font-weight: 500;">System Router</a>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+      </table>
+
     </body>
     </html>
   `;
