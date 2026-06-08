@@ -80,10 +80,10 @@ export default async function handler(req, res) {
   // Check if logo exists in public folder
   let logoPath = null;
   const possiblePaths = [
-    path.join(process.cwd(), 'public', 'logo.png'),
-    path.join(process.cwd(), 'public', 'logo.webp'),
-    path.join(process.cwd(), 'public', 'modularone-logo.png'),
-    path.join(process.cwd(), 'src', 'assets', 'logo.png'),
+    path.join(process.cwd(), 'public', 'logoss.png'),
+    path.join(process.cwd(), 'public', 'logoss.webp'),
+    path.join(process.cwd(), 'public', 'modularone-logoss.png'),
+    path.join(process.cwd(), 'src', 'assets', 'logoss.png'),
   ];
 
   for (const p of possiblePaths) {
