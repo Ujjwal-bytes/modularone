@@ -5,6 +5,7 @@
   "installCommand": "npm install",
   "framework": "vite",
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/send-email.js" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

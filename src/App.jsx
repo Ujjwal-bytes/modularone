@@ -34,7 +34,7 @@ export default function App() {
           reducedMotion="user"
         >
           <HelmetProvider>
-            <BrowserRouter>
+            <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
               <Layout>
                 <Suspense fallback={<PageLoader />}>
                   <Routes>

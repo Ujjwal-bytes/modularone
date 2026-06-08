@@ -260,12 +260,7 @@ export default React.memo(function Home() {
       </Helmet>
 
       {/* Animated Marquee Hero Section */}
-      <AnimatedMarqueeHero
-        tagline="Premium Modular Furniture"
-        title="Crafting Dreams Into Reality"
-        description="Experience the perfect blend of luxury, functionality, and craftsmanship with our premium modular furniture solutions. Transform your space into a masterpiece."
-        ctaText="Explore Collection"
-      />
+      <AnimatedMarqueeHero/>
 
 
       {/* Featured Categories / Collections */}
@@ -318,9 +313,9 @@ export default React.memo(function Home() {
             viewport={{ once: true }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
           >
-            {categories.map((category) => (
+            {categories.map((category, index) => (
               <motion.div key={category.id} variants={staggerItem}>
-                <CategoryCard category={category} />
+                <CategoryCard category={category} index={index} />
               </motion.div>
             ))}
           </motion.div>

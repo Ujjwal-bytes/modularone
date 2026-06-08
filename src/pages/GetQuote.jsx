@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import emailjs from 'emailjs-com';
 import { ArrowRight, Sliders, Layout, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
 
 export default function GetQuote() {
@@ -26,22 +25,24 @@ export default function GetQuote() {
     setStatus('submitting');
     
     try {
-      // Use the same VITE_ environment variables or direct IDs
-      const SERVICE_ID = 'service_your_id';
-      const TEMPLATE_ID = 'template_your_id';
-      const PUBLIC_KEY = 'your_public_key';
+      const response = await fetch('http://localhost:5000/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          fullName: formData.name, // Mapping 'name' to 'fullName' for the API
+          type: 'quote'
+        }),
+      });
 
-      await emailjs.sendForm(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        formRef.current,
-        PUBLIC_KEY
-      );
+      if (!response.ok) throw new Error('Failed to send email');
 
       setStatus('success');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) {
-      console.error('EmailJS Error:', error);
+      console.error('Submission Error:', error);
       setStatus('error');
       setTimeout(() => setStatus('idle'), 5000);
     }

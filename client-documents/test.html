@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modular One - Complete Product Catalog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f1f5f9;
+            padding: 40px 20px;
+            color: #0f172a;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #e2e8f0;
+            overflow-x: auto;
+        }
+
+        .header {
+            background: #0f172a;
+            color: white;
+            padding: 30px 24px;
+            border-bottom: 3px solid #c9a03d;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #c9a03d;
+            color: #0f172a;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 16px;
+            padding: 24px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 100px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            padding: 16px 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 6px;
+        }
+
+        .stat-card.highlight {
+            border-left: 3px solid #c9a03d;
+        }
+
+        .category-summary {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 16px 24px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cat-badge {
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .cat-kitchen { background: #fef3c7; color: #92400e; }
+        .cat-wardrobe { background: #e0f2fe; color: #075985; }
+        .cat-living { background: #dcfce7; color: #166534; }
+        .cat-office { background: #fce7f3; color: #9d174d; }
+        .cat-bedroom { background: #e9d5ff; color: #6b21a5; }
+        .cat-doors { background: #fed7aa; color: #9a3412; }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .product-table th {
+            background: #1e293b;
+            color: white;
+            padding: 14px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+        }
+
+        .product-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .product-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .category-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-badge::before {
+            content: "●";
+            font-size: 8px;
+        }
+
+        .status-badge.in-stock {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .price-cell {
+            font-weight: 600;
+            color: #c9a03d;
+        }
+
+        .product-id {
+            font-family: monospace;
+            font-weight: 600;
+            color: #c9a03d;
+            background: #fef3c7;
+            padding: 2px 6px;
+            font-size: 11px;
+            display: inline-block;
+        }
+
+        .product-name {
+            font-weight: 500;
+            max-width: 250px;
+        }
+
+        .subcategory-text {
+            font-size: 11px;
+            color: #64748b;
+            max-width: 180px;
+        }
+
+        .footer {
+            background: #f8fafc;
+            padding: 20px 24px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .footer strong {
+            color: #c9a03d;
+        }
+
+        .note-box {
+            background: #fef3c7;
+            border-left: 3px solid #c9a03d;
+            padding: 16px 20px;
+            margin: 16px 24px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+            .product-table th,
+            .product-table td {
+                padding: 8px;
+                font-size: 11px;
+            }
+            .stat-number {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="badge">📋 Complete Product Catalog</div>
+            <h1>Modular One - Complete Product List</h1>
+            <p>Total 54+ products across 5 categories. Temporary Unsplash images used for preview. Actual product images needed from client.</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number">54</div>
+                <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-card highlight">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Sub Categories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">54</div>
+                <div class="stat-label">Images Needed</div>
+            </div>
+        </div>
+
+        <div class="category-summary">
+            <span class="cat-badge cat-kitchen">🍽️ Kitchen (11)</span>
+            <span class="cat-badge cat-wardrobe">👔 Wardrobe (11)</span>
+            <span class="cat-badge cat-living">🛋️ Living Room (11)</span>
+            <span class="cat-badge cat-office">💼 Office (11)</span>
+            <span class="cat-badge cat-bedroom">🛏️ Bedroom (10)</span>
+        </div>
+
+        <div class="note-box">
+            <strong>📸 Note:</strong> All product images are currently temporary Unsplash placeholders for preview only. 
+            Please provide actual high-resolution product images for all 54 items. Naming format: product-id.jpg (e.g., k1.jpg, w11.jpg, l21.jpg, o31.jpg, b41.jpg)
+        </div>
+
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product Name / Title</th>
+                    <th>Category</th>
+                    <th>Sub Category</th>
+                    <th>Price Range</th>
+                    <th>Image Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- KITCHEN PRODUCTS (k1 to k10, k51) -->
+                <tr><td class="product-id">k1</td><td class="product-name">Bespoke Culinary Space Planning</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">Kitchen Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">k2</td><td class="product-name">Integrated Modular Infrastructure</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">Modular Kitchen Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">k3</td><td class="product-name">Premium Acrylic Pull-Out Carcasses</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">Modular Kitchen Cabinets</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">k4</td><td class="product-name">Natural Teak Architectural Kitchen</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">Wooden Modular Kitchen</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">k5</td><td class="product-name">Ergonomic L-Configuration System</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">L Shaped Modular Kitchen</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">k6</td><td class="product-name">Anti-Corrosive Termite-Proof UPVC Line</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">UPVC Modular Kitchen</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">k7</td><td class="product-name">High-Pressure Matte Suede Laminates</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">Laminated Modular Kitchen</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">k8</td><td class="product-name">Turnkey Culinary Structural Overhaul</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">Kitchen Remodeling Services</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">k9</td><td class="product-name">Fluted Glass Upper Showcase Units</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">Modular Kitchen Cabinets</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">k10</td><td class="product-name">Urban Compact L-System Matrix</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">L Shaped Modular Kitchen</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">k51</td><td class="product-name">Island Kitchen Core Space Architecture</td><td><span class="category-tag cat-kitchen">Kitchen</span></td><td class="subcategory-text">Kitchen Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+
+                <!-- WARDROBE PRODUCTS (w11 to w20, w52) -->
+                <tr><td class="product-id">w11</td><td class="product-name">Bespoke Master Suite Wardrobe Blueprint</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">w12</td><td class="product-name">Flush In-Line Sliding System</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Sliding Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">w13</td><td class="product-name">Floor-to-Ceiling Contemporary Hinged Line</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Openable Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">w14</td><td class="product-name">Tinted Glass Sliding Wardrobe Console</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Sliding Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">w15</td><td class="product-name">Classic Matte Lacquer Shaker System</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Openable Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">w16</td><td class="product-name">Walk-In Dressing Suite Architecture</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">w17</td><td class="product-name">Textured Leatherette Face Sliding System</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Sliding Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">w18</td><td class="product-name">Minimalist High-Gloss Monochrome Line</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Openable Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">w19</td><td class="product-name">Attic Sloped Corner Custom Wardrobe</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">w20</td><td class="product-name">Dual-Tone Charcoal & Oak Track Unit</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Sliding Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">w52</td><td class="product-name">Multi-Generational Master Wardrobe Planning</td><td><span class="category-tag cat-wardrobe">Wardrobe</span></td><td class="subcategory-text">Wardrobe Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+
+                <!-- LIVING ROOM PRODUCTS (l21 to l30, l53) -->
+                <tr><td class="product-id">l21</td><td class="product-name">Full Lounge Concept Master Planning</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Living Room Interior Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">l22</td><td class="product-name">Floating Low-Profile Media Console</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Living Room Interior</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">l23</td><td class="product-name">Bespoke Oversized Pivot Entry Door</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Door Design Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">l24</td><td class="product-name">Solid Burma Teak Internal Doorways</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Wooden Door Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">l25</td><td class="product-name">Urban Apartment Open-Plan Remodel</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Flat Interior Designing</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">l26</td><td class="product-name">Acoustic Wall Panel Panelization</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Living Room Interior Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">l27</td><td class="product-name">Seamless Quartzite Mantel Feature Wall</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Living Room Interior</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">l28</td><td class="product-name">Minimal Frameless In-Wall Flush Doors</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Door Design Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">l29</td><td class="product-name">CNC-Routed Modern Geometrical Shutter</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Wooden Door Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">l30</td><td class="product-name">Duplex Core Premium Lounge Redesign</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Flat Interior Designing</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">l53</td><td class="product-name">Suspended Architectural Linear Shelf</td><td><span class="category-tag cat-living">Living Room</span></td><td class="subcategory-text">Living Room Interior</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+
+                <!-- OFFICE PRODUCTS (o31 to o40, o54) -->
+                <tr><td class="product-id">o31</td><td class="product-name">Corporate Master Layout Infrastructure</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Office Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">o32</td><td class="product-name">Ergonomic Sit-to-Stand Executive Desking</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Office Furniture Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">o33</td><td class="product-name">Four-Way Modular Cluster Workstations</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Office Workstation Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">o34</td><td class="product-name">Minimal Commercial Reception Lobby</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Corporate Interior Designing</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">o35</td><td class="product-name">Acoustic-Treated High-Tech Boardroom</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Conference Room Designing</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">o36</td><td class="product-name">Bespoke Collaborative Breakout Hubs</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Office Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">o37</td><td class="product-name">Modular Storage Filing Architecture</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Office Furniture Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">o38</td><td class="product-name">Linear Coding Desk System Matrix</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Office Workstation Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">o39</td><td class="product-name">Executive Suite Private Office</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Corporate Interior Designing</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">o40</td><td class="product-name">Compact Huddle Room Spatial Planning</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Conference Room Designing</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">o54</td><td class="product-name">Acoustic Privacy Telephone Pods</td><td><span class="category-tag cat-office">Office</span></td><td class="subcategory-text">Office Furniture Designing Service</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+
+                <!-- BEDROOM PRODUCTS (b41 to b50) -->
+                <tr><td class="product-id">b41</td><td class="product-name">Minimalist Master Suite Layout Scheme</td><td><span class="category-tag cat-bedroom">Bedroom</span></td><td class="subcategory-text">Bedroom Interior Designing</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">b42</td><td class="product-name">Low-Slung White Oak Bed Base</td><td><span class="category-tag cat-bedroom">Bedroom</span></td><td class="subcategory-text">Wooden Bed</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">b43</td><td class="product-name">Premium Winged Fabric Headboard Bed</td><td><span class="category-tag cat-bedroom">Bedroom</span></td><td class="subcategory-text">Wooden King Size Bed</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">b44</td><td class="product-name">Guest Suite Dual-Zone Spatial Layout</td><td><span class="category-tag cat-bedroom">Bedroom</span></td><td class="subcategory-text">Bedroom Interior Designing</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">b45</td><td class="product-name">Walnut Platform Floating Bed</td><td><span class="category-tag cat-bedroom">Bedroom</span></td><td class="subcategory-text">Wooden Bed</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">b46</td><td class="product-name">Hydraulic Storage Lift King Platform</td><td><span class="category-tag cat-bedroom">Bedroom</span></td><td class="subcategory-text">Wooden King Size Bed</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">b47</td><td class="product-name">Junior Suite Modular Spatial Blueprint</td><td><span class="category-tag cat-bedroom">Bedroom</span></td><td class="subcategory-text">Bedroom Interior Designing</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">b48</td><td class="product-name">Spindle-Back Ash Hardwood Frame Bed</td><td><span class="category-tag cat-bedroom">Bedroom</span></td><td class="subcategory-text">Wooden Bed</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">b49</td><td class="product-name">Monolithic Micro-Cement Paneled King</td><td><span class="category-tag cat-bedroom">Bedroom</span></td><td class="subcategory-text">Wooden King Size Bed</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+                <tr><td class="product-id">b50</td><td class="product-name">Attic Master Loft Bedroom Conversion</td><td><span class="category-tag cat-bedroom">Bedroom</span></td><td class="subcategory-text">Bedroom Interior Designing</td><td class="price-cell">Custom Quote</td><td><span class="status-badge">Image Needed</span></td></tr>
+            </tbody>
+        </table>
+
+        <div class="footer">
+            <p><strong>📸 Total: 54 products | 54 images needed</strong></p>
+            <p style="font-size: 11px; margin-top: 10px;">📧 Please provide high-resolution product images (minimum 800x600px)</p>
+            <p style="font-size: 11px;">📛 Naming format: product-id.jpg (e.g., k1.jpg, w11.jpg, l21.jpg, o31.jpg, b41.jpg)</p>
+            <p style="font-size: 11px;">⚠️ Current images are temporary Unsplash placeholders for preview only</p>
+            <p style="font-size: 11px; margin-top: 8px;">✨ All products can be customized | Premium hardware (Blum/Hettich) | Installation included</p>
+        </div>
+    </div>
+</body>
+</html>

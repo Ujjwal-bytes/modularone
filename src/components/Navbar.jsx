@@ -173,7 +173,7 @@ export default function Navbar() {
                                     height="56"
                                     className="h-10 md:h-14 w-auto object-contain transition-all duration-300 group-hover:scale-105"
                                     loading="eager"
-                                    fetchPriority="high"
+                                    fetchpriority="high"
                                     onError={(e) => {
                                         e.target.style.display = 'none';
                                         const fallback = e.target.nextSibling;

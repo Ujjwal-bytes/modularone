@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import emailjs from 'emailjs-com';
 import { 
   Phone, Mail, MapPin, Clock, MessageCircle, Upload, 
   Send, CheckCircle, X, Building, Calendar, 
@@ -43,22 +42,22 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      // NOTE: Replace these with your actual EmailJS credentials
-      // You can get them at https://dashboard.emailjs.com/
-      const SERVICE_ID = 'service_your_id';
-      const TEMPLATE_ID = 'template_your_id';
-      const PUBLIC_KEY = 'your_public_key';
+      const response = await fetch('http://localhost:5000/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          type: 'contact'
+        }),
+      });
 
-      await emailjs.sendForm(
-        SERVICE_ID,
-        TEMPLATE_ID,
-        formRef.current,
-        PUBLIC_KEY
-      );
+      if (!response.ok) throw new Error('Failed to send email');
 
       setSubmitted(true);
     } catch (error) {
-      console.error('EmailJS Error:', error);
+      console.error('Submission Error:', error);
       alert('Failed to send message. Please try again or contact us via WhatsApp.');
     } finally {
       setIsSubmitting(false);
