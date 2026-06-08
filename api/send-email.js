@@ -104,7 +104,7 @@ export default async function handler(req, res) {
     });
   }
 
-  // Integrated Template with Light Purple Card Background
+  // Integrated Template with Light Purple Card Background & Montserrat Font
   const htmlContent = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -114,7 +114,7 @@ export default async function handler(req, res) {
       <title>${subject}</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
       
       <style type="text/css">
         body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
@@ -127,13 +127,13 @@ export default async function handler(req, res) {
           .header-left, .header-right { display: block !important; width: 100% !important; text-align: left !important; }
           .header-right { padding-top: 14px !important; }
           .footer-left, .footer-right { display: block !important; width: 100% !important; text-align: left !important; }
-          .footer-right { padding-top: 24px !important; }
+          .footer-right { padding-top: 28px !important; }
           .btn-block { display: block !important; width: 100% !important; text-align: center !important; }
-          .btn-spacing { padding: 14px 32px !important; font-size: 14px !important; }
+          .btn-spacing { padding: 16px 24px !important; font-size: 14px !important; display: block !important; line-height: 1.4 !important; }
         }
       </style>
     </head>
-    <body style="margin: 0; padding: 40px 0; background-color: #ffffff; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;">
+    <body style="margin: 0; padding: 40px 0; background-color: #ffffff; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Arial, sans-serif;">
 
       <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
@@ -169,7 +169,7 @@ export default async function handler(req, res) {
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 24px;">
                     <tr>
                       <td>
-                        <div style="font-size: 13px; font-weight: 600; color: #665E73; margin-bottom: 6px;">
+                        <div style="font-size: 12px; font-weight: 600; color: #665E73; margin-bottom: 6px; letter-spacing: 0.3px;">
                           Modular One <span style="font-weight: 400; color: #9A91A7; margin-left: 4px;">• Inbound</span>
                         </div>
                         <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: #111111; letter-spacing: -0.5px; line-height: 1.3;">
@@ -233,7 +233,7 @@ export default async function handler(req, res) {
                         <table border="0" cellpadding="0" cellspacing="0" class="btn-block" style="border-collapse: separate !important; width: auto;">
                           <tr>
                             <td align="center" valign="middle" style="background-color: #111111; border-radius: 12px;">
-                              <a href="tel:${phone}" class="btn-block btn-spacing" style="display: inline-block; padding: 12px 28px; font-size: 13px; font-weight: 600; color: #ffffff; text-decoration: none; letter-spacing: -0.1px; min-width: 120px;">
+                              <a href="tel:${phone}" class="btn-block btn-spacing" style="display: inline-block; padding: 14px 28px; font-size: 13px; font-weight: 600; color: #ffffff; text-decoration: none; letter-spacing: -0.1px; min-width: 120px; line-height: 1;">
                                 Review Lead
                               </a>
                             </td>
@@ -245,7 +245,9 @@ export default async function handler(req, res) {
 
                 </td>
               </tr>
-            </table> <table border="0" cellpadding="0" cellspacing="0" width="460" style="margin-top: 24px; text-align: center; width: 100%; max-width: 460px;">
+            </table>
+
+            <table border="0" cellpadding="0" cellspacing="0" width="460" style="margin-top: 24px; text-align: center; width: 100%; max-width: 460px;">
               <tr>
                 <td style="font-size: 12px; color: #9A91A7; font-weight: 400;">
                   Internal Distribution • <a href="https://modularone.vercel.app" style="color: #665E73; text-decoration: none; font-weight: 500;">System Router</a>
