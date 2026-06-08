@@ -269,12 +269,14 @@ export default function Footer() {
           <div className="flex items-center gap-8">
             <div className="flex gap-4">
               {[
-                { icon: Instagram, href: "#", label: "Instagram" },
-                { icon: Facebook, href: "#", label: "Facebook" }
+                { icon: Instagram, href: "https://instagram.com", label: "Follow us on Instagram" },
+                { icon: Facebook, href: "https://facebook.com", label: "Follow us on Facebook" }
               ].map((social, idx) => (
                 <motion.a
                   key={idx}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={social.label}
                   variants={socialVariants}
                   initial="initial"

@@ -52,6 +52,7 @@ export default function Products() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
     category: [],
+    subcategory: [],
     material: [],
     finish: [],
   });
@@ -70,10 +71,18 @@ export default function Products() {
   // Unified callback capturing input mutations from our sidebar checkboxes and radios
   const handleFilterChange = useCallback((filterType, value, isChecked) => {
     setFilters(prev => {
-      if (filterType === 'category' || filterType === 'material' || filterType === 'finish') {
+      if (filterType === 'category' || filterType === 'subcategory' || filterType === 'material' || filterType === 'finish') {
         if (isChecked) {
           return { ...prev, [filterType]: [...(prev[filterType] || []), value] };
         } else {
+          // If clearing a category, also clear its subcategories (optional but good UX)
+          if (filterType === 'category') {
+            return { 
+              ...prev, 
+              category: prev.category.filter(item => item !== value),
+              subcategory: [] // Clear all subcats for simplicity or you could filter by category
+            };
+          }
           return { ...prev, [filterType]: (prev[filterType] || []).filter(item => item !== value) };
         }
       }
@@ -85,6 +94,7 @@ export default function Products() {
   const handleClearFilters = useCallback(() => {
     setFilters({
       category: [],
+      subcategory: [],
       material: [],
       finish: [],
     });
@@ -107,6 +117,11 @@ export default function Products() {
 
       // 2. Category Collection Array Matching
       if (filters.category?.length > 0 && !filters.category.includes(product.category)) {
+        return false;
+      }
+
+      // 2b. Subcategory Matching
+      if (filters.subcategory?.length > 0 && !filters.subcategory.includes(product.subcategory)) {
         return false;
       }
 
@@ -135,8 +150,24 @@ export default function Products() {
       className="bg-white min-h-screen"
     >
       <Helmet>
-        <title>Products | Modular One - Premium Modular Solutions</title>
-        <meta name="description" content="Browse our complete collection of premium modular kitchens, wardrobes, office interiors, and more." />
+        <title>Shop Premium Modular Furniture | Products | Modular One</title>
+        <meta name="description" content="Explore our extensive collection of high-end modular kitchens, signature wardrobes, and corporate office furniture. Custom-made solutions for modern Indian homes." />
+        <meta name="keywords" content="modular kitchen catalog, wardrobe designs, office furniture India, premium furniture shop" />
+        <link rel="canonical" href="https://modularone.in/products" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://modularone.in/products" />
+        <meta property="og:title" content="Shop Premium Modular Furniture | Products | Modular One" />
+        <meta property="og:description" content="Explore our extensive collection of high-end modular kitchens, signature wardrobes, and corporate office furniture." />
+        <meta property="og:image" content="https://modularone.in/og-products.jpg" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://modularone.in/products" />
+        <meta name="twitter:title" content="Shop Premium Modular Furniture | Products | Modular One" />
+        <meta name="twitter:description" content="Explore our extensive collection of high-end modular kitchens, signature wardrobes, and corporate office furniture." />
+        <meta name="twitter:image" content="https://modularone.in/og-products.jpg" />
       </Helmet>
 
       {/* Main Products Section */}
@@ -202,6 +233,7 @@ export default function Products() {
               onClearFilters={handleClearFilters}
               filteredCount={filteredProducts.length}
               isProductsSectionVisible={isProductsSectionVisible}
+              products={products}
             />
           </motion.div>
 

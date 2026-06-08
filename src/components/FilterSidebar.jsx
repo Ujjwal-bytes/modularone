@@ -5,11 +5,12 @@ import { createPortal } from 'react-dom';
 import { categories, materials, finishes } from '../data/products';
 
 const FilterSidebar = ({
-  filters = { category: [], material: [], finish: [] },
+  filters = { category: [], subcategory: [], material: [], finish: [] },
   onFilterChange,
   onClearFilters,
   filteredCount = 0,
-  isProductsSectionVisible = false
+  isProductsSectionVisible = false,
+  products = [] // Add products prop to check stock
 }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -49,14 +50,15 @@ const FilterSidebar = ({
 
   const hasActiveFilters = useMemo(() =>
     (filters.category?.length > 0) ||
+    (filters.subcategory?.length > 0) ||
     (filters.material?.length > 0) ||
     (filters.finish?.length > 0),
-    [filters.category, filters.material, filters.finish]
+    [filters.category, filters.subcategory, filters.material, filters.finish]
   );
 
   const totalActiveCount = useMemo(() =>
-    (filters.category?.length || 0) + (filters.material?.length || 0) + (filters.finish?.length || 0),
-    [filters.category, filters.material, filters.finish]
+    (filters.category?.length || 0) + (filters.subcategory?.length || 0) + (filters.material?.length || 0) + (filters.finish?.length || 0),
+    [filters.category, filters.subcategory, filters.material, filters.finish]
   );
 
   const handleClearAll = useCallback(() => {
@@ -130,31 +132,72 @@ const FilterSidebar = ({
           {categories.map((category) => {
             const isChecked = filters.category?.includes(category.id);
             return (
-              <motion.button
-                key={category.id}
-                variants={staggerItem}
-                onClick={() => onFilterChange('category', category.id, !isChecked)}
-                className={`relative flex items-center justify-between px-4 py-3 rounded-xl border transition-all duration-300 overflow-hidden ${isChecked
-                    ? 'bg-[#1A2A4F] border-[#1A2A4F] text-white shadow-lg'
-                    : 'bg-gray-50 border-transparent text-gray-600 hover:border-gray-200 hover:bg-white'
-                  }`}
-                whileHover={{ scale: 1.02, x: 3 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span className="text-xs font-bold z-10">{category.name}</span>
-                <span className={`text-[10px] font-black z-10 ${isChecked ? 'text-white/60' : 'text-gray-400'}`}>
-                  {category.count}
-                </span>
-                {isChecked && (
-                  <motion.div
-                    layoutId={`active-bg-${category.id}`}
-                    className="absolute inset-0 bg-gradient-to-r from-[#1A2A4F] to-[#2A3D6B]"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                )}
-              </motion.button>
+              <div key={category.id} className="space-y-2">
+                <motion.button
+                  variants={staggerItem}
+                  onClick={() => onFilterChange('category', category.id, !isChecked)}
+                  className={`relative flex items-center justify-between px-4 py-3 rounded-xl border transition-all duration-300 overflow-hidden w-full ${isChecked
+                      ? 'bg-[#1A2A4F] border-[#1A2A4F] text-white shadow-lg'
+                      : 'bg-gray-50 border-transparent text-gray-600 hover:border-gray-200 hover:bg-white'
+                    }`}
+                  whileHover={{ scale: 1.02, x: 3 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="text-xs font-bold z-10">{category.name}</span>
+                  <span className={`text-[10px] font-black z-10 ${isChecked ? 'text-white/60' : 'text-gray-400'}`}>
+                    {category.count}
+                  </span>
+                  {isChecked && (
+                    <motion.div
+                      layoutId={`active-bg-${category.id}`}
+                      className="absolute inset-0 bg-gradient-to-r from-[#1A2A4F] to-[#2A3D6B]"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </motion.button>
+
+                {/* Subcategories - Conditional Rendering */}
+                <AnimatePresence>
+                  {isChecked && category.subcategories && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden pl-4 space-y-1"
+                    >
+                      <div className="border-l-2 border-[#C9A03D]/20 space-y-1 py-1">
+                        {category.subcategories
+                          .filter(sub => products.some(p => 
+                            p.category === category.id && 
+                            p.subcategory === sub.id && 
+                            p.inStock !== false
+                          ))
+                          .map((sub) => {
+                            const isSubChecked = filters.subcategory?.includes(sub.id);
+                            return (
+                              <motion.button
+                                key={sub.id}
+                                initial={{ x: -10, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                onClick={() => onFilterChange('subcategory', sub.id, !isSubChecked)}
+                                className={`flex items-center gap-2 w-full px-3 py-2 rounded-lg text-[10px] font-bold transition-all ${isSubChecked
+                                    ? 'text-[#C9A03D] bg-[#C9A03D]/5'
+                                    : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
+                                  }`}
+                              >
+                                <div className={`w-1 h-1 rounded-full transition-all ${isSubChecked ? 'bg-[#C9A03D] scale-150' : 'bg-gray-300'}`} />
+                                <span className="flex-1 text-left">{sub.name}</span>
+                              </motion.button>
+                            );
+                          })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             );
           })}
         </motion.div>
@@ -228,7 +271,7 @@ const FilterSidebar = ({
         </motion.div>
       </motion.section>
     </motion.div>
-  ), [filters.category, filters.material, filters.finish, onFilterChange]);
+  ), [filters.category, filters.subcategory, filters.material, filters.finish, onFilterChange, products]);
 
   // Mobile Filter Button Component - VISIBLE WHEN PRODUCTS GRID IS IN VIEW
   const MobileFilterButton = () => {

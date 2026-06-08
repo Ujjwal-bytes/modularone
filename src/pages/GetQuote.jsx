@@ -1,20 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Sliders, Layout, CheckCircle2, Loader2 } from 'lucide-react';
+import emailjs from 'emailjs-com';
+import { ArrowRight, Sliders, Layout, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
 
 export default function GetQuote() {
-  const [formData, setFormData] = useState({ name: '', phone: '', service: 'Kitchen Modular Layouts', details: '' });
-  const [status, setStatus] = useState('idle'); // idle | submitting | success
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: 'Kitchen Modular Layouts', details: '' });
+  const [status, setStatus] = useState('idle'); // idle | submitting | success | error
+  const [errors, setErrors] = useState({});
+  const formRef = useRef();
+
+  const validate = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = 'Identity required';
+    if (!/^\d{10}$/.test(formData.phone)) newErrors.phone = '10-digit mobile required';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Valid email required';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSub = async (e) => {
     e.preventDefault();
+    if (!validate()) return;
+
     setStatus('submitting');
     
-    // Simulate API delay
-    setTimeout(() => {
+    try {
+      // Use the same VITE_ environment variables or direct IDs
+      const SERVICE_ID = 'service_your_id';
+      const TEMPLATE_ID = 'template_your_id';
+      const PUBLIC_KEY = 'your_public_key';
+
+      await emailjs.sendForm(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        formRef.current,
+        PUBLIC_KEY
+      );
+
       setStatus('success');
-    }, 1500);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 5000);
+    }
   };
 
   if (status === 'success') {
@@ -55,6 +85,8 @@ export default function GetQuote() {
     <div className="bg-[#FAF9F5] text-gray-900 antialiased selection:bg-gray-900 selection:text-white min-h-screen">
       <Helmet>
         <title>Begin a Commission — Modular One</title>
+        <meta name="description" content="Request a tailored blueprint and estimate for your premium modular interior project. Modular One provides bespoke kitchens, wardrobes, and office fit-outs." />
+        <link rel="canonical" href="https://modularone.in/get-quote" />
       </Helmet>
 
       <motion.div 
@@ -63,6 +95,20 @@ export default function GetQuote() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
+        <AnimatePresence>
+          {status === 'error' && (
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="mb-8 p-4 bg-red-50 border border-red-100 rounded-2xl flex items-center gap-3 text-red-600 text-sm font-medium"
+            >
+              <AlertCircle size={18} />
+              Submission failed. Please verify your parameters or contact us via WhatsApp.
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
           {/* LEFT COLUMN: Editorial Header */}
@@ -135,39 +181,65 @@ export default function GetQuote() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <form onSubmit={handleSub} className="space-y-10">
+            <form ref={formRef} onSubmit={handleSub} className="space-y-10">
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 {/* Identity */}
                 <div className="group space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 block group-focus-within:text-[#C9A03D] transition-colors">
+                  <label className={`text-[10px] uppercase tracking-[0.2em] font-bold block transition-colors ${errors.name ? 'text-red-500' : 'text-gray-400 group-focus-within:text-[#C9A03D]'}`}>
                     Contact Identity
                   </label>
                   <input 
-                    required 
+                    name="name"
                     type="text" 
                     value={formData.name} 
-                    onChange={e => setFormData({...formData, name: e.target.value})} 
-                    className="w-full bg-transparent border-b border-gray-100 pb-3 text-base font-light focus:outline-none focus:border-gray-900 transition-all rounded-none placeholder-gray-200" 
+                    onChange={e => {
+                      setFormData({...formData, name: e.target.value});
+                      if (errors.name) setErrors({...errors, name: ''});
+                    }} 
+                    className={`w-full bg-transparent border-b pb-3 text-base font-light focus:outline-none transition-all rounded-none placeholder-gray-200 ${errors.name ? 'border-red-500 focus:border-red-500' : 'border-gray-100 focus:border-gray-900'}`} 
                     placeholder="Full Name"
                   />
+                  {errors.name && <p className="text-[10px] text-red-500 font-bold tracking-wide">{errors.name}</p>}
                 </div>
 
                 {/* Mobile */}
                 <div className="group space-y-2">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-400 block group-focus-within:text-[#C9A03D] transition-colors">
+                  <label className={`text-[10px] uppercase tracking-[0.2em] font-bold block transition-colors ${errors.phone ? 'text-red-500' : 'text-gray-400 group-focus-within:text-[#C9A03D]'}`}>
                     Mobile Coordinate
                   </label>
                   <input 
-                    required 
+                    name="phone"
                     type="tel" 
-                    pattern="[0-9]{10}"
                     value={formData.phone} 
-                    onChange={e => setFormData({...formData, phone: e.target.value})} 
-                    className="w-full bg-transparent border-b border-gray-100 pb-3 text-base font-light focus:outline-none focus:border-gray-900 transition-all rounded-none placeholder-gray-200" 
-                    placeholder="+91 00000 00000"
+                    onChange={e => {
+                      setFormData({...formData, phone: e.target.value});
+                      if (errors.phone) setErrors({...errors, phone: ''});
+                    }} 
+                    className={`w-full bg-transparent border-b pb-3 text-base font-light focus:outline-none transition-all rounded-none placeholder-gray-200 ${errors.phone ? 'border-red-500 focus:border-red-500' : 'border-gray-100 focus:border-gray-900'}`} 
+                    placeholder="10-Digit Mobile"
                   />
+                  {errors.phone && <p className="text-[10px] text-red-500 font-bold tracking-wide">{errors.phone}</p>}
                 </div>
+              </div>
+
+              {/* Email Integration */}
+              <div className="group space-y-2">
+                <label className={`text-[10px] uppercase tracking-[0.2em] font-bold block transition-colors ${errors.email ? 'text-red-500' : 'text-gray-400 group-focus-within:text-[#C9A03D]'}`}>
+                  Electronic Mail
+                </label>
+                <input 
+                  name="email"
+                  type="email" 
+                  value={formData.email} 
+                  onChange={e => {
+                    setFormData({...formData, email: e.target.value});
+                    if (errors.email) setErrors({...errors, email: ''});
+                  }} 
+                  className={`w-full bg-transparent border-b pb-3 text-base font-light focus:outline-none transition-all rounded-none placeholder-gray-200 ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-gray-100 focus:border-gray-900'}`} 
+                  placeholder="email@example.com"
+                />
+                {errors.email && <p className="text-[10px] text-red-500 font-bold tracking-wide">{errors.email}</p>}
               </div>
 
               {/* Service Selection */}
@@ -176,6 +248,7 @@ export default function GetQuote() {
                   Domain Specialization
                 </label>
                 <select 
+                  name="service"
                   value={formData.service} 
                   onChange={e => setFormData({...formData, service: e.target.value})} 
                   className="w-full bg-transparent border-b border-gray-100 pb-3 text-base font-light focus:outline-none focus:border-gray-900 cursor-pointer rounded-none appearance-none"
@@ -193,6 +266,7 @@ export default function GetQuote() {
                   Scope Parameters
                 </label>
                 <textarea 
+                  name="details"
                   rows="4" 
                   value={formData.details} 
                   onChange={e => setFormData({...formData, details: e.target.value})} 

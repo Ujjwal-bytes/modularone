@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Star, CheckCircle, XCircle, Download, Phone, ArrowRight, Heart, ChevronLeft } from 'lucide-react';
+import { Star, CheckCircle, XCircle, Download, Phone, ArrowRight, Heart, ChevronLeft, Maximize2 } from 'lucide-react';
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 import { products } from '../data/products';
 import { addToWishlist, removeFromWishlist, isInWishlist } from '../utils/localStorage';
 
@@ -10,8 +12,12 @@ export default function ProductDetail() {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const product = products.find(p => p.id === parseInt(id));
+
+  // Prepare images for lightbox
+  const slides = product?.images.map(img => ({ src: img })) || [];
 
   useEffect(() => {
     if (product) {
@@ -64,11 +70,50 @@ export default function ProductDetail() {
     .filter(p => p.category === product.category && p.id !== product.id)
     .slice(0, 3);
 
+  // JSON-LD Structured Data for SEO
+  const jsonLd = {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": product.name,
+    "image": product.images,
+    "description": `Discover the ${product.name}. ${product.material} with ${product.finish} finish.`,
+    "brand": {
+      "@type": "Brand",
+      "name": "Modular One"
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "INR",
+      "lowPrice": product.price.split(' - ')[0].replace(/[^0-9]/g, ''),
+      "highPrice": product.price.split(' - ')[1]?.replace(/[^0-9]/g, ''),
+      "availability": "https://schema.org/InStoreOnly"
+    }
+  };
+
   return (
     <div className="bg-white min-h-screen">
       <Helmet>
-        <title>{product.name} | Modular One</title>
-        <meta name="description" content={product.name} />
+        <title>{product.name} | Modular One - Premium Interiors</title>
+        <meta name="description" content={`Discover the ${product.name}. ${product.material} with ${product.finish} finish. Premium modular furniture from Modular One.`} />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="product" />
+        <meta property="og:title" content={`${product.name} | Modular One`} />
+        <meta property="og:description" content={`Check out this ${product.name} from Modular One. Premium quality and custom designs.`} />
+        <meta property="og:image" content={product.images[0]} />
+        <meta property="og:url" content={`https://modularone.in/products/${id}`} />
+        <link rel="canonical" href={`https://modularone.in/products/${id}`} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${product.name} | Modular One`} />
+        <meta name="twitter:description" content={`Discover the ${product.name}. Premium modular furniture from Modular One.`} />
+        <meta name="twitter:image" content={product.images[0]} />
+
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify(jsonLd)}
+        </script>
       </Helmet>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
@@ -84,15 +129,18 @@ export default function ProductDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left: Image Gallery */}
           <div>
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mb-4">
+            <div className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 mb-4 cursor-zoom-in" onClick={() => setIsOpen(true)}>
               <img
                 src={product.images[selectedImage]}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                <Maximize2 className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" size={32} />
+              </div>
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
               {product.images.map((img, index) => (
                 <button
                   key={index}
@@ -270,6 +318,13 @@ export default function ProductDetail() {
           </div>
         )}
       </div>
+
+      <Lightbox
+        open={isOpen}
+        close={() => setIsOpen(false)}
+        slides={slides}
+        index={selectedImage}
+      />
     </div>
   );
 }

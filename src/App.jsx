@@ -19,6 +19,7 @@ const GetQuote = lazy(() => import("./pages/GetQuote"));
 const FurnitureShowcase = lazy(() => import("./pages/FurnitureShowcase"));
 const Wishlist = lazy(() => import("./pages/Wishlist"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
                     <Route path="/get-quote" element={<GetQuote />} />
                     <Route path="/furniture-showcase" element={<FurnitureShowcase />} />
                     <Route path="/wishlist" element={<Wishlist />} />
+                    <Route path="*" element={<NotFound />} />
                   </Routes>
                 </Suspense>
               </Layout>

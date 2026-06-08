@@ -97,6 +97,7 @@ const CategoryCard = React.memo(({ category, index }) => {
             src={imageUrl} 
             alt={category.name}
             className="w-full h-full object-cover"
+            loading="lazy"
           />
           
           {/* Dark gradient overlay for text readability */}

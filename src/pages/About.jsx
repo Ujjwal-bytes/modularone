@@ -136,10 +136,23 @@ const staggerItem = {
 
 export default function About() {
   return (
-    <div className="bg-white min-h-screen overflow-hidden">
+    <div className="min-h-screen bg-white selection:bg-[#C9A03D] selection:text-white overflow-hidden">
       <Helmet>
-        <title>About Us | Modular One - Premium Modular Interiors</title>
-        <meta name="description" content="Learn about Modular One - Premium modular kitchens and interiors in Vasai, Maharashtra. Meet our expert team and discover our quality commitment." />
+        <title>About Us | Modular One - Experts in Premium Interior Design</title>
+        <meta name="description" content="Learn about Modular One's 15+ year legacy in crafting premium modular furniture. Meet our lead designers and explore our commitment to excellence and innovation." />
+        <meta name="keywords" content="interior design experts, modular furniture legacy, best designers Vasai, furniture manufacturing India" />
+        <link rel="canonical" href="https://modularone.in/about" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://modularone.in/about" />
+        <meta property="og:title" content="About Us | Modular One - Experts in Premium Interior Design" />
+        <meta property="og:description" content="Learn about Modular One's 15+ year legacy in crafting premium modular furniture." />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="About Us | Modular One" />
+        <meta name="twitter:description" content="Learn about Modular One's 15+ year legacy in crafting premium modular furniture." />
       </Helmet>
 
       {/* Hero Section with Navy Brand Color */}

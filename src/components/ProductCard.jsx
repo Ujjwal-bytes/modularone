@@ -198,18 +198,18 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
           {/* Wishlist Button */}
           <motion.button
             onClick={handleWishlistToggle}
-            className={`absolute top-6 right-6 z-10 w-11 h-11 flex items-center justify-center rounded-full transition-all duration-500 ${
+            className={`absolute top-6 right-6 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 border backdrop-blur-md shadow-sm ${
               isWishlisted 
-                ? 'bg-[#1A2A4F] text-white shadow-lg' 
-                : 'bg-white/80 backdrop-blur-md text-gray-400 hover:text-[#1A2A4F] hover:bg-white'
-            } ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+              ? 'bg-[#C9A03D] border-[#C9A03D] text-white' 
+              : 'bg-white/80 border-white/50 text-[#1A2A4F] hover:bg-white'
+            }`}
             variants={buttonVariants}
             initial="initial"
             whileHover="hover"
             whileTap="tap"
             aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
           >
-            <Heart size={18} className={isWishlisted ? 'fill-white' : ''} />
+            <Heart size={18} className={isWishlisted ? "fill-current" : ""} />
           </motion.button>
 
           {/* Quick View Button - Commented out but kept for future use */}

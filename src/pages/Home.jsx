@@ -72,6 +72,37 @@ function useAnimatedCounter(end, duration = 2000) {
   return { count, ref };
 }
 
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Modular One",
+  "url": "https://modularone.in",
+  "logo": "https://modularone.in/logo.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+91-9876543210",
+    "contactType": "customer service",
+    "areaServed": "IN",
+    "availableLanguage": "en"
+  },
+  "sameAs": [
+    "https://facebook.com",
+    "https://instagram.com"
+  ]
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Modular One",
+  "url": "https://modularone.in",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://modularone.in/products?search={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
@@ -204,8 +235,28 @@ export default React.memo(function Home() {
   return (
     <div className="bg-white selection:bg-[#C9A03D] selection:text-white overflow-hidden">
       <Helmet>
-        <title>Modular One | Premium Modular Kitchens & Interiors</title>
-        <meta name="description" content="Transform Your Space with Modular One. Premium modular kitchens, wardrobes, and office interiors in Vasai, Maharashtra." />
+        <title>Modular One | Premium Modular Kitchens & Interior Solutions in India</title>
+        <meta name="description" content="Modular One offers bespoke modular kitchens, wardrobes, and luxury interior solutions. Experience high-end craftsmanship and modern designs for your home and office." />
+        <meta name="keywords" content="modular kitchen india, premium interiors, luxury furniture, custom wardrobes, office fit-outs, interior design Maharashtra" />
+        <link rel="canonical" href="https://modularone.in" />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://modularone.in/" />
+        <meta property="og:title" content="Modular One | Premium Modular Kitchens & Interior Solutions" />
+        <meta property="og:description" content="Bespoke modular kitchens, wardrobes, and luxury interior solutions. Experience high-end craftsmanship." />
+        <meta property="og:image" content="https://modularone.in/og-home.jpg" />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://modularone.in/" />
+        <meta property="twitter:title" content="Modular One | Premium Modular Kitchens & Interior Solutions" />
+        <meta property="twitter:description" content="Bespoke modular kitchens, wardrobes, and luxury interior solutions." />
+        <meta property="twitter:image" content="https://modularone.in/og-home.jpg" />
+
+        {/* Structured Data */}
+        <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
       </Helmet>
 
       {/* Animated Marquee Hero Section */}

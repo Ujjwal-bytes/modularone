@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
+import emailjs from 'emailjs-com';
 import { 
   Phone, Mail, MapPin, Clock, MessageCircle, Upload, 
   Send, CheckCircle, X, Building, Calendar, 
@@ -18,10 +19,51 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
   const [mapLoaded, setMapLoaded] = useState(false);
+  const formRef = useRef();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Validate required fields
+    const newErrors = {};
+    ['fullName', 'email', 'phone'].forEach(field => {
+      const error = validateField(field, formData[field]);
+      if (error) newErrors[field] = error;
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // NOTE: Replace these with your actual EmailJS credentials
+      // You can get them at https://dashboard.emailjs.com/
+      const SERVICE_ID = 'service_your_id';
+      const TEMPLATE_ID = 'template_your_id';
+      const PUBLIC_KEY = 'your_public_key';
+
+      await emailjs.sendForm(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        formRef.current,
+        PUBLIC_KEY
+      );
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      alert('Failed to send message. Please try again or contact us via WhatsApp.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -52,7 +94,21 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>Contact Us | Modular One - Premium Interiors</title>
+        <title>Contact Us | Modular One - Book Your Free Design Consultation</title>
+        <meta name="description" content="Get in touch with Modular One for premium interior design services. Visit our experience center in Vasai or request a free quote online. Response within 120 minutes." />
+        <meta name="keywords" content="contact interior designer, furniture showroom Vasai, free design consultation, interior design quote" />
+        <link rel="canonical" href="https://modularone.in/contact" />
+
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://modularone.in/contact" />
+        <meta property="og:title" content="Contact Us | Modular One - Book Your Free Design Consultation" />
+        <meta property="og:description" content="Get in touch with Modular One for premium interior design services. Visit our experience center in Vasai." />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Contact Us | Modular One" />
+        <meta name="twitter:description" content="Get in touch with Modular One for premium interior design services." />
       </Helmet>
 
       {/* --- HERO SECTION --- */}
@@ -169,11 +225,13 @@ export default function Contact() {
                   <p className="text-gray-500">Check your phone shortly for a confirmation.</p>
                 </div>
               ) : (
-                <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} className="p-10 space-y-8">
+                <form ref={formRef} onSubmit={handleSubmit} className="p-10 space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {[
                       { name: 'fullName', label: 'Full Name', icon: User, type: 'text', ph: 'e.g. Rahul Sharma' },
-                      { name: 'phone', label: 'Phone Number', icon: Phone, type: 'tel', ph: '9876543210' }
+                      { name: 'email', label: 'Email Address', icon: Mail, type: 'email', ph: 'rahul@example.com' },
+                      { name: 'phone', label: 'Phone Number', icon: Phone, type: 'tel', ph: '9876543210' },
+                      { name: 'budget', label: 'Approx. Budget', icon: DollarSign, type: 'text', ph: 'e.g. 5-10 Lakhs' }
                     ].map((field) => (
                       <div key={field.name} className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">{field.label}</label>
@@ -182,11 +240,17 @@ export default function Contact() {
                           <input
                             type={field.type}
                             name={field.name}
+                            value={formData[field.name]}
                             onChange={handleChange}
                             placeholder={field.ph}
-                            className="w-full pl-12 pr-4 py-4 bg-gray-50/50 border border-gray-100 rounded-2xl focus:bg-white focus:ring-4 focus:ring-[#1A2A4F]/5 focus:border-[#1A2A4F] outline-none transition-all font-medium"
+                            className={`w-full pl-12 pr-4 py-4 bg-gray-50/50 border rounded-2xl focus:bg-white focus:ring-4 focus:ring-[#1A2A4F]/5 focus:border-[#1A2A4F] outline-none transition-all font-medium ${
+                              errors[field.name] ? 'border-red-500' : 'border-gray-100'
+                            }`}
                           />
                         </div>
+                        {errors[field.name] && (
+                          <p className="text-[10px] text-red-500 font-bold ml-1">{errors[field.name]}</p>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -225,10 +289,15 @@ export default function Contact() {
                   <div className="flex flex-col sm:flex-row gap-4 pt-4">
                     <button
                       type="submit"
-                      className="flex-[2] bg-[#1A2A4F] text-white py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-[#0E1A33] transition-all shadow-xl shadow-[#1A2A4F]/20 flex items-center justify-center gap-3 active:scale-95"
+                      disabled={isSubmitting}
+                      className="flex-[2] bg-[#1A2A4F] text-white py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-[#0E1A33] transition-all shadow-xl shadow-[#1A2A4F]/20 flex items-center justify-center gap-3 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      <Send size={16} className="text-[#C9A03D]" />
-                      Submit Proposal
+                      {isSubmitting ? (
+                        <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
+                      ) : (
+                        <Send size={16} className="text-[#C9A03D]" />
+                      )}
+                      {isSubmitting ? 'Sending...' : 'Submit Proposal'}
                     </button>
                     <button
                       type="button"
