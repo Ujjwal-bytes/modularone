@@ -260,21 +260,12 @@ export default React.memo(function Home() {
       </Helmet>
 
       {/* Animated Marquee Hero Section */}
-     // In your Home.jsx, update the AnimatedMarqueeHero usage:
-<AnimatedMarqueeHero
-  tagline="Premium Modular Furniture"
-  title={
-    <>
-      Crafting Dreams
-      <br />
-      <span className="text-[#C9A03D]">Into Reality</span>
-    </>
-  }
-  description="Experience the perfect blend of luxury, functionality, and craftsmanship with our premium modular furniture solutions. Transform your space into a masterpiece."
-  ctaText="Explore Collection"
-  backgroundImage="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920&h=1080&fit=crop"
-  onCtaClick={handleExploreClick}
-/>
+      <AnimatedMarqueeHero
+        tagline="Premium Modular Furniture"
+        title="Crafting Dreams Into Reality"
+        description="Experience the perfect blend of luxury, functionality, and craftsmanship with our premium modular furniture solutions. Transform your space into a masterpiece."
+        ctaText="Explore Collection"
+      />
 
 
       {/* Featured Categories / Collections */}

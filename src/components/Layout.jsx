@@ -14,8 +14,7 @@ const Layout = ({ children }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setIsPageLoading(true);
     
-    // Simulate page load (remove if you have actual data loading)
-    const timer = setTimeout(() => setIsPageLoading(false), 300);
+    const timer = setTimeout(() => setIsPageLoading(false), 400);
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
@@ -23,23 +22,19 @@ const Layout = ({ children }) => {
   const pageVariants = {
     initial: {
       opacity: 0,
-      y: 20,
-      scale: 0.98
+      y: 30,
     },
     animate: {
       opacity: 1,
       y: 0,
-      scale: 1,
       transition: {
         duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1], // Custom easing curve
-        staggerChildren: 0.1
+        ease: [0.25, 0.1, 0.25, 1],
       }
     },
     exit: {
       opacity: 0,
       y: -20,
-      scale: 0.98,
       transition: {
         duration: 0.3,
         ease: "easeInOut"
@@ -47,81 +42,231 @@ const Layout = ({ children }) => {
     }
   };
 
-  const contentVariants = {
+  // Furniture themed loader variants
+  const loaderContainerVariants = {
     initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: {
-        delay: 0.2,
-        duration: 0.4
-      }
-    }
-  };
-
-  const loaderVariants = {
-    initial: { scale: 0, opacity: 0, rotate: 0 },
     animate: { 
-      scale: [0, 1.2, 1], 
       opacity: 1,
-      rotate: [0, 360],
-      transition: { 
-        duration: 0.6,
-        ease: "easeOut"
-      }
+      transition: { duration: 0.2 }
     },
     exit: { 
-      scale: 0, 
       opacity: 0,
       transition: { duration: 0.3 }
     }
   };
 
-  const progressBarVariants = {
-    initial: { width: "0%" },
+  const furnitureIconVariants = {
+    initial: { scale: 0, rotate: -180, opacity: 0 },
     animate: { 
-      width: "100%",
-      transition: { duration: 0.5, ease: "easeInOut" }
+      scale: 1, 
+      rotate: 0,
+      opacity: 1,
+      transition: { 
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+        duration: 0.5
+      }
     },
     exit: { 
-      width: "0%",
+      scale: 0, 
+      rotate: 180,
+      opacity: 0,
       transition: { duration: 0.3 }
     }
   };
 
+  const lineVariants = {
+    initial: { width: "0%", opacity: 0 },
+    animate: (i) => ({ 
+      width: "100%", 
+      opacity: 1,
+      transition: { 
+        delay: 0.3 + (i * 0.1),
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }),
+    exit: { 
+      width: "0%", 
+      opacity: 0,
+      transition: { duration: 0.2 }
+    }
+  };
+
+  const dotVariants = {
+    initial: { scale: 0, y: 0 },
+    animate: (i) => ({
+      scale: [0, 1.2, 1],
+      y: [0, -10, 0],
+      transition: {
+        delay: 0.5 + (i * 0.15),
+        duration: 0.6,
+        repeat: Infinity,
+        repeatType: "reverse"
+      }
+    })
+  };
+
+  const textVariants = {
+    initial: { opacity: 0, y: 10 },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        delay: 0.6,
+        duration: 0.4 
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      y: -10,
+      transition: { duration: 0.2 }
+    }
+  };
+
+  const furnitureTags = ["Crafting", "Designing", "Building", "Creating"];
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Loading Progress Bar */}
+      {/* Top Progress Bar - Furniture themed */}
       <AnimatePresence>
         {isPageLoading && (
           <motion.div
-            className="fixed top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#1A2A4F] via-[#C9A03D] to-[#1A2A4F] z-[200]"
-            variants={progressBarVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            style={{ originX: 0 }}
+            className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#1A2A4F] via-[#C9A03D] to-[#1A2A4F] z-[200]"
+            initial={{ width: "0%" }}
+            animate={{ 
+              width: "100%",
+              transition: { duration: 0.6, ease: "easeInOut" }
+            }}
+            exit={{ 
+              width: "0%",
+              transition: { duration: 0.3 }
+            }}
           />
         )}
       </AnimatePresence>
 
-      {/* Page Loader Overlay (Optional) */}
+      {/* Furniture Style Loader Overlay */}
       <AnimatePresence>
         {isPageLoading && (
           <motion.div
-            className="fixed inset-0 bg-white/80 backdrop-blur-sm z-[199] flex items-center justify-center pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-white z-[199] flex items-center justify-center"
+            variants={loaderContainerVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
           >
-            <motion.div
-              variants={loaderVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className="w-12 h-12 rounded-full border-4 border-[#1A2A4F] border-t-[#C9A03D]"
-              style={{ borderTopColor: "#C9A03D" }}
-            />
+            <div className="text-center">
+              {/* Animated Furniture Icon */}
+              <motion.div
+                variants={furnitureIconVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="mb-6 flex justify-center"
+              >
+                <div className="relative">
+                  {/* Chair/Sofa Icon SVG */}
+                  <svg 
+                    width="64" 
+                    height="64" 
+                    viewBox="0 0 64 64" 
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-16 h-16"
+                  >
+                    <motion.rect 
+                      x="12" y="32" width="40" height="20" rx="2" 
+                      fill="#1A2A4F"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                    />
+                    <motion.rect 
+                      x="16" y="12" width="32" height="22" rx="2" 
+                      fill="#C9A03D"
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: 1 }}
+                      transition={{ delay: 0.3, duration: 0.4 }}
+                    />
+                    <motion.rect 
+                      x="20" y="52" width="6" height="8" rx="1" 
+                      fill="#1A2A4F"
+                      initial={{ height: 0 }}
+                      animate={{ height: 8 }}
+                      transition={{ delay: 0.4 }}
+                    />
+                    <motion.rect 
+                      x="38" y="52" width="6" height="8" rx="1" 
+                      fill="#1A2A4F"
+                      initial={{ height: 0 }}
+                      animate={{ height: 8 }}
+                      transition={{ delay: 0.45 }}
+                    />
+                    <motion.circle 
+                      cx="32" cy="28" r="4" 
+                      fill="#E8D5B5"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.5 }}
+                    />
+                  </svg>
+                </div>
+              </motion.div>
+
+              {/* Animated Lines - Furniture style */}
+              <div className="w-48 mx-auto mb-4 space-y-2">
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    custom={i}
+                    variants={lineVariants}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    className="h-0.5 bg-gradient-to-r from-[#1A2A4F] via-[#C9A03D] to-transparent"
+                  />
+                ))}
+              </div>
+
+              {/* Rotating Dots */}
+              <div className="flex justify-center gap-3 mb-4">
+                {[0, 1, 2, 3].map((i) => (
+                  <motion.div
+                    key={i}
+                    custom={i}
+                    variants={dotVariants}
+                    initial="initial"
+                    animate="animate"
+                    className="w-2 h-2 rounded-full bg-[#C9A03D]"
+                  />
+                ))}
+              </div>
+
+              {/* Animated Text */}
+              <motion.p
+                variants={textVariants}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                className="text-[#1A2A4F] text-sm font-light tracking-wider"
+              >
+                <motion.span
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  ✦
+                </motion.span>{" "}
+                Crafting Your Space{" "}
+                <motion.span
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
+                >
+                  ✦
+                </motion.span>
+              </motion.p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -136,22 +281,10 @@ const Layout = ({ children }) => {
         exit="exit"
         variants={pageVariants}
       >
-        {/* Page Transition Overlay */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname + "-overlay"}
-            className="fixed inset-0 bg-gradient-to-r from-[#1A2A4F]/5 to-transparent pointer-events-none z-0"
-            initial={{ opacity: 0, x: "-100%" }}
-            animate={{ opacity: 0, x: "-100%" }}
-            exit={{ opacity: 1, x: "0%", transition: { duration: 0.4, ease: "easeInOut" } }}
-          />
-        </AnimatePresence>
-
-        {/* Page Content with Animation */}
         <motion.div
-          variants={contentVariants}
-          initial="initial"
-          animate="animate"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
           className="relative z-10"
         >
           {children}
