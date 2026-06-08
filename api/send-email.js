@@ -82,7 +82,6 @@ export default async function handler(req, res) {
     ? `New Quote Request from ${fullName}` 
     : `New Contact Message from ${fullName}`;
 
-  // Check if logo exists in public folder
   let logoPath = null;
   const possiblePaths = [
     path.join(process.cwd(), 'public', 'logoss.png'),
@@ -98,7 +97,6 @@ export default async function handler(req, res) {
     }
   }
 
-  // Prepare attachments
   const attachments = [];
   if (logoPath) {
     attachments.push({
@@ -109,232 +107,206 @@ export default async function handler(req, res) {
     });
   }
 
-  // Refined Premium UI Template
+  // Clean template - NO FORCED COLORS, follows system preference
   const htmlContent = `
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <!DOCTYPE html>
+    <html>
     <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>${subject}</title>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
       
-      <style type="text/css">
-        body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-        table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important; border: 0 !important; }
-        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #F8F6FC; }
-
+      <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        
+        body {
+          font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+          line-height: 1.6;
+        }
+        
+        .container {
+          max-width: 560px;
+          margin: 0 auto;
+          width: 100%;
+        }
+        
+        /* Responsive */
         @media screen and (max-width: 600px) {
-          .wrapper-table { width: 100% !important; max-width: 100% !important; }
-          .card-padding { padding: 30px 20px !important; }
-          .inner-padding { padding: 20px 16px !important; }
-          .btn-block { display: block !important; width: 100% !important; text-align: center !important; }
-          .btn-spacing { padding: 14px 24px !important; display: block !important; margin-bottom: 12px !important; }
-          .btn-spacing-secondary { padding: 14px 24px !important; display: block !important; }
-          .footer-column { display: block !important; width: 100% !important; padding-left: 0 !important; margin-bottom: 24px !important; }
-          .detail-row { display: block !important; width: 100% !important; text-align: left !important; }
-          .detail-val { display: block !important; width: 100% !important; text-align: left !important; padding-top: 4px !important; }
+          .padding-large { padding: 30px 20px !important; }
+          .padding-medium { padding: 20px 16px !important; }
+          .btn-stack { 
+            display: block !important; 
+            width: 100% !important; 
+            margin: 10px 0 !important; 
+          }
+          .stack-column { 
+            display: block !important; 
+            width: 100% !important; 
+            text-align: left !important; 
+            padding-left: 0 !important;
+            border-left: none !important;
+          }
+          .budget-text { font-size: 28px !important; }
+        }
+        
+        @media screen and (max-width: 380px) {
+          .padding-large { padding: 20px 16px !important; }
+          .padding-medium { padding: 16px 12px !important; }
         }
       </style>
     </head>
-    <body style="margin: 0; padding: 40px 16px; background-color: #F8F6FC; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Arial, sans-serif;">
-
-      <table border="0" cellpadding="0" cellspacing="0" width="100%">
-        <tr>
-          <td align="center">
+    
+    <body style="margin: 0; padding: 30px 16px;">
+      
+      <div class="container">
+        
+        <!-- Main Card with #9D00FF Accent -->
+        <div style="border-radius: 28px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+          
+          <!-- Purple Accent Header -->
+          <div style="background-color: #9D00FF; padding: 40px 20px 35px 20px; text-align: center;">
+            ${logoPath ? 
+              `<img src="cid:logo@modularone.com" alt="Modular One" style="height: 50px; width: auto; margin-bottom: 15px;">` : 
+              `<div style="font-size: 24px; font-weight: 900; letter-spacing: 4px; color: #ffffff;">
+                MODULAR ONE
+              </div>`
+            }
+            <div style="font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); margin-top: 12px; letter-spacing: 1px;">
+              PREMIUM MODULAR SOLUTIONS
+            </div>
+          </div>
+          
+          <!-- White Card Content (No force - will adapt to dark mode) -->
+          <div style="background-color: #ffffff;">
             
-            <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="540" style="background-color: #ffffff; border-radius: 28px; box-shadow: 0px 16px 40px rgba(157, 0, 255, 0.05); width: 100%; max-width: 540px; border-collapse: separate !important; overflow: hidden;">
-              
-              <tr>
-                <td style="background-color: #9D00FF; padding: 40px 30px; text-align: center;">
-                  ${logoPath ? 
-                    `<img src="cid:logo@modularone.com" alt="Modular One" style="height: 48px; width: auto; display: inline-block;">` : 
-                    `<div style="font-size: 22px; font-weight: 900; letter-spacing: 3px; color: #ffffff;">MODULAR ONE</div>`
-                  }
-                  <div style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); margin-top: 10px; letter-spacing: 1.5px; text-transform: uppercase;">
-                    Premium Modular Solutions
-                  </div>
-                </td>
-              </tr>
-
-              <tr>
-                <td class="card-padding" style="padding: 40px 45px 20px 45px;">
+            <!-- Hero Section -->
+            <div class="padding-large" style="padding: 45px 45px 25px 45px; text-align: center;">
+              <div style="display: inline-block; background-color: rgba(157, 0, 255, 0.08); padding: 6px 16px; border-radius: 40px; margin-bottom: 20px;">
+                <span style="font-size: 11px; font-weight: 700; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">
+                  ${isQuote ? 'New Quote Request' : 'New Lead Alert'}
+                </span>
+              </div>
+              <h1 style="margin: 0 0 15px 0; font-size: 28px; font-weight: 800; color: #1a1a1a; letter-spacing: -0.5px;">
+                Client Enquiry
+              </h1>
+              <p style="margin: 0; color: #666666; font-size: 14px;">
+                A new inbound lead has been received. Review the client specifications below.
+              </p>
+            </div>
+            
+            <!-- Client Details Card -->
+            <div class="padding-large" style="padding: 15px 45px;">
+              <div style="border: 1px solid #e0e0e0; border-radius: 20px; overflow: hidden;">
+                <div class="padding-medium" style="padding: 28px 30px;">
                   
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: center;">
-                    <tr>
-                      <td>
-                        <div style="display: inline-block; background-color: rgba(157, 0, 255, 0.08); padding: 6px 16px; border-radius: 40px; margin-bottom: 16px;">
-                          <span style="font-size: 11px; font-weight: 700; color: #9D00FF; text-transform: uppercase; letter-spacing: 0.5px;">
-                            ${isQuote ? 'New Quote Request' : 'New Lead Alert'}
-                          </span>
-                        </div>
-                        <h1 style="margin: 0 0 10px 0; font-size: 26px; font-weight: 800; color: #1A1A1A; letter-spacing: -0.5px;">
-                          Client Enquiry
-                        </h1>
-                        <p style="margin: 0; color: #666666; font-size: 14px; line-height: 1.5;">
-                          A new inbound lead has been received. Review the client specifications below.
-                        </p>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 32px; border: 1px solid #EAEAEA; border-radius: 20px; border-collapse: separate !important;">
-                    <tr>
-                      <td class="inner-padding" style="padding: 24px 28px;">
-                        
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F0F0F0; padding-bottom: 14px; margin-bottom: 14px;">
-                          <tr>
-                            <td class="detail-row" style="font-size: 13px; font-weight: 800; color: #9D00FF; text-transform: uppercase; letter-spacing: 0.5px;">
-                              Client Specifications
-                            </td>
-                            <td class="detail-val" align="right" style="font-size: 12px; color: #999999; font-weight: 500;">
-                              ${new Date().toLocaleDateString('en-IN')}
-                            </td>
-                          </tr>
-                        </table>
-
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F8F8F8; padding: 10px 0;">
-                          <tr>
-                            <td class="detail-row" style="font-size: 13px; color: #777777; font-weight: 500;">Full Name</td>
-                            <td class="detail-val" align="right" style="font-size: 14px; color: #1A1A1A; font-weight: 700;">${fullName}</td>
-                          </tr>
-                        </table>
-
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F8F8F8; padding: 10px 0;">
-                          <tr>
-                            <td class="detail-row" style="font-size: 13px; color: #777777; font-weight: 500;">Email Address</td>
-                            <td class="detail-val" align="right" style="font-size: 13px; font-weight: 600;">
-                              <a href="mailto:${email}" style="color: #9D00FF; text-decoration: none; word-break: break-all;">${email}</a>
-                            </td>
-                          </tr>
-                        </table>
-
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F8F8F8; padding: 10px 0;">
-                          <tr>
-                            <td class="detail-row" style="font-size: 13px; color: #777777; font-weight: 500;">Phone Number</td>
-                            <td class="detail-val" align="right" style="font-size: 14px; color: #1A1A1A; font-weight: 600;">${phone}</td>
-                          </tr>
-                        </table>
-
-                        ${service ? `
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F8F8F8; padding: 10px 0;">
-                          <tr>
-                            <td class="detail-row" style="font-size: 13px; color: #777777; font-weight: 500;">Service Type</td>
-                            <td class="detail-val" align="right" style="font-size: 13px; color: #1A1A1A; font-weight: 600;">${service}</td>
-                          </tr>
-                        </table>
-                        ` : ''}
-
-                        ${details ? `
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F8F8F8; padding: 10px 0;">
-                          <tr>
-                            <td class="detail-row" valign="top" style="font-size: 13px; color: #777777; font-weight: 500; padding-bottom: 4px;">Project Scope</td>
-                            <td class="detail-val" align="right" style="font-size: 13px; color: #555555; font-weight: 500; max-width: 240px;">${details}</td>
-                          </tr>
-                        </table>
-                        ` : ''}
-
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 14px; padding-top: 14px;">
-                          <tr>
-                            <td style="font-size: 13px; font-weight: 800; color: #1A1A1A;">Budget Estimate</td>
-                            <td align="right" style="font-size: 22px; font-weight: 900; color: #9D00FF;">
-                              ${budget ? `₹${parseInt(budget).toLocaleString('en-IN')}` : 'To Be Discussed'}
-                            </td>
-                          </tr>
-                        </table>
-
-                      </td>
-                    </tr>
-                  </table>
-
-                  ${message ? `
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 24px;">
-                    <tr>
-                      <td>
-                        <div style="font-size: 11px; font-weight: 800; color: #9D00FF; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
-                          Client Message
-                        </div>
-                        <div style="background-color: #FAF9FD; border-radius: 16px; padding: 18px 22px; border-left: 4px solid #9D00FF;">
-                          <p style="margin: 0; font-size: 13px; color: #444444; line-height: 1.6; font-weight: 500;">
-                            ${message.replace(/\n/g, '<br>')}
-                          </p>
-                        </div>
-                      </td>
-                    </tr>
-                  </table>
+                  <!-- Header -->
+                  <div style="border-bottom: 1px solid #f0f0f0; padding-bottom: 18px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                    <span style="font-size: 14px; font-weight: 800; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Client Specifications</span>
+                    <span style="font-size: 11px; color: #999999; font-weight: 500;">${new Date().toLocaleDateString('en-IN')}</span>
+                  </div>
+                  
+                  <!-- Details -->
+                  <div style="border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; padding: 12px 0;">
+                    <span style="font-size: 13px; color: #888888; font-weight: 500;">Full Name</span>
+                    <span style="font-size: 14px; color: #1a1a1a; font-weight: 700;">${fullName}</span>
+                  </div>
+                  
+                  <div style="border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; padding: 12px 0;">
+                    <span style="font-size: 13px; color: #888888; font-weight: 500;">Email Address</span>
+                    <span style="font-size: 13px; font-weight: 500;">
+                      <a href="mailto:${email}" style="color: #9D00FF; text-decoration: none;">${email}</a>
+                    </span>
+                  </div>
+                  
+                  <div style="border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; padding: 12px 0;">
+                    <span style="font-size: 13px; color: #888888; font-weight: 500;">Phone Number</span>
+                    <span style="font-size: 14px; color: #1a1a1a; font-weight: 600;">${phone}</span>
+                  </div>
+                  
+                  ${service ? `
+                  <div style="border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; padding: 12px 0;">
+                    <span style="font-size: 13px; color: #888888; font-weight: 500;">Service Type</span>
+                    <span style="font-size: 13px; color: #1a1a1a; font-weight: 500;">${service}</span>
+                  </div>
                   ` : ''}
-
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 32px; text-align: center;">
-                    <tr>
-                      <td>
-                        <table border="0" cellpadding="0" cellspacing="0" class="btn-block" style="display: inline-block; vertical-align: middle; border-collapse: separate !important;">
-                          <tr>
-                            <td align="center" valign="middle" style="background-color: #9D00FF; border-radius: 40px;">
-                              <a href="tel:${phone}" class="btn-spacing" style="display: inline-block; padding: 14px 36px; font-size: 13px; font-weight: 700; color: #ffffff; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px;">
-                                Call Client
-                              </a>
-                            </td>
-                          </tr>
-                        </table>
-
-                        <span class="btn-block" style="display: inline-block; width: 12px; height: 10px;"></span>
-
-                        <table border="0" cellpadding="0" cellspacing="0" class="btn-block" style="display: inline-block; vertical-align: middle; border-collapse: separate !important;">
-                          <tr>
-                            <td align="center" valign="middle" style="border: 2px solid #9D00FF; border-radius: 40px; background-color: transparent;">
-                              <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" class="btn-spacing-secondary" style="display: inline-block; padding: 12px 34px; font-size: 13px; font-weight: 700; color: #9D00FF; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px;">
-                                WhatsApp
-                              </a>
-                            </td>
-                          </tr>
-                        </table>
-                        
-                        </td>
-                    </tr>
-                  </table>
-
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 36px; margin-bottom: 10px;">
-                    <tr>
-                      <td style="background: linear-gradient(90deg, transparent, #9D00FF, transparent); height: 1px; font-size: 1px; line-height: 1px;">&nbsp;</td>
-                    </tr>
-                  </table>
-
-                </td>
-              </tr>
-
-              <tr>
-                <td class="card-padding" style="padding: 10px 45px 36px 45px;">
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                      <td class="footer-column" width="50%" valign="top" style="font-size: 12px; line-height: 1.6; font-family: 'Montserrat', Arial, sans-serif;">
-                        <strong style="font-size: 12px; color: #9D00FF; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Need Help?</strong>
-                        <span style="color: #888888; font-weight: 500;">Contact support team</span><br />
-                        <a href="mailto:support@modularone.com" style="color: #9D00FF; text-decoration: none; font-weight: 600;">support@modularone.com</a>
-                      </td>
-                      
-                      <td class="footer-column" width="50%" valign="top" style="padding-left: 20px; font-size: 12px; line-height: 1.6; font-family: 'Montserrat', Arial, sans-serif;">
-                        <strong style="font-size: 12px; color: #9D00FF; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">Location</strong>
-                        <span style="color: #888888; font-weight: 500;">Golani Naka, Vasai East<br />Mumbai - 401208</span>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 30px; border-top: 1px solid #F0F0F0; padding-top: 20px; text-align: center;">
-                    <tr>
-                      <td style="font-size: 11px; color: #A1A1A1; font-weight: 500; letter-spacing: 0.2px;">
-                        Modular One • Premium Modular Solutions
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-
-            </table> </td>
-        </tr>
-      </table>
-
+                  
+                  ${details ? `
+                  <div style="border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; padding: 12px 0;">
+                    <span style="font-size: 13px; color: #888888; font-weight: 500;">Project Scope</span>
+                    <span style="font-size: 13px; color: #555555; text-align: right; max-width: 250px;">${details}</span>
+                  </div>
+                  ` : ''}
+                  
+                  <!-- Budget -->
+                  <div style="border-top: 1px solid rgba(157, 0, 255, 0.2); margin-top: 12px; padding-top: 18px; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 13px; font-weight: 800; color: #1a1a1a;">Budget Estimate</span>
+                    <span class="budget-text" style="font-size: 22px; font-weight: 900; color: #9D00FF;">
+                      ${budget ? `₹${parseInt(budget).toLocaleString()}` : 'To Be Discussed'}
+                    </span>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            
+            <!-- Client Message -->
+            ${message ? `
+            <div class="padding-large" style="padding: 25px 45px 15px 45px;">
+              <div style="margin-bottom: 12px;">
+                <span style="font-size: 11px; font-weight: 800; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Client Message</span>
+              </div>
+              <div style="background-color: #fafafa; border-radius: 20px; padding: 20px 24px; border-left: 3px solid #9D00FF;">
+                <p style="margin: 0; font-size: 13px; color: #444444; line-height: 1.7;">${message.replace(/\n/g, '<br>')}</p>
+              </div>
+            </div>
+            ` : ''}
+            
+            <!-- Action Buttons -->
+            <div class="padding-large" style="padding: 20px 45px 45px 45px;">
+              <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <a href="tel:${phone}" class="btn-stack" style="display: inline-block; background-color: #9D00FF; color: #ffffff; font-weight: 700; text-decoration: none; padding: 14px 32px; font-size: 13px; border-radius: 40px; text-transform: uppercase; letter-spacing: 1px;">
+                  Call Client
+                </a>
+                <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" class="btn-stack" style="display: inline-block; background-color: transparent; color: #9D00FF; font-weight: 600; text-decoration: none; padding: 14px 32px; font-size: 13px; border-radius: 40px; border: 2px solid #9D00FF; text-transform: uppercase; letter-spacing: 1px;">
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+            
+            <!-- Divider -->
+            <div style="padding: 0 45px;">
+              <div style="height: 1px; background: linear-gradient(90deg, transparent, #9D00FF, transparent);"></div>
+            </div>
+            
+            <!-- Footer -->
+            <div style="padding: 35px 45px;">
+              <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                <div class="stack-column" style="font-size: 12px; line-height: 1.8;">
+                  <strong style="font-size: 13px; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Need Help?</strong><br />
+                  <span style="color: #888888;">Contact support team</span><br />
+                  <a href="mailto:support@modularone.com" style="color: #9D00FF; text-decoration: none; font-weight: 600;">support@modularone.com</a>
+                </div>
+                <div class="stack-column" style="font-size: 12px; line-height: 1.8;">
+                  <strong style="font-size: 13px; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Location</strong><br />
+                  <span style="color: #888888;">Golani Naka, Vasai East<br />Mumbai - 401208</span>
+                </div>
+              </div>
+              <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #f0f0f0;">
+                <span style="font-size: 10px; color: #aaaaaa;">Modular One • Premium Modular Solutions</span>
+              </div>
+            </div>
+            
+          </div>
+          
+        </div>
+        
+      </div>
+      
     </body>
     </html>
   `;
@@ -346,7 +318,7 @@ export default async function handler(req, res) {
     Name: ${fullName}
     Email: ${email}
     Phone: ${phone}
-    ${budget ? `Budget: ₹${parseInt(budget).toLocaleString('en-IN')}` : ''}
+    ${budget ? `Budget: ₹${budget}` : ''}
     ${service ? `Service: ${service}` : ''}
     ${details ? `Details: ${details}` : ''}
     ${message ? `Message: ${message}` : ''}
