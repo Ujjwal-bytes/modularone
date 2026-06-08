@@ -1,64 +1,4 @@
-// import nodemailer from 'nodemailer';
-
-// export default async function handler(req, res) {
-//   if (req.method !== 'POST') {
-//     return res.status(405).json({ message: 'Method not allowed' });
-//   }
-
-//   const { fullName, email, phone, budget, service, details, message, type } = req.body;
-
-//   // Create a transporter using SMTP
-//   const transporter = nodemailer.createTransport({
-//     host: process.env.SMTP_HOST,
-//     port: process.env.SMTP_PORT,
-//     secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
-//     auth: {
-//       user: process.env.SMTP_USER,
-//       pass: process.env.SMTP_PASS,
-//     },
-//   });
-
-//   const isQuote = type === 'quote';
-//   const subject = isQuote 
-//     ? `New Quote Request from ${fullName}` 
-//     : `New Contact Message from ${fullName}`;
-
-//   const htmlContent = `
-//     <h2>${subject}</h2>
-//     <p><strong>Name:</strong> ${fullName}</p>
-//     <p><strong>Email:</strong> ${email}</p>
-//     <p><strong>Phone:</strong> ${phone}</p>
-//     ${budget ? `<p><strong>Budget:</strong> ${budget}</p>` : ''}
-//     ${service ? `<p><strong>Service:</strong> ${service}</p>` : ''}
-//     ${details ? `<p><strong>Details:</strong> ${details}</p>` : ''}
-//     ${message ? `<p><strong>Message:</strong> ${message}</p>` : ''}
-//     <hr />
-//     <p>Sent from Modular One Website</p>
-//   `;
-
-//   try {
-//     await transporter.sendMail({
-//       from: `"${fullName}" <${process.env.SMTP_USER}>`,
-//       to: process.env.CONTACT_EMAIL || process.env.SMTP_USER,
-//       subject: subject,
-//       html: htmlContent,
-//       replyTo: email,
-//     });
-
-//     return res.status(200).json({ message: 'Email sent successfully' });
-//   } catch (error) {
-//     console.error('Nodemailer Error:', error);
-//     return res.status(500).json({ message: 'Failed to send email', error: error.message });
-//   }
-// }
-
-
-
-
-
 import nodemailer from 'nodemailer';
-import fs from 'fs';
-import path from 'path';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -82,32 +22,10 @@ export default async function handler(req, res) {
     ? `New Quote Request from ${fullName}` 
     : `New Contact Message from ${fullName}`;
 
-  let logoPath = null;
-  const possiblePaths = [
-    path.join(process.cwd(), 'public', 'logoss.png'),
-    path.join(process.cwd(), 'public', 'logoss.webp'),
-    path.join(process.cwd(), 'public', 'modularone-logoss.png'),
-    path.join(process.cwd(), 'src', 'assets', 'logoss.png'),
-  ];
+  // Cloudinary CDN URL for instant loading
+  const logoUrl = "https://res.cloudinary.com/ddhotct77/image/upload/v1780938506/logoss_mtf9qo.png";
 
-  for (const p of possiblePaths) {
-    if (fs.existsSync(p)) {
-      logoPath = p;
-      break;
-    }
-  }
-
-  const attachments = [];
-  if (logoPath) {
-    attachments.push({
-      filename: path.basename(logoPath),
-      path: logoPath,
-      cid: 'logo@modularone.com',
-      contentType: 'image/png',
-    });
-  }
-
-  // ULTRA RESPONSIVE & SPACIOUS EMAIL TEMPLATE
+  // ULTRA RESPONSIVE & PREMIUM EMAIL TEMPLATE
   const htmlContent = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -150,27 +68,20 @@ export default async function handler(req, res) {
         <tr>
           <td align="center">
             
-            <!-- Main Responsive Shell Container -->
             <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="520" style="background-color: #ffffff; border-radius: 24px; box-shadow: 0px 8px 24px rgba(0,0,0,0.04); width: 100%; max-width: 520px; overflow: hidden; border-collapse: separate !important;">
               
-              <!-- Purple Header Bar -->
               <tr>
                 <td style="background-color: #9D00FF; padding: 36px 20px; text-align: center;">
-                  ${logoPath ? 
-                    `<img src="cid:logo@modularone.com" alt="Modular One" style="height: 40px; width: auto; display: inline-block;">` : 
-                    `<div style="font-size: 20px; font-weight: 800; letter-spacing: 2px; color: #ffffff; margin: 0;">MODULAR ONE</div>`
-                  }
+                  <img src="${logoUrl}" alt="Modular One" style="height: 40px; width: auto; display: inline-block;">
                   <div style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.85); margin-top: 8px; letter-spacing: 1px; text-transform: uppercase;">
                     PREMIUM MODULAR SOLUTIONS
                   </div>
                 </td>
               </tr>
 
-              <!-- Content Payload Wrapper -->
               <tr>
                 <td class="responsive-padding" style="padding: 40px 40px 24px 40px;">
                   
-                  <!-- Section Title and Badge -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: center;">
                     <tr>
                       <td>
@@ -189,12 +100,10 @@ export default async function handler(req, res) {
                     </tr>
                   </table>
 
-                  <!-- Data Sheet Layout Matrix -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 32px; border: 1px solid #EAEAEA; border-radius: 16px; border-collapse: separate !important;">
                     <tr>
                       <td style="padding: 8px 20px;">
                         
-                        <!-- Client Name Row -->
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5;">
                           <tr>
                             <td class="detail-row" style="padding: 14px 0;">
@@ -208,7 +117,6 @@ export default async function handler(req, res) {
                           </tr>
                         </table>
 
-                        <!-- Client Email Row -->
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5;">
                           <tr>
                             <td class="detail-row" style="padding: 14px 0;">
@@ -224,7 +132,6 @@ export default async function handler(req, res) {
                           </tr>
                         </table>
 
-                        <!-- Client Phone Row -->
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5;">
                           <tr>
                             <td class="detail-row" style="padding: 14px 0;">
@@ -238,7 +145,6 @@ export default async function handler(req, res) {
                           </tr>
                         </table>
 
-                        <!-- Requested Service Row (Dynamic) -->
                         ${service ? `
                         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5;">
                           <tr>
@@ -254,7 +160,6 @@ export default async function handler(req, res) {
                         </table>
                         ` : ''}
 
-                        <!-- Financial Allocation Budget Row -->
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                           <tr>
                             <td class="detail-row" style="padding: 16px 0 12px 0;">
@@ -274,7 +179,6 @@ export default async function handler(req, res) {
                     </tr>
                   </table>
 
-                  <!-- Dynamic Segment Block: Project Scope Info Sheet -->
                   ${details ? `
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
                     <tr>
@@ -288,7 +192,6 @@ export default async function handler(req, res) {
                   </table>
                   ` : ''}
 
-                  <!-- Dynamic Segment Block: Inbound Raw User Message -->
                   ${message ? `
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
                     <tr>
@@ -304,31 +207,28 @@ export default async function handler(req, res) {
                   </table>
                   ` : ''}
 
-                  <!-- Stacked Inter-Action Interface Routing Grid -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 36px;">
                     <tr>
                       <td align="center" class="btn-container">
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                           <tr>
-                            <!-- CTA Layer: Direct Cellular Dialer -->
-                            <td class="btn-stack" width="50%" style="padding-right: 6px;">
+                            <td class="btn-stack" width="50%" style="padding-right: 8px;">
                               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                  <td align="center" bgcolor="#9D00FF" style="border-radius: 40px;">
-                                    <a href="tel:${phone}" style="font-size: 13px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 14px 16px; display: block; text-align: center; letter-spacing: 0.5px;">
-                                      📞 CALL CLIENT
+                                  <td align="center" bgcolor="#9D00FF" style="border-radius: 12px; box-shadow: 0 4px 12px rgba(157, 0, 255, 0.2);">
+                                    <a href="tel:${phone}" style="font-size: 13px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 15px 20px; display: block; text-align: center; letter-spacing: 1px; text-transform: uppercase;">
+                                      Call Client
                                     </a>
                                   </td>
                                 </tr>
                               </table>
                             </td>
-                            <!-- CTA Layer: Native WhatsApp Instance Handshake -->
-                            <td class="btn-stack-last" width="50%" style="padding-left: 6px;">
+                            <td class="btn-stack-last" width="50%" style="padding-left: 8px;">
                               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                  <td align="center" bgcolor="#ffffff" style="border-radius: 40px; border: 2px solid #9D00FF;">
-                                    <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" style="font-size: 13px; font-weight: 700; color: #9D00FF; text-decoration: none; padding: 12px 16px; display: block; text-align: center; letter-spacing: 0.5px;">
-                                      💬 WHATSAPP
+                                  <td align="center" bgcolor="#ffffff" style="border-radius: 12px; border: 2px solid #9D00FF;">
+                                    <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" style="font-size: 13px; font-weight: 700; color: #9D00FF; text-decoration: none; padding: 13px 20px; display: block; text-align: center; letter-spacing: 1px; text-transform: uppercase;">
+                                      WhatsApp
                                     </a>
                                   </td>
                                 </tr>
@@ -340,7 +240,6 @@ export default async function handler(req, res) {
                     </tr>
                   </table>
 
-                  <!-- UI Line Separator Element -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 36px;">
                     <tr>
                       <td style="background: linear-gradient(90deg, transparent, #9D00FF, transparent); height: 1px; font-size: 1px; line-height: 1px;">&nbsp;</td>
@@ -350,7 +249,6 @@ export default async function handler(req, res) {
                 </td>
               </tr>
 
-              <!-- Informative System Core Footer Shell -->
               <tr>
                 <td style="padding: 10px 20px 36px 20px; text-align: center;">
                   <div style="font-size: 12px; color: #666666; margin-bottom: 4px;">Need assistance? Contact support</div>
@@ -361,9 +259,7 @@ export default async function handler(req, res) {
                 </td>
               </tr>
 
-            </table> <!-- End Primary Framework Render Nest -->
-
-          </td>
+            </table> </td>
         </tr>
       </table>
 
@@ -396,7 +292,6 @@ export default async function handler(req, res) {
       html: htmlContent,
       text: textContent,
       replyTo: email,
-      attachments: attachments,
     });
 
     return res.status(200).json({ message: 'Email sent successfully' });
