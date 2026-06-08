@@ -65,7 +65,6 @@ export default async function handler(req, res) {
 
   const { fullName, email, phone, budget, service, details, message, type } = req.body;
 
-  // Create a transporter using SMTP
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT),
@@ -81,316 +80,49 @@ export default async function handler(req, res) {
     ? `New Quote Request from ${fullName}` 
     : `New Contact Message from ${fullName}`;
 
-  // Better White Theme HTML Email Template
+  // SIMPLE CLEAN EMAIL UI - CHANGE KARNE KE LIYE YAHAN EDIT KAR
   const htmlContent = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>${subject}</title>
-      <style>
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
-        body {
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-          background-color: #f5f7fa;
-          padding: 40px 20px;
-        }
-        .email-container {
-          max-width: 600px;
-          margin: 0 auto;
-          background: #ffffff;
-          border: 1px solid #e8ecf0;
-          overflow: hidden;
-        }
-        /* Header Section with Logo */
-        .email-header {
-          background: #ffffff;
-          padding: 32px 32px 24px;
-          text-align: center;
-          border-bottom: 2px solid #1a2a4f;
-        }
-        .logo-container {
-          margin-bottom: 20px;
-        }
-        .logo {
-          max-width: 180px;
-          height: auto;
-        }
-        .company-name {
-          font-size: 24px;
-          font-weight: 700;
-          color: #1a2a4f;
-          letter-spacing: -0.5px;
-          margin-top: 8px;
-        }
-        .company-tagline {
-          font-size: 11px;
-          color: #94a3b8;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          margin-top: 6px;
-        }
-        /* Badge */
-        .badge {
-          display: inline-block;
-          background: #1a2a4f;
-          color: #ffffff;
-          font-size: 10px;
-          font-weight: 700;
-          padding: 4px 12px;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          margin-bottom: 16px;
-        }
-        /* Content Section */
-        .email-content {
-          padding: 32px;
-        }
-        .greeting {
-          font-size: 20px;
-          font-weight: 600;
-          color: #0f172a;
-          margin-bottom: 8px;
-        }
-        .greeting-sub {
-          color: #64748b;
-          font-size: 14px;
-          margin-bottom: 28px;
-          padding-bottom: 20px;
-          border-bottom: 1px solid #e8ecf0;
-        }
-        /* Info Cards */
-        .info-card {
-          background: #f8fafc;
-          border: 1px solid #e8ecf0;
-          padding: 20px;
-          margin-bottom: 24px;
-        }
-        .info-title {
-          font-size: 11px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 1.5px;
-          color: #1a2a4f;
-          margin-bottom: 16px;
-          padding-bottom: 8px;
-          border-bottom: 2px solid #c9a03d;
-          display: inline-block;
-        }
-        .info-row {
-          display: flex;
-          padding: 10px 0;
-          border-bottom: 1px solid #e8ecf0;
-        }
-        .info-label {
-          width: 100px;
-          font-size: 12px;
-          font-weight: 600;
-          color: #475569;
-        }
-        .info-value {
-          flex: 1;
-          font-size: 13px;
-          color: #0f172a;
-          font-weight: 500;
-        }
-        .message-box {
-          background: #f8fafc;
-          padding: 16px;
-          margin-top: 16px;
-          border-left: 3px solid #c9a03d;
-        }
-        .message-text {
-          font-size: 13px;
-          color: #334155;
-          line-height: 1.6;
-        }
-        /* Footer Section */
-        .email-footer {
-          background: #f8fafc;
-          padding: 24px 32px;
-          text-align: center;
-          border-top: 1px solid #e8ecf0;
-        }
-        .footer-text {
-          font-size: 11px;
-          color: #94a3b8;
-          line-height: 1.6;
-        }
-        .footer-links {
-          margin-top: 16px;
-          padding-top: 16px;
-          border-top: 1px solid #e2e8f0;
-        }
-        .footer-links a {
-          color: #1a2a4f;
-          text-decoration: none;
-          font-size: 11px;
-          margin: 0 8px;
-        }
-        .social-icons {
-          margin-top: 16px;
-        }
-        .social-icons span {
-          display: inline-block;
-          width: 32px;
-          height: 32px;
-          background: #1a2a4f;
-          color: white;
-          line-height: 32px;
-          text-align: center;
-          font-size: 12px;
-          margin: 0 4px;
-        }
-        hr {
-          border: none;
-          border-top: 1px solid #e8ecf0;
-          margin: 20px 0;
-        }
-        @media (max-width: 600px) {
-          .email-container {
-            width: 100%;
-          }
-          .info-row {
-            flex-direction: column;
-          }
-          .info-label {
-            width: 100%;
-            margin-bottom: 4px;
-          }
-        }
-      </style>
-    </head>
-    <body>
-      <div class="email-container">
-        <!-- Header with Logo -->
-        <div class="email-header">
-          <div class="logo-container">
-            <img src="cid:logo@modularone.com" alt="Modular One Logo" class="logo" style="max-width: 160px;">
-          </div>
-          <div class="badge">${isQuote ? '📋 QUOTE REQUEST' : '📧 NEW ENQUIRY'}</div>
-          <div class="company-name">Modular One</div>
-          <div class="company-tagline">Premium Modular Furniture Solutions</div>
-        </div>
-
-        <!-- Content -->
-        <div class="email-content">
-          <div class="greeting">Hello Team,</div>
-          <div class="greeting-sub">You have received a new ${isQuote ? 'quote request' : 'contact message'} from ${fullName}.</div>
-
-          <div class="info-card">
-            <div class="info-title">📝 CLIENT DETAILS</div>
-            
-            <div class="info-row">
-              <div class="info-label">Full Name</div>
-              <div class="info-value">${fullName}</div>
-            </div>
-            
-            <div class="info-row">
-              <div class="info-label">Email Address</div>
-              <div class="info-value">
-                <a href="mailto:${email}" style="color: #1a2a4f;">${email}</a>
-              </div>
-            </div>
-            
-            <div class="info-row">
-              <div class="info-label">Phone Number</div>
-              <div class="info-value">
-                <a href="tel:${phone}" style="color: #1a2a4f;">${phone}</a>
-              </div>
-            </div>
-            
-            ${budget ? `
-            <div class="info-row">
-              <div class="info-label">Budget Range</div>
-              <div class="info-value">₹${budget}</div>
-            </div>
-            ` : ''}
-            
-            ${service ? `
-            <div class="info-row">
-              <div class="info-label">Service Type</div>
-              <div class="info-value">${service}</div>
-            </div>
-            ` : ''}
-            
-            ${details ? `
-            <div class="info-row">
-              <div class="info-label">Project Details</div>
-              <div class="info-value">${details}</div>
-            </div>
-            ` : ''}
-          </div>
-
-          ${message ? `
-          <div class="info-title">💬 MESSAGE</div>
-          <div class="message-box">
-            <p class="message-text">${message.replace(/\n/g, '<br>')}</p>
-          </div>
-          ` : ''}
-
-          <hr />
-
-          <div style="font-size: 12px; color: #64748b; text-align: center;">
-            <strong>⚡ Quick Actions</strong><br><br>
-            <a href="tel:${phone}" style="color: #1a2a4f; text-decoration: none;">📞 Call Client</a> &nbsp;|&nbsp;
-            <a href="https://wa.me/${phone}" style="color: #1a2a4f; text-decoration: none;">💬 WhatsApp</a> &nbsp;|&nbsp;
-            <a href="mailto:${email}" style="color: #1a2a4f; text-decoration: none;">✉️ Reply via Email</a>
-          </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="email-footer">
-          <div class="footer-text">
-            <strong>Modular One</strong><br>
-            Golani Naka, Vasai East, Vasai-Virar<br>
-            Maharashtra - 401208
-          </div>
-          <div class="footer-links">
-            <a href="https://modularone.vercel.app">🌐 Website</a> •
-            <a href="https://instagram.com">📸 Instagram</a> •
-            <a href="https://facebook.com">📘 Facebook</a>
-          </div>
-          <div class="footer-text" style="margin-top: 16px; font-size: 10px;">
-            This is an automated message from Modular One contact form.<br>
-            Please respond within 24 hours.
-          </div>
+    <div style="font-family: Arial, sans-serif; max-width: 550px; margin: 0 auto; border: 1px solid #ddd;">
+      <!-- Header -->
+      <div style="background: #1a2a4f; padding: 25px; text-align: center;">
+        <h2 style="color: #c9a03d; margin: 0;">MODULAR ONE</h2>
+        <p style="color: #fff; margin: 5px 0 0; font-size: 12px;">Premium Modular Furniture</p>
+      </div>
+      
+      <!-- Content -->
+      <div style="padding: 25px;">
+        <h3 style="margin: 0 0 5px;">Hello Team,</h3>
+        <p style="color: #666; margin-bottom: 20px;">New enquiry received from <strong>${fullName}</strong></p>
+        
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr style="background: #f5f5f5;"><td style="padding: 10px;"><strong>Name</strong></td><td style="padding: 10px;">${fullName}</td></tr>
+          <tr><td style="padding: 10px;"><strong>Email</strong></td><td style="padding: 10px;">${email}</td></tr>
+          <tr style="background: #f5f5f5;"><td style="padding: 10px;"><strong>Phone</strong></td><td style="padding: 10px;">${phone}</td></tr>
+          ${budget ? `<tr><td style="padding: 10px;"><strong>Budget</strong></td><td style="padding: 10px;">₹${budget}</td></tr>` : ''}
+          ${service ? `<tr style="background: #f5f5f5;"><td style="padding: 10px;"><strong>Service</strong></td><td style="padding: 10px;">${service}</td></tr>` : ''}
+        </table>
+        
+        ${message ? `<div style="background: #f5f5f5; padding: 15px; margin-top: 20px;"><strong>Message:</strong><br>${message}</div>` : ''}
+        
+        <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #ddd; text-align: center;">
+          <a href="tel:${phone}" style="color: #1a2a4f; margin: 0 10px;">📞 Call</a>
+          <a href="https://wa.me/${phone}" style="color: #1a2a4f; margin: 0 10px;">💬 WhatsApp</a>
+          <a href="mailto:${email}" style="color: #1a2a4f; margin: 0 10px;">✉️ Reply</a>
         </div>
       </div>
-    </body>
-    </html>
+      
+      <!-- Footer -->
+      <div style="background: #f5f5f5; padding: 15px; text-align: center; font-size: 11px; color: #888;">
+        Modular One | Golani Naka, Vasai East | www.modularone.vercel.app
+      </div>
+    </div>
   `;
 
-  // Text version for email clients that don't support HTML
-  const textContent = `
-    ${subject}
-    
-    Name: ${fullName}
-    Email: ${email}
-    Phone: ${phone}
-    ${budget ? `Budget: ₹${budget}` : ''}
-    ${service ? `Service: ${service}` : ''}
-    ${details ? `Details: ${details}` : ''}
-    ${message ? `Message: ${message}` : ''}
-    
-    ---
-    Sent from Modular One Website
-    Contact: +91 98765 43210
-    Website: https://modularone.vercel.app
-  `;
-
-  // Try to load logo from different possible locations
+  // Try logo
   let logoPath = null;
   const possiblePaths = [
     path.join(process.cwd(), 'public', 'logo.png'),
     path.join(process.cwd(), 'public', 'modularone-logo.png'),
-    path.join(process.cwd(), 'src', 'assets', 'logo.png'),
-    path.join(process.cwd(), 'src', 'assets', 'modularone-logo.png'),
   ];
 
   for (const p of possiblePaths) {
@@ -401,24 +133,20 @@ export default async function handler(req, res) {
   }
 
   const attachments = [];
-
-  // Add logo if found
-  if (logoPath && fs.existsSync(logoPath)) {
+  if (logoPath) {
     attachments.push({
       filename: path.basename(logoPath),
       path: logoPath,
-      cid: 'logo@modularone.com',
-      contentType: 'image/png',
+      cid: 'logo',
     });
   }
 
   try {
     await transporter.sendMail({
-      from: `"Modular One Website" <${process.env.SMTP_USER}>`,
+      from: `"Modular One" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_EMAIL || process.env.SMTP_USER,
       subject: subject,
       html: htmlContent,
-      text: textContent,
       replyTo: email,
       attachments: attachments,
     });
@@ -426,6 +154,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ message: 'Email sent successfully' });
   } catch (error) {
     console.error('Nodemailer Error:', error);
-    return res.status(500).json({ message: 'Failed to send email', error: error.message });
+    return res.status(500).json({ message: 'Failed to send email' });
   }
 }
