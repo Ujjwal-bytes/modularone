@@ -107,7 +107,7 @@ export default async function handler(req, res) {
     });
   }
 
-  // BULLETPROOF & COMPACT EMAIL TEMPLATE
+  // ULTRA RESPONSIVE & SPACIOUS EMAIL TEMPLATE
   const htmlContent = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -126,41 +126,51 @@ export default async function handler(req, res) {
 
         @media screen and (max-width: 600px) {
           .wrapper-table { width: 100% !important; max-width: 100% !important; }
-          .responsive-padding { padding: 20px 15px !important; }
-          .btn-stack { display: block !important; width: 100% !important; margin-bottom: 12px !important; padding-right: 0 !important; }
-          .btn-stack-last { display: block !important; width: 100% !important; }
-          .detail-label { display: block !important; width: 100% !important; text-align: left !important; padding-bottom: 2px; }
-          .detail-value { display: block !important; width: 100% !important; text-align: left !important; }
+          .responsive-padding { padding: 24px 16px !important; }
+          
+          /* Un-congesting Content Rows on Mobile */
+          .detail-row { display: block !important; width: 100% !important; padding: 12px 0 !important; }
+          .detail-label { display: block !important; width: 100% !important; text-align: left !important; padding-bottom: 4px !important; font-size: 11px !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; }
+          .detail-value { display: block !important; width: 100% !important; text-align: left !important; font-size: 15px !important; line-height: 1.4 !important; }
+          
+          /* Budget Row Special Handling */
+          .budget-label { display: block !important; width: 100% !important; text-align: left !important; padding-bottom: 4px !important; }
+          .budget-value { display: block !important; width: 100% !important; text-align: left !important; font-size: 20px !important; }
+
+          /* Button Stacking Logic */
+          .btn-container { display: block !important; width: 100% !important; padding: 0 !important; }
+          .btn-stack { display: block !important; width: 100% !important; padding-right: 0 !important; padding-left: 0 !important; margin-bottom: 12px !important; }
+          .btn-stack-last { display: block !important; width: 100% !important; padding-right: 0 !important; padding-left: 0 !important; }
         }
       </style>
     </head>
-    <body style="margin: 0; padding: 30px 12px; background-color: #f5f5f5; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Arial, sans-serif;">
+    <body style="margin: 0; padding: 24px 8px; background-color: #f5f5f5; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Arial, sans-serif;">
 
       <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
           <td align="center">
             
-            <!-- Main Card Container -->
-            <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="550" style="background-color: #ffffff; border-radius: 20px; box-shadow: 0px 4px 12px rgba(0,0,0,0.03); width: 100%; max-width: 550px; overflow: hidden; border-collapse: separate !important;">
+            <!-- Main Responsive Shell Container -->
+            <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="520" style="background-color: #ffffff; border-radius: 24px; box-shadow: 0px 8px 24px rgba(0,0,0,0.04); width: 100%; max-width: 520px; overflow: hidden; border-collapse: separate !important;">
               
-              <!-- Brand Header -->
+              <!-- Purple Header Bar -->
               <tr>
-                <td style="background-color: #9D00FF; padding: 32px 20px; text-align: center;">
+                <td style="background-color: #9D00FF; padding: 36px 20px; text-align: center;">
                   ${logoPath ? 
-                    `<img src="cid:logo@modularone.com" alt="Modular One" style="height: 42px; width: auto; display: inline-block;">` : 
+                    `<img src="cid:logo@modularone.com" alt="Modular One" style="height: 40px; width: auto; display: inline-block;">` : 
                     `<div style="font-size: 20px; font-weight: 800; letter-spacing: 2px; color: #ffffff; margin: 0;">MODULAR ONE</div>`
                   }
-                  <div style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); margin-top: 8px; letter-spacing: 1px;">
+                  <div style="font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.85); margin-top: 8px; letter-spacing: 1px; text-transform: uppercase;">
                     PREMIUM MODULAR SOLUTIONS
                   </div>
                 </td>
               </tr>
 
-              <!-- Inner Body Padding Wrapper -->
+              <!-- Content Payload Wrapper -->
               <tr>
-                <td class="responsive-padding" style="padding: 32px 36px 20px 36px;">
+                <td class="responsive-padding" style="padding: 40px 40px 24px 40px;">
                   
-                  <!-- Badge Component -->
+                  <!-- Section Title and Badge -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="text-align: center;">
                     <tr>
                       <td>
@@ -172,60 +182,90 @@ export default async function handler(req, res) {
                         <h2 style="margin: 0 0 6px 0; font-size: 22px; font-weight: 700; color: #1a1a1a;">
                           New Client Enquiry
                         </h2>
-                        <p style="margin: 0; color: #666666; font-size: 13px;">
+                        <p style="margin: 0; color: #777777; font-size: 13px;">
                           Received on ${new Date().toLocaleDateString('en-IN')}
                         </p>
                       </td>
                     </tr>
                   </table>
 
-                  <!-- Specifications Sheet Grid -->
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 24px; border: 1px solid #EAEAEA; border-radius: 16px; border-collapse: separate !important;">
+                  <!-- Data Sheet Layout Matrix -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 32px; border: 1px solid #EAEAEA; border-radius: 16px; border-collapse: separate !important;">
                     <tr>
-                      <td style="padding: 16px 20px;">
+                      <td style="padding: 8px 20px;">
                         
-                        <!-- Row: Full Name -->
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5; padding: 10px 0;">
+                        <!-- Client Name Row -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5;">
                           <tr>
-                            <td class="detail-label" style="font-size: 13px; color: #888888; font-weight: 500;">Full Name</td>
-                            <td class="detail-value" align="right" style="font-size: 14px; color: #1a1a1a; font-weight: 600;">${fullName}</td>
-                          </tr>
-                        </table>
-
-                        <!-- Row: Email -->
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5; padding: 10px 0;">
-                          <tr>
-                            <td class="detail-label" style="font-size: 13px; color: #888888; font-weight: 500;">Email Address</td>
-                            <td class="detail-value" align="right" style="font-size: 13px; font-weight: 600;">
-                              <a href="mailto:${email}" style="color: #9D00FF; text-decoration: none; word-break: break-all;">${email}</a>
+                            <td class="detail-row" style="padding: 14px 0;">
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                  <td class="detail-label" width="35%" style="font-size: 13px; color: #888888; font-weight: 500;">Full Name</td>
+                                  <td class="detail-value" align="right" style="font-size: 14px; color: #1a1a1a; font-weight: 600;">${fullName}</td>
+                                </tr>
+                              </table>
                             </td>
                           </tr>
                         </table>
 
-                        <!-- Row: Phone -->
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5; padding: 10px 0;">
+                        <!-- Client Email Row -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5;">
                           <tr>
-                            <td class="detail-label" style="font-size: 13px; color: #888888; font-weight: 500;">Phone Number</td>
-                            <td class="detail-value" align="right" style="font-size: 14px; color: #1a1a1a; font-weight: 600;">${phone}</td>
+                            <td class="detail-row" style="padding: 14px 0;">
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                  <td class="detail-label" width="35%" style="font-size: 13px; color: #888888; font-weight: 500;">Email Address</td>
+                                  <td class="detail-value" align="right" style="font-size: 14px; font-weight: 600;">
+                                    <a href="mailto:${email}" style="color: #9D00FF; text-decoration: none; word-break: break-all;">${email}</a>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
                           </tr>
                         </table>
 
-                        <!-- Row: Service (Optional) -->
-                        ${service ? `
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5; padding: 10px 0;">
+                        <!-- Client Phone Row -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5;">
                           <tr>
-                            <td class="detail-label" style="font-size: 13px; color: #888888; font-weight: 500;">Service Requested</td>
-                            <td class="detail-value" align="right" style="font-size: 13px; color: #1a1a1a; font-weight: 600;">${service}</td>
+                            <td class="detail-row" style="padding: 14px 0;">
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                  <td class="detail-label" width="35%" style="font-size: 13px; color: #888888; font-weight: 500;">Phone Number</td>
+                                  <td class="detail-value" align="right" style="font-size: 14px; color: #1a1a1a; font-weight: 600;">${phone}</td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+
+                        <!-- Requested Service Row (Dynamic) -->
+                        ${service ? `
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-bottom: 1px solid #F5F5F5;">
+                          <tr>
+                            <td class="detail-row" style="padding: 14px 0;">
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                  <td class="detail-label" width="35%" style="font-size: 13px; color: #888888; font-weight: 500;">Service Type</td>
+                                  <td class="detail-value" align="right" style="font-size: 14px; color: #1a1a1a; font-weight: 600;">${service}</td>
+                                </tr>
+                              </table>
+                            </td>
                           </tr>
                         </table>
                         ` : ''}
 
-                        <!-- Row: Budget Highlight -->
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding-top: 10px;">
+                        <!-- Financial Allocation Budget Row -->
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
                           <tr>
-                            <td style="font-size: 13px; font-weight: 700; color: #1a1a1a;">Estimated Budget</td>
-                            <td align="right" style="font-size: 16px; font-weight: 700; color: #9D00FF;">
-                              ${budget ? `₹${parseInt(budget).toLocaleString('en-IN')}` : 'To Be Discussed'}
+                            <td class="detail-row" style="padding: 16px 0 12px 0;">
+                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                  <td class="budget-label" style="font-size: 13px; font-weight: 700; color: #1a1a1a;">Estimated Budget</td>
+                                  <td class="budget-value" align="right" style="font-size: 18px; font-weight: 700; color: #9D00FF;">
+                                    ${budget ? `₹${parseInt(budget).toLocaleString('en-IN')}` : 'To Be Discussed'}
+                                  </td>
+                                </tr>
+                              </table>
                             </td>
                           </tr>
                         </table>
@@ -234,29 +274,29 @@ export default async function handler(req, res) {
                     </tr>
                   </table>
 
-                  <!-- Dynamic Project Scope Card -->
+                  <!-- Dynamic Segment Block: Project Scope Info Sheet -->
                   ${details ? `
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 16px;">
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
                     <tr>
                       <td>
-                        <div style="background-color: #FAFAFA; border-radius: 12px; padding: 14px 18px; border-left: 3px solid #9D00FF;">
-                          <div style="font-size: 11px; font-weight: 700; color: #666666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Project Scope</div>
-                          <div style="font-size: 13px; color: #1a1a1a; line-height: 1.5; font-weight: 500;">${details}</div>
+                        <div style="background-color: #FAFAFA; border-radius: 14px; padding: 16px 20px; border-left: 4px solid #9D00FF;">
+                          <div style="font-size: 11px; font-weight: 700; color: #777777; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px;">Project Scope</div>
+                          <div style="font-size: 13px; color: #1a1a1a; line-height: 1.6; font-weight: 500;">${details}</div>
                         </div>
                       </td>
                     </tr>
                   </table>
                   ` : ''}
 
-                  <!-- Dynamic Client Message Message Box -->
+                  <!-- Dynamic Segment Block: Inbound Raw User Message -->
                   ${message ? `
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 16px;">
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
                     <tr>
                       <td>
-                        <div style="background-color: #FAFAFA; border-radius: 12px; padding: 14px 18px;">
-                          <div style="font-size: 11px; font-weight: 700; color: #666666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Client Message</div>
-                          <div style="font-size: 13px; color: #333333; line-height: 1.5; font-style: italic;">
-                            "${message.substring(0, 200)}${message.length > 200 ? '...' : ''}"
+                        <div style="background-color: #FAFAFA; border-radius: 14px; padding: 16px 20px;">
+                          <div style="font-size: 11px; font-weight: 700; color: #777777; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px;">Client Message</div>
+                          <div style="font-size: 13px; color: #333333; line-height: 1.6; font-style: italic;">
+                            "${message.substring(0, 300)}${message.length > 300 ? '...' : ''}"
                           </div>
                         </div>
                       </td>
@@ -264,31 +304,31 @@ export default async function handler(req, res) {
                   </table>
                   ` : ''}
 
-                  <!-- Control Action Buttons Layout Grid -->
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 28px;">
+                  <!-- Stacked Inter-Action Interface Routing Grid -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 36px;">
                     <tr>
-                      <td align="center">
+                      <td align="center" class="btn-container">
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                           <tr>
-                            <!-- CTA: Phone Line Callout -->
+                            <!-- CTA Layer: Direct Cellular Dialer -->
                             <td class="btn-stack" width="50%" style="padding-right: 6px;">
                               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                   <td align="center" bgcolor="#9D00FF" style="border-radius: 40px;">
-                                    <a href="tel:${phone}" style="font-size: 13px; font-weight: 600; color: #ffffff; text-decoration: none; padding: 12px 18px; display: block; text-align: center;">
-                                      📞 Call Client
+                                    <a href="tel:${phone}" style="font-size: 13px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 14px 16px; display: block; text-align: center; letter-spacing: 0.5px;">
+                                      📞 CALL CLIENT
                                     </a>
                                   </td>
                                 </tr>
                               </table>
                             </td>
-                            <!-- CTA: Realtime WhatsApp Routing -->
+                            <!-- CTA Layer: Native WhatsApp Instance Handshake -->
                             <td class="btn-stack-last" width="50%" style="padding-left: 6px;">
                               <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                   <td align="center" bgcolor="#ffffff" style="border-radius: 40px; border: 2px solid #9D00FF;">
-                                    <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" style="font-size: 13px; font-weight: 600; color: #9D00FF; text-decoration: none; padding: 10px 18px; display: block; text-align: center;">
-                                      💬 WhatsApp
+                                    <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" style="font-size: 13px; font-weight: 700; color: #9D00FF; text-decoration: none; padding: 12px 16px; display: block; text-align: center; letter-spacing: 0.5px;">
+                                      💬 WHATSAPP
                                     </a>
                                   </td>
                                 </tr>
@@ -300,8 +340,8 @@ export default async function handler(req, res) {
                     </tr>
                   </table>
 
-                  <!-- Footer Dynamic Gradient Line -->
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 32px;">
+                  <!-- UI Line Separator Element -->
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 36px;">
                     <tr>
                       <td style="background: linear-gradient(90deg, transparent, #9D00FF, transparent); height: 1px; font-size: 1px; line-height: 1px;">&nbsp;</td>
                     </tr>
@@ -310,18 +350,18 @@ export default async function handler(req, res) {
                 </td>
               </tr>
 
-              <!-- Footer Core Area -->
+              <!-- Informative System Core Footer Shell -->
               <tr>
-                <td style="padding: 12px 20px 28px 20px; text-align: center;">
+                <td style="padding: 10px 20px 36px 20px; text-align: center;">
                   <div style="font-size: 12px; color: #666666; margin-bottom: 4px;">Need assistance? Contact support</div>
                   <a href="mailto:support@modularone.com" style="color: #9D00FF; font-size: 12px; text-decoration: none; font-weight: 600;">support@modularone.com</a>
-                  <div style="font-size: 10px; color: #999999; margin-top: 16px; letter-spacing: 0.2px;">
+                  <div style="font-size: 10px; color: #999999; margin-top: 24px; letter-spacing: 0.3px;">
                     Modular One • Golani Naka, Vasai East
                   </div>
                 </td>
               </tr>
 
-            </table> <!-- End Main Layout Card Container -->
+            </table> <!-- End Primary Framework Render Nest -->
 
           </td>
         </tr>
