@@ -107,7 +107,7 @@ export default async function handler(req, res) {
     });
   }
 
-  // Clean template - NO FORCED COLORS, follows system preference
+  // COMPACT & RESPONSIVE TEMPLATE - Full width, minimal scroll
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -115,7 +115,7 @@ export default async function handler(req, res) {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>${subject}</title>
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
       
       <style>
         * {
@@ -126,187 +126,230 @@ export default async function handler(req, res) {
         
         body {
           font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-          line-height: 1.6;
+          background: #f5f5f5;
+          padding: 20px;
         }
         
-        .container {
-          max-width: 560px;
-          margin: 0 auto;
+        .email-container {
+          max-width: 100%;
           width: 100%;
+          background: #ffffff;
+          border-radius: 20px;
+          overflow: hidden;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         
-        /* Responsive */
-        @media screen and (max-width: 600px) {
-          .padding-large { padding: 30px 20px !important; }
-          .padding-medium { padding: 20px 16px !important; }
-          .btn-stack { 
-            display: block !important; 
-            width: 100% !important; 
-            margin: 10px 0 !important; 
+        /* Desktop styles */
+        @media (min-width: 768px) {
+          body {
+            padding: 40px;
           }
-          .stack-column { 
-            display: block !important; 
-            width: 100% !important; 
-            text-align: left !important; 
-            padding-left: 0 !important;
-            border-left: none !important;
+          .email-container {
+            max-width: 650px;
+            margin: 0 auto;
           }
-          .budget-text { font-size: 28px !important; }
+          .flex-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
         }
         
-        @media screen and (max-width: 380px) {
-          .padding-large { padding: 20px 16px !important; }
-          .padding-medium { padding: 16px 12px !important; }
+        /* Mobile styles */
+        @media (max-width: 767px) {
+          body {
+            padding: 10px;
+          }
+          .mobile-stack {
+            flex-direction: column;
+            align-items: flex-start !important;
+          }
+          .btn-group {
+            flex-direction: column;
+            gap: 10px;
+          }
+          .btn {
+            width: 100%;
+            text-align: center;
+          }
+        }
+        
+        .bg-purple { background: #9D00FF; }
+        .text-purple { color: #9D00FF; }
+        .text-white { color: #ffffff; }
+        .text-dark { color: #1a1a1a; }
+        .text-gray { color: #666666; }
+        .text-light-gray { color: #999999; }
+        
+        .p-3 { padding: 16px; }
+        .p-4 { padding: 20px; }
+        .p-5 { padding: 30px; }
+        
+        .mb-2 { margin-bottom: 8px; }
+        .mb-3 { margin-bottom: 12px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mt-3 { margin-top: 12px; }
+        .mt-4 { margin-top: 16px; }
+        
+        .border-bottom { border-bottom: 1px solid #f0f0f0; }
+        .border-purple { border-left: 3px solid #9D00FF; }
+        
+        .rounded-lg { border-radius: 12px; }
+        .rounded-full { border-radius: 40px; }
+        
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        
+        .text-sm { font-size: 12px; }
+        .text-base { font-size: 14px; }
+        .text-lg { font-size: 16px; }
+        .text-xl { font-size: 20px; }
+        .text-2xl { font-size: 24px; }
+        
+        .btn {
+          display: inline-block;
+          padding: 12px 24px;
+          font-size: 13px;
+          font-weight: 600;
+          text-decoration: none;
+          border-radius: 40px;
+          text-align: center;
+        }
+        
+        .btn-primary {
+          background: #9D00FF;
+          color: #ffffff;
+        }
+        
+        .btn-outline {
+          background: transparent;
+          color: #9D00FF;
+          border: 2px solid #9D00FF;
+        }
+        
+        .info-row {
+          display: flex;
+          justify-content: space-between;
+          padding: 10px 0;
+          border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .info-label {
+          font-size: 13px;
+          color: #888888;
+          font-weight: 500;
+        }
+        
+        .info-value {
+          font-size: 14px;
+          color: #1a1a1a;
+          font-weight: 600;
+          text-align: right;
         }
       </style>
     </head>
     
-    <body style="margin: 0; padding: 30px 16px;">
-      
-      <div class="container">
+    <body>
+      <div class="email-container">
         
-        <!-- Main Card with #9D00FF Accent -->
-        <div style="border-radius: 28px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-          
-          <!-- Purple Accent Header -->
-          <div style="background-color: #9D00FF; padding: 40px 20px 35px 20px; text-align: center;">
-            ${logoPath ? 
-              `<img src="cid:logo@modularone.com" alt="Modular One" style="height: 50px; width: auto; margin-bottom: 15px;">` : 
-              `<div style="font-size: 24px; font-weight: 900; letter-spacing: 4px; color: #ffffff;">
-                MODULAR ONE
-              </div>`
-            }
-            <div style="font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); margin-top: 12px; letter-spacing: 1px;">
-              PREMIUM MODULAR SOLUTIONS
-            </div>
+        <!-- Header -->
+        <div class="bg-purple p-5" style="text-align: center;">
+          ${logoPath ? 
+            `<img src="cid:logo@modularone.com" alt="Modular One" style="height: 45px; width: auto;">` : 
+            `<div class="text-white font-bold" style="font-size: 22px; letter-spacing: 3px;">MODULAR ONE</div>`
+          }
+          <div class="text-sm text-white mt-3" style="opacity: 0.9;">PREMIUM MODULAR SOLUTIONS</div>
+        </div>
+        
+        <!-- Badge & Title -->
+        <div class="p-5" style="text-align: center; padding-bottom: 0;">
+          <div style="display: inline-block; background: rgba(157,0,255,0.08); padding: 5px 12px; border-radius: 40px; margin-bottom: 12px;">
+            <span class="text-sm font-bold text-purple">${isQuote ? 'QUOTE REQUEST' : 'NEW LEAD'}</span>
           </div>
-          
-          <!-- White Card Content (No force - will adapt to dark mode) -->
-          <div style="background-color: #ffffff;">
-            
-            <!-- Hero Section -->
-            <div class="padding-large" style="padding: 45px 45px 25px 45px; text-align: center;">
-              <div style="display: inline-block; background-color: rgba(157, 0, 255, 0.08); padding: 6px 16px; border-radius: 40px; margin-bottom: 20px;">
-                <span style="font-size: 11px; font-weight: 700; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">
-                  ${isQuote ? 'New Quote Request' : 'New Lead Alert'}
+          <h2 class="text-xl font-bold text-dark mb-2">New Client Enquiry</h2>
+          <p class="text-sm text-gray">Received on ${new Date().toLocaleDateString('en-IN')}</p>
+        </div>
+        
+        <!-- Client Details Card -->
+        <div class="p-5" style="padding-top: 16px;">
+          <div style="border: 1px solid #e0e0e0; border-radius: 16px; overflow: hidden;">
+            <div class="p-4">
+              
+              <div class="info-row">
+                <span class="info-label">Full Name</span>
+                <span class="info-value">${fullName}</span>
+              </div>
+              
+              <div class="info-row">
+                <span class="info-label">Email</span>
+                <span class="info-value" style="word-break: break-all; max-width: 60%;">
+                  <a href="mailto:${email}" class="text-purple" style="text-decoration: none;">${email}</a>
                 </span>
               </div>
-              <h1 style="margin: 0 0 15px 0; font-size: 28px; font-weight: 800; color: #1a1a1a; letter-spacing: -0.5px;">
-                Client Enquiry
-              </h1>
-              <p style="margin: 0; color: #666666; font-size: 14px;">
-                A new inbound lead has been received. Review the client specifications below.
-              </p>
-            </div>
-            
-            <!-- Client Details Card -->
-            <div class="padding-large" style="padding: 15px 45px;">
-              <div style="border: 1px solid #e0e0e0; border-radius: 20px; overflow: hidden;">
-                <div class="padding-medium" style="padding: 28px 30px;">
-                  
-                  <!-- Header -->
-                  <div style="border-bottom: 1px solid #f0f0f0; padding-bottom: 18px; margin-bottom: 22px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-                    <span style="font-size: 14px; font-weight: 800; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Client Specifications</span>
-                    <span style="font-size: 11px; color: #999999; font-weight: 500;">${new Date().toLocaleDateString('en-IN')}</span>
-                  </div>
-                  
-                  <!-- Details -->
-                  <div style="border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; padding: 12px 0;">
-                    <span style="font-size: 13px; color: #888888; font-weight: 500;">Full Name</span>
-                    <span style="font-size: 14px; color: #1a1a1a; font-weight: 700;">${fullName}</span>
-                  </div>
-                  
-                  <div style="border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; padding: 12px 0;">
-                    <span style="font-size: 13px; color: #888888; font-weight: 500;">Email Address</span>
-                    <span style="font-size: 13px; font-weight: 500;">
-                      <a href="mailto:${email}" style="color: #9D00FF; text-decoration: none;">${email}</a>
-                    </span>
-                  </div>
-                  
-                  <div style="border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; padding: 12px 0;">
-                    <span style="font-size: 13px; color: #888888; font-weight: 500;">Phone Number</span>
-                    <span style="font-size: 14px; color: #1a1a1a; font-weight: 600;">${phone}</span>
-                  </div>
-                  
-                  ${service ? `
-                  <div style="border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; padding: 12px 0;">
-                    <span style="font-size: 13px; color: #888888; font-weight: 500;">Service Type</span>
-                    <span style="font-size: 13px; color: #1a1a1a; font-weight: 500;">${service}</span>
-                  </div>
-                  ` : ''}
-                  
-                  ${details ? `
-                  <div style="border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; padding: 12px 0;">
-                    <span style="font-size: 13px; color: #888888; font-weight: 500;">Project Scope</span>
-                    <span style="font-size: 13px; color: #555555; text-align: right; max-width: 250px;">${details}</span>
-                  </div>
-                  ` : ''}
-                  
-                  <!-- Budget -->
-                  <div style="border-top: 1px solid rgba(157, 0, 255, 0.2); margin-top: 12px; padding-top: 18px; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 13px; font-weight: 800; color: #1a1a1a;">Budget Estimate</span>
-                    <span class="budget-text" style="font-size: 22px; font-weight: 900; color: #9D00FF;">
-                      ${budget ? `₹${parseInt(budget).toLocaleString()}` : 'To Be Discussed'}
-                    </span>
-                  </div>
-                  
-                </div>
+              
+              <div class="info-row">
+                <span class="info-label">Phone</span>
+                <span class="info-value">${phone}</span>
               </div>
-            </div>
-            
-            <!-- Client Message -->
-            ${message ? `
-            <div class="padding-large" style="padding: 25px 45px 15px 45px;">
-              <div style="margin-bottom: 12px;">
-                <span style="font-size: 11px; font-weight: 800; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Client Message</span>
+              
+              ${service ? `
+              <div class="info-row">
+                <span class="info-label">Service</span>
+                <span class="info-value">${service}</span>
               </div>
-              <div style="background-color: #fafafa; border-radius: 20px; padding: 20px 24px; border-left: 3px solid #9D00FF;">
-                <p style="margin: 0; font-size: 13px; color: #444444; line-height: 1.7;">${message.replace(/\n/g, '<br>')}</p>
+              ` : ''}
+              
+              <div class="info-row" style="border-bottom: none;">
+                <span class="info-label font-bold">Budget</span>
+                <span class="text-purple font-bold text-lg">${budget ? `₹${parseInt(budget).toLocaleString()}` : 'To Be Discussed'}</span>
               </div>
+              
             </div>
-            ` : ''}
-            
-            <!-- Action Buttons -->
-            <div class="padding-large" style="padding: 20px 45px 45px 45px;">
-              <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                <a href="tel:${phone}" class="btn-stack" style="display: inline-block; background-color: #9D00FF; color: #ffffff; font-weight: 700; text-decoration: none; padding: 14px 32px; font-size: 13px; border-radius: 40px; text-transform: uppercase; letter-spacing: 1px;">
-                  Call Client
-                </a>
-                <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" class="btn-stack" style="display: inline-block; background-color: transparent; color: #9D00FF; font-weight: 600; text-decoration: none; padding: 14px 32px; font-size: 13px; border-radius: 40px; border: 2px solid #9D00FF; text-transform: uppercase; letter-spacing: 1px;">
-                  WhatsApp
-                </a>
-              </div>
-            </div>
-            
-            <!-- Divider -->
-            <div style="padding: 0 45px;">
-              <div style="height: 1px; background: linear-gradient(90deg, transparent, #9D00FF, transparent);"></div>
-            </div>
-            
-            <!-- Footer -->
-            <div style="padding: 35px 45px;">
-              <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-                <div class="stack-column" style="font-size: 12px; line-height: 1.8;">
-                  <strong style="font-size: 13px; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Need Help?</strong><br />
-                  <span style="color: #888888;">Contact support team</span><br />
-                  <a href="mailto:support@modularone.com" style="color: #9D00FF; text-decoration: none; font-weight: 600;">support@modularone.com</a>
-                </div>
-                <div class="stack-column" style="font-size: 12px; line-height: 1.8;">
-                  <strong style="font-size: 13px; color: #9D00FF; text-transform: uppercase; letter-spacing: 1px;">Location</strong><br />
-                  <span style="color: #888888;">Golani Naka, Vasai East<br />Mumbai - 401208</span>
-                </div>
-              </div>
-              <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #f0f0f0;">
-                <span style="font-size: 10px; color: #aaaaaa;">Modular One • Premium Modular Solutions</span>
-              </div>
-            </div>
-            
           </div>
-          
+        </div>
+        
+        <!-- Project Scope (if any) -->
+        ${details ? `
+        <div class="p-5" style="padding-top: 0; padding-bottom: 0;">
+          <div style="background: #fafafa; border-radius: 12px; padding: 12px 16px; border-left: 3px solid #9D00FF;">
+            <div class="text-sm text-gray mb-1 font-semibold">PROJECT SCOPE</div>
+            <div class="text-sm text-dark">${details}</div>
+          </div>
+        </div>
+        ` : ''}
+        
+        <!-- Client Message (if any) -->
+        ${message ? `
+        <div class="p-5" style="padding-top: 0; padding-bottom: 0;">
+          <div style="background: #fafafa; border-radius: 12px; padding: 12px 16px;">
+            <div class="text-sm text-gray mb-1 font-semibold">CLIENT MESSAGE</div>
+            <div class="text-sm text-dark">"${message.substring(0, 150)}${message.length > 150 ? '...' : ''}"</div>
+          </div>
+        </div>
+        ` : ''}
+        
+        <!-- Action Buttons -->
+        <div class="p-5">
+          <div class="btn-group" style="display: flex; gap: 12px; justify-content: center;">
+            <a href="tel:${phone}" class="btn btn-primary btn" style="flex: 1;">📞 Call Client</a>
+            <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" class="btn btn-outline btn" style="flex: 1;">💬 WhatsApp</a>
+          </div>
+        </div>
+        
+        <!-- Divider -->
+        <div style="padding: 0 20px;">
+          <div style="height: 1px; background: linear-gradient(90deg, transparent, #9D00FF, transparent);"></div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="p-4" style="text-align: center;">
+          <div class="text-sm text-gray mb-2">Need assistance? Contact support</div>
+          <a href="mailto:support@modularone.com" class="text-purple text-sm" style="text-decoration: none;">support@modularone.com</a>
+          <div class="text-sm text-light-gray mt-3" style="font-size: 10px;">Modular One • Golani Naka, Vasai East</div>
         </div>
         
       </div>
-      
     </body>
     </html>
   `;
