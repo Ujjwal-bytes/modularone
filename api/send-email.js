@@ -51,7 +51,6 @@
 //     return res.status(500).json({ message: 'Failed to send email', error: error.message });
 //   }
 // }
-
 import nodemailer from 'nodemailer';
 import fs from 'fs';
 import path from 'path';
@@ -105,7 +104,7 @@ export default async function handler(req, res) {
     });
   }
 
-  // Professional Email UI with Logo Support
+  // Premium White & Luxury Minimal UI
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -118,173 +117,187 @@ export default async function handler(req, res) {
           margin: 0;
           padding: 0;
           box-sizing: border-box;
+          border-radius: 0 !important;
         }
         body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-          background-color: #f0f2f5;
+          font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+          background-color: #ffffff;
+          color: #000000;
           padding: 40px 20px;
+          -webkit-font-smoothing: antialiased;
         }
         .email-wrapper {
+          width: 100%;
           max-width: 600px;
           margin: 0 auto;
           background: #ffffff;
-          border-radius: 16px;
-          overflow: hidden;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+          border: 2px solid #000000;
+          padding: 40px;
         }
-        /* Header */
+        /* Header Section */
         .email-header {
-          background: linear-gradient(135deg, #1a2a4f 0%, #0f1a30 100%);
-          padding: 32px 24px;
-          text-align: center;
+          border-bottom: 2px solid #000000;
+          padding-bottom: 24px;
+          margin-bottom: 24px;
         }
         .logo-container {
           margin-bottom: 16px;
         }
         .logo {
-          max-width: 160px;
+          max-width: 140px;
           height: auto;
         }
         .company-name {
-          font-size: 28px;
-          font-weight: 700;
-          color: #ffffff;
-          letter-spacing: -0.5px;
-          margin-top: 8px;
+          font-size: 32px;
+          font-weight: 900;
+          letter-spacing: -1px;
+          color: #000000;
+          text-transform: uppercase;
+          line-height: 1.1;
         }
         .company-tagline {
           font-size: 11px;
-          color: #c9a03d;
+          color: #444444;
           text-transform: uppercase;
           letter-spacing: 2px;
           margin-top: 6px;
+          font-weight: 400;
         }
-        /* Badge */
-        .badge {
+        .premium-badge {
           display: inline-block;
-          background: #c9a03d;
-          color: #1a2a4f;
-          font-size: 10px;
-          font-weight: 800;
-          padding: 4px 12px;
+          border: 1px solid #000000;
+          color: #000000;
+          background: #D4A373;
+          padding: 5px 14px;
+          font-size: 9px;
+          font-weight: 700;
+          letter-spacing: 2px;
           text-transform: uppercase;
-          letter-spacing: 1px;
           margin-top: 16px;
         }
-        /* Content */
+        /* Content Mapping */
         .email-content {
-          padding: 32px;
+          margin-bottom: 24px;
         }
         .greeting {
-          font-size: 20px;
-          font-weight: 600;
-          color: #1a2a4f;
+          font-size: 18px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          color: #000000;
           margin-bottom: 8px;
         }
         .greeting-sub {
-          color: #64748b;
-          font-size: 14px;
-          margin-bottom: 28px;
-          padding-bottom: 20px;
-          border-bottom: 1px solid #e8ecf0;
+          color: #444444;
+          font-size: 13px;
+          line-height: 1.5;
+          margin-bottom: 24px;
         }
-        /* Info Card */
+        /* Data Matrix Box */
         .info-card {
-          background: #f8fafc;
-          border-radius: 12px;
-          padding: 20px;
+          border: 1px solid #000000;
+          background: #ffffff;
+          padding: 24px;
           margin-bottom: 24px;
         }
         .info-title {
           font-size: 11px;
-          font-weight: 800;
+          font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 1.5px;
-          color: #c9a03d;
+          color: #000000;
+          border-left: 4px solid #D4A373;
+          padding-left: 10px;
           margin-bottom: 16px;
-          padding-bottom: 8px;
-          border-bottom: 2px solid #c9a03d;
-          display: inline-block;
         }
         .info-row {
           display: flex;
           padding: 10px 0;
-          border-bottom: 1px solid #e8ecf0;
+          border-bottom: 1px solid #e5e5e5;
         }
         .info-row:last-child {
           border-bottom: none;
         }
         .info-label {
-          width: 100px;
+          width: 130px;
           font-size: 12px;
-          font-weight: 600;
-          color: #475569;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          color: #000000;
         }
         .info-value {
           flex: 1;
           font-size: 13px;
-          color: #0f172a;
-          font-weight: 500;
+          color: #111111;
+          font-weight: 400;
         }
-        /* Message Box */
+        .info-value a {
+          color: #000000;
+          text-decoration: underline;
+        }
+        /* Clean Message Space */
         .message-box {
-          background: #fff8e7;
-          padding: 16px;
-          border-radius: 12px;
-          border-left: 3px solid #c9a03d;
-          margin-top: 16px;
+          background: rgba(212, 163, 115, 0.06);
+          padding: 20px;
+          border-left: 4px solid #D4A373;
+          margin-top: 12px;
         }
         .message-text {
           font-size: 13px;
-          color: #334155;
+          color: #222222;
           line-height: 1.6;
         }
-        /* Action Buttons */
+        /* CTA Link Triggers */
         .action-buttons {
-          margin-top: 24px;
-          padding-top: 20px;
-          border-top: 1px solid #e8ecf0;
+          margin-top: 32px;
+          padding-top: 24px;
+          border-top: 1px solid #e5e5e5;
           text-align: center;
         }
         .action-btn {
           display: inline-block;
-          background: #1a2a4f;
+          background: #000000;
           color: #ffffff;
           text-decoration: none;
-          padding: 10px 20px;
-          margin: 0 6px;
-          font-size: 12px;
-          font-weight: 600;
-          border-radius: 8px;
+          padding: 12px 22px;
+          margin: 6px;
+          font-size: 11px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          border: 1px solid #000000;
+          transition: all 0.2s ease;
         }
-        .action-btn-wa {
-          background: #25d366;
+        .action-btn-secondary {
+          background: #ffffff;
+          color: #000000;
         }
-        .action-btn-call {
-          background: #1a2a4f;
-        }
-        /* Footer */
+        /* Footer Protocol */
         .email-footer {
-          background: #f8fafc;
-          padding: 24px;
+          border-top: 2px solid #000000;
+          padding-top: 24px;
           text-align: center;
-          border-top: 1px solid #e8ecf0;
         }
         .footer-text {
           font-size: 11px;
-          color: #94a3b8;
+          color: #444444;
           line-height: 1.6;
         }
         .footer-links {
           margin-top: 12px;
         }
         .footer-links a {
-          color: #1a2a4f;
+          color: #000000;
           text-decoration: none;
           font-size: 11px;
+          font-weight: 600;
           margin: 0 8px;
         }
         @media (max-width: 600px) {
+          .email-wrapper {
+            padding: 20px;
+          }
           .info-row {
             flex-direction: column;
           }
@@ -295,29 +308,28 @@ export default async function handler(req, res) {
           .action-btn {
             display: block;
             margin: 8px 0;
+            text-align: center;
           }
         }
       </style>
     </head>
     <body>
       <div class="email-wrapper">
-        <!-- Header with Logo -->
         <div class="email-header">
           <div class="logo-container">
-            ${logoPath ? '<img src="cid:logo@modularone.com" alt="Modular One Logo" class="logo">' : '<div style="font-size: 32px;">🏠</div>'}
+            ${logoPath ? '<img src="cid:logo@modularone.com" alt="Modular One Logo" class="logo">' : ''}
           </div>
           <div class="company-name">MODULAR ONE</div>
           <div class="company-tagline">Premium Modular Furniture Solutions</div>
-          <div class="badge">${isQuote ? '📋 QUOTE REQUEST' : '📧 NEW ENQUIRY'}</div>
+          <div class="premium-badge">${isQuote ? 'Quote Request' : 'New Enquiry'}</div>
         </div>
 
-        <!-- Content -->
         <div class="email-content">
-          <div class="greeting">Hello Team,</div>
-          <div class="greeting-sub">You have received a new ${isQuote ? 'quote request' : 'contact message'} from <strong>${fullName}</strong>.</div>
+          <div class="greeting">System Alert</div>
+          <div class="greeting-sub">An inbound platform form transaction has occurred. Details for individual client <strong>${fullName}</strong> have been cataloged below.</div>
 
           <div class="info-card">
-            <div class="info-title">📝 CLIENT DETAILS</div>
+            <div class="info-title">Client Specifications</div>
             
             <div class="info-row">
               <div class="info-label">Full Name</div>
@@ -327,14 +339,14 @@ export default async function handler(req, res) {
             <div class="info-row">
               <div class="info-label">Email Address</div>
               <div class="info-value">
-                <a href="mailto:${email}" style="color: #1a2a4f;">${email}</a>
+                <a href="mailto:${email}">${email}</a>
               </div>
             </div>
             
             <div class="info-row">
               <div class="info-label">Phone Number</div>
               <div class="info-value">
-                <a href="tel:${phone}" style="color: #1a2a4f;">${phone}</a>
+                <a href="tel:${phone}">${phone}</a>
               </div>
             </div>
             
@@ -354,41 +366,39 @@ export default async function handler(req, res) {
             
             ${details ? `
             <div class="info-row">
-              <div class="info-label">Project Details</div>
+              <div class="info-label">Project Scope</div>
               <div class="info-value">${details}</div>
             </div>
             ` : ''}
           </div>
 
           ${message ? `
-          <div class="info-title">💬 MESSAGE</div>
+          <div class="info-title">Client Statement</div>
           <div class="message-box">
             <p class="message-text">${message.replace(/\n/g, '<br>')}</p>
           </div>
           ` : ''}
 
           <div class="action-buttons">
-            <a href="tel:${phone}" class="action-btn action-btn-call">📞 Call Client</a>
-            <a href="https://wa.me/${phone}" class="action-btn action-btn-wa">💬 WhatsApp</a>
-            <a href="mailto:${email}" class="action-btn action-btn-call">✉️ Reply via Email</a>
+            <a href="tel:${phone}" class="action-btn">Call Client</a>
+            <a href="https://wa.me/${phone}" class="action-btn action-btn-secondary">WhatsApp</a>
+            <a href="mailto:${email}" class="action-btn action-btn-secondary">Email Response</a>
           </div>
         </div>
 
-        <!-- Footer -->
         <div class="email-footer">
           <div class="footer-text">
-            <strong>Modular One</strong><br>
+            <strong>Modular One HQ</strong><br>
             Golani Naka, Vasai East, Vasai-Virar<br>
             Maharashtra - 401208
           </div>
           <div class="footer-links">
-            <a href="https://modularone.vercel.app">🌐 Website</a> •
-            <a href="https://instagram.com">📸 Instagram</a> •
-            <a href="https://facebook.com">📘 Facebook</a>
+            <a href="https://modularone.vercel.app">Website</a> •
+            <a href="https://instagram.com">Instagram</a> •
+            <a href="https://facebook.com">Facebook</a>
           </div>
-          <div class="footer-text" style="margin-top: 16px; font-size: 10px;">
-            This is an automated message from Modular One contact form.<br>
-            Please respond within 24 hours.
+          <div class="footer-text" style="margin-top: 16px; font-size: 10px; opacity: 0.6;">
+            Automated internal transaction transmission routing. Please handle within regular service window matrices.
           </div>
         </div>
       </div>
