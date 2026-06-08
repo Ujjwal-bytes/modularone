@@ -104,7 +104,7 @@ export default async function handler(req, res) {
     });
   }
 
-  // Fixed Spacing & Logo Cover View Integration
+  // Integrated Template with Light Purple Card Background
   const htmlContent = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -119,7 +119,7 @@ export default async function handler(req, res) {
       <style type="text/css">
         body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
         table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse !important; border: 0 !important; }
-        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #F8F9FA; }
+        body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #ffffff; }
 
         @media screen and (max-width: 600px) {
           .wrapper-table { width: 100% !important; max-width: 100% !important; }
@@ -133,13 +133,13 @@ export default async function handler(req, res) {
         }
       </style>
     </head>
-    <body style="margin: 0; padding: 40px 0; background-color: #F8F9FA; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;">
+    <body style="margin: 0; padding: 40px 0; background-color: #ffffff; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;">
 
       <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
           <td align="center" style="padding: 0 12px;">
             
-            <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="460" style="background-color: #ffffff; border-radius: 24px; box-shadow: 0px 16px 48px rgba(0, 0, 0, 0.04); width: 100%; max-width: 460px; border-collapse: separate !important;">
+            <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="460" style="background-color: #F3F0FA; border-radius: 24px; box-shadow: 0px 16px 48px rgba(111, 106, 133, 0.08); width: 100%; max-width: 460px; border-collapse: separate !important;">
               <tr>
                 <td class="card-padding" style="padding: 36px; border-radius: 24px;">
                   
@@ -148,7 +148,7 @@ export default async function handler(req, res) {
                       <td class="header-left" valign="middle">
                         <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate !important;">
                           <tr>
-                            <td align="center" valign="middle" width="48" height="48" style="background-color: #F8F9FA; border: 1px solid #EAEAEF; border-radius: 50%; font-size: 15px; font-weight: 800; color: #111111; overflow: hidden;">
+                            <td align="center" valign="middle" width="48" height="48" style="background-color: #ffffff; border: 1px solid #E4DFEE; border-radius: 50%; font-size: 15px; font-weight: 800; color: #111111; overflow: hidden;">
                               ${logoPath ? `<img src="cid:logo@modularone.com" alt="M1" style="width: 100%; height: 100%; max-width: 48px; max-height: 48px; object-fit: cover; display: block; border-radius: 50%;">` : 'M1'}
                             </td>
                           </tr>
@@ -157,7 +157,7 @@ export default async function handler(req, res) {
                       <td class="header-right" align="right" valign="middle">
                         <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate !important;">
                           <tr>
-                            <td style="background-color: #ECECEF; padding: 6px 14px; border-radius: 8px; font-size: 11px; font-weight: 600; color: #4A4A52; letter-spacing: 0.2px; display: inline-block;">
+                            <td style="background-color: #E5DEF0; padding: 6px 14px; border-radius: 8px; font-size: 11px; font-weight: 600; color: #4F4462; letter-spacing: 0.2px; display: inline-block;">
                               ${isQuote ? 'Quote Request' : 'New Request'}
                             </td>
                           </tr>
@@ -169,8 +169,8 @@ export default async function handler(req, res) {
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 24px;">
                     <tr>
                       <td>
-                        <div style="font-size: 13px; font-weight: 600; color: #6C6C78; margin-bottom: 6px;">
-                          Modular One <span style="font-weight: 400; color: #A1A1AA; margin-left: 4px;">• Inbound</span>
+                        <div style="font-size: 13px; font-weight: 600; color: #665E73; margin-bottom: 6px;">
+                          Modular One <span style="font-weight: 400; color: #9A91A7; margin-left: 4px;">• Inbound</span>
                         </div>
                         <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: #111111; letter-spacing: -0.5px; line-height: 1.3;">
                           ${service ? service : 'General Consultation'}
@@ -186,7 +186,7 @@ export default async function handler(req, res) {
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 16px;">
                     <tr>
                       <td style="font-size: 0; line-height: 0;">
-                        <div style="display: inline-block; background-color: #F1F1F4; padding: 6px 14px; border-radius: 10px; font-size: 12px; font-weight: 500; color: #2D2D35; margin-right: 8px; margin-bottom: 4px;">
+                        <div style="display: inline-block; background-color: #E9E3F3; padding: 6px 14px; border-radius: 10px; font-size: 12px; font-weight: 500; color: #382F48; margin-right: 8px; margin-bottom: 4px;">
                           ${details}
                         </div>
                       </td>
@@ -194,10 +194,10 @@ export default async function handler(req, res) {
                   </table>
                   ` : ''}
 
-                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 12px; border-top: 1px dashed #EAEAEF; padding-top: 12px;">
+                  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 12px; border-top: 1px dashed #DDD5E8; padding-top: 12px;">
                     <tr>
                       <td style="font-size: 13px; color: #4A4A52; padding: 3px 0; line-height: 1.4;">
-                        <span style="font-weight: 600; color: #111111;">Email:</span> <a href="mailto:${email}" style="color: #6C6C78; text-decoration: none; word-break: break-all;">${email}</a>
+                        <span style="font-weight: 600; color: #111111;">Email:</span> <a href="mailto:${email}" style="color: #554C62; text-decoration: none; word-break: break-all;">${email}</a>
                       </td>
                     </tr>
                   </table>
@@ -205,7 +205,7 @@ export default async function handler(req, res) {
                   ${message ? `
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 14px; margin-bottom: 4px;">
                     <tr>
-                      <td style="font-size: 13px; color: #6C6C78; line-height: 1.6; font-weight: 400; background-color: #F8F9FA; padding: 14px 18px; border-radius: 12px; border: 1px solid #EAEAEF;">
+                      <td style="font-size: 13px; color: #554C62; line-height: 1.6; font-weight: 400; background-color: #ffffff; padding: 14px 18px; border-radius: 12px; border: 1px solid #EBE4F5;">
                         ${message.replace(/\n/g, '<br>')}
                       </td>
                     </tr>
@@ -214,7 +214,7 @@ export default async function handler(req, res) {
 
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 24px; margin-bottom: 24px;">
                     <tr>
-                      <td style="border-top: 1px solid #EAEAEF; font-size: 1px; line-height: 1px;">&nbsp;</td>
+                      <td style="border-top: 1px solid #DDD5E8; font-size: 1px; line-height: 1px;">&nbsp;</td>
                     </tr>
                   </table>
 
@@ -224,7 +224,7 @@ export default async function handler(req, res) {
                         <div style="font-size: 22px; font-weight: 700; color: #111111; letter-spacing: -0.5px; line-height: 1.2;">
                           ${budget ? `₹${budget}` : 'Enquiry Matrix'}
                         </div>
-                        <div style="font-size: 12px; color: #A1A1AA; font-weight: 500; margin-top: 4px;">
+                        <div style="font-size: 12px; color: #8A7E9C; font-weight: 500; margin-top: 4px;">
                           Vasai, Mumbai
                         </div>
                       </td>
@@ -247,8 +247,8 @@ export default async function handler(req, res) {
               </tr>
             </table> <table border="0" cellpadding="0" cellspacing="0" width="460" style="margin-top: 24px; text-align: center; width: 100%; max-width: 460px;">
               <tr>
-                <td style="font-size: 12px; color: #A1A1AA; font-weight: 400;">
-                  Internal Distribution • <a href="https://modularone.vercel.app" style="color: #6C6C78; text-decoration: none; font-weight: 500;">System Router</a>
+                <td style="font-size: 12px; color: #9A91A7; font-weight: 400;">
+                  Internal Distribution • <a href="https://modularone.vercel.app" style="color: #665E73; text-decoration: none; font-weight: 500;">System Router</a>
                 </td>
               </tr>
             </table>
