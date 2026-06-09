@@ -9,13 +9,10 @@ import {
   Layers, 
   Users, 
   Clock, 
-  MapPin, 
   CheckCircle, 
   Star, 
   TrendingUp, 
   Zap, 
-  Mail, 
-  Linkedin, 
   Quote,
   Phone
 } from 'lucide-react';
@@ -70,6 +67,9 @@ const brandAssets = {
   team: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&auto=format&fit=crop&q=80",
 };
 
+// Video URL
+const HERO_VIDEO_URL = "/wood-cutting.mp4";
+
 const stats = [
   { label: "Projects Completed", value: "250+", icon: CheckCircle },
   { label: "Happy Clients", value: "98%", icon: Star },
@@ -105,15 +105,6 @@ const fadeInRight = {
   }
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" }
-  }
-};
-
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
@@ -143,68 +134,80 @@ export default function About() {
         <meta name="keywords" content="interior design experts, modular furniture legacy, best designers Vasai, furniture manufacturing India" />
         <link rel="canonical" href="https://modularone.in/about" />
         
-        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://modularone.in/about" />
         <meta property="og:title" content="About Us | Modular One - Experts in Premium Interior Design" />
         <meta property="og:description" content="Learn about Modular One's 15+ year legacy in crafting premium modular furniture." />
         
-        {/* Twitter */}
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="About Us | Modular One" />
         <meta name="twitter:description" content="Learn about Modular One's 15+ year legacy in crafting premium modular furniture." />
       </Helmet>
 
-      {/* Hero Section with Navy Brand Color */}
-      <motion.section 
-        initial="hidden"
-        animate="visible"
-        variants={fadeInUp}
-        className="relative overflow-hidden bg-gradient-to-br from-[#1A2A4F] via-[#2A3D6B] to-[#1A2A4F] pt-32 pb-20"
-      >
-        {/* Decorative elements */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"
-        />
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="absolute bottom-0 left-0 w-80 h-80 bg-[#C9A03D]/10 rounded-full blur-3xl"
-        />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <motion.div 
-              variants={staggerItem}
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6"
-            >
-              <motion.span 
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="w-1.5 h-1.5 bg-[#C9A03D] rounded-full"
-              />
-              <span className="text-xs font-medium text-white/90">Since 2024</span>
-            </motion.div>
-            <motion.h1 
-              variants={staggerItem}
-              className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
-            >
-              Crafting Excellence
-              <span className="block text-[#C9A03D]">For Your Space</span>
-            </motion.h1>
-            <motion.p 
-              variants={staggerItem}
-              className="text-xl text-white/80 max-w-2xl mx-auto"
-            >
-              We don't just build furniture — we engineer experiences that transform how you live and work.
-            </motion.p>
-          </div>
+      {/* Hero Section - ONLY VIDEO, NO TEXT */}
+<section className="relative h-screen w-full overflow-hidden bg-black">
+
+  {/* 1. Background Video Layer */}
+  <div className="absolute inset-0 w-full h-full">
+    <video
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="absolute top-0 left-0 w-full h-full object-cover"
+    >
+      <source src="/wood-cutting.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    {/* Cinematic Dark Overlay */}
+    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60"></div>
+  </div>
+
+  {/* 2. Content Layer */}
+  <div className="absolute inset-0 flex items-center justify-center z-10">
+    <div className="text-center px-4">
+
+      {/* Main Tagline Wrapper */}
+      <div className="flex items-center justify-center gap-4 md:gap-6">
+        {/* Left Decorative Danda */}
+        <span className="text-white/30 text-4xl md:text-6xl font-serif select-none">॥</span>
+
+        {/* Pure CSS Native Transform Wrapper - Forcefully Cancels the Italic Slant */}
+        <div 
+          className="inline-block"
+          style={{ transform: 'skewX(-12deg)' }} // Yeh native CSS browser engine level par text ko left kheenchega
+        >
+          <h1
+            className="text-white text-5xl md:text-7xl lg:text-9xl font-normal tracking-wider normal-case"
+            style={{
+              fontFamily: "'Samarkan', sans-serif",
+              textShadow: "0 4px 15px rgba(0,0,0,0.6)",
+            }}
+          >
+            modular one
+          </h1>
         </div>
-      </motion.section>
+
+        {/* Right Decorative Danda */}
+        <span className="text-white/30 text-4xl md:text-6xl font-serif select-none">॥</span>
+      </div>
+
+      {/* Subtitle */}
+      <p className="text-white/80 text-xs md:text-sm tracking-[0.4em] uppercase mt-6 md:mt-8 font-light max-w-xs md:max-w-md mx-auto border-t border-white/20 pt-4">
+        Premium Modular Furniture
+      </p>
+
+    </div>
+  </div>
+
+  {/* Bottom Scroll Indicator */}
+  {/* <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 animate-bounce">
+    <span className="text-white/40 text-[10px] tracking-[0.3em] uppercase font-light">Explore</span>
+    <div className="w-[1px] h-8 bg-white/30"></div>
+  </div> */}
+
+</section>
 
       {/* Stats Section */}
       <motion.section 
@@ -374,42 +377,12 @@ export default function About() {
             viewport={{ once: true }}
           >
             {[
-              {
-                icon: ShieldCheck,
-                title: "Quality First",
-                description: "We use premium materials and German-engineered hardware for lasting durability.",
-                color: "#1A2A4F"
-              },
-              {
-                icon: TrendingUp,
-                title: "Innovation",
-                description: "Constantly evolving our techniques to bring you the latest in modular design.",
-                color: "#C9A03D"
-              },
-              {
-                icon: Users,
-                title: "Client-Centric",
-                description: "Your vision, our expertise — collaborative approach to every project.",
-                color: "#1A2A4F"
-              },
-              {
-                icon: Clock,
-                title: "Timely Delivery",
-                description: "Strict adherence to project timelines without compromising quality.",
-                color: "#C9A03D"
-              },
-              {
-                icon: Zap,
-                title: "Precision Engineering",
-                description: "Millimeter-perfect measurements for seamless installation.",
-                color: "#1A2A4F"
-              },
-              {
-                icon: Award,
-                title: "Excellence",
-                description: "Committed to exceeding expectations in every detail.",
-                color: "#C9A03D"
-              }
+              { icon: ShieldCheck, title: "Quality First", description: "We use premium materials and German-engineered hardware for lasting durability.", color: "#1A2A4F" },
+              { icon: TrendingUp, title: "Innovation", description: "Constantly evolving our techniques to bring you the latest in modular design.", color: "#C9A03D" },
+              { icon: Users, title: "Client-Centric", description: "Your vision, our expertise — collaborative approach to every project.", color: "#1A2A4F" },
+              { icon: Clock, title: "Timely Delivery", description: "Strict adherence to project timelines without compromising quality.", color: "#C9A03D" },
+              { icon: Zap, title: "Precision Engineering", description: "Millimeter-perfect measurements for seamless installation.", color: "#1A2A4F" },
+              { icon: Award, title: "Excellence", description: "Committed to exceeding expectations in every detail.", color: "#C9A03D" }
             ].map((value, index) => {
               const Icon = value.icon;
               return (
@@ -481,7 +454,7 @@ export default function About() {
         </div>
       </motion.section>
 
-      {/* Team Section - Enhanced */}
+      {/* Team Section */}
       <motion.section 
         initial="hidden"
         whileInView="visible"
