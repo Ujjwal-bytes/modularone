@@ -21,7 +21,7 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
       { text: "Limited Edition", icon: Award, color: "#C9A03D" },
       { text: "Ready to Ship", icon: Truck, color: "#1A2A4F" }
     ];
-    
+
     // Fixed: Convert id to string safely for consistent label
     const idString = String(product.id || index);
     let hash = 0;
@@ -50,7 +50,7 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
   const handleWishlistToggle = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
-    
+
     if (isWishlisted) {
       removeFromWishlist(product.id);
       setIsWishlisted(false);
@@ -70,7 +70,7 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
   }, []);
 
   const notification = useMemo(() => {
-    switch(notificationType) {
+    switch (notificationType) {
       case 'wishlist':
         return { icon: Heart, text: 'Added to Wishlist', bgColor: '#C9A03D' };
       case 'removed':
@@ -85,11 +85,11 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
   // Animation variants
   const cardVariants = useMemo(() => ({
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.5, 
+      transition: {
+        duration: 0.5,
         ease: "easeOut",
         delay: index * 0.05
       }
@@ -107,8 +107,8 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
 
   const overlayVariants = useMemo(() => ({
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.3, ease: "easeOut" }
     }
@@ -122,8 +122,8 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
 
   const badgeVariants = useMemo(() => ({
     hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       transition: { delay: 0.1, duration: 0.3 }
     }
@@ -131,15 +131,15 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
 
   const notificationVariants = useMemo(() => ({
     hidden: { opacity: 0, y: 20, scale: 0.9 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       scale: 1,
       transition: { type: "spring", stiffness: 400, damping: 25 }
     },
-    exit: { 
-      opacity: 0, 
-      y: -20, 
+    exit: {
+      opacity: 0,
+      y: -20,
       scale: 0.9,
       transition: { duration: 0.2 }
     }
@@ -152,14 +152,14 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
       {/* Toast Notification */}
       <AnimatePresence>
         {showNotification && (
-          <motion.div 
+          <motion.div
             className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100]"
             variants={notificationVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
-            <div 
+            <div
               className="text-white px-6 py-3 shadow-2xl text-xs font-semibold tracking-wide flex items-center gap-3"
               style={{ backgroundColor: notification.bgColor }}
             >
@@ -170,7 +170,7 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
         )}
       </AnimatePresence>
 
-      <motion.div 
+      <motion.div
         className="group flex flex-col bg-white transition-all duration-500 relative cursor-pointer"
         variants={cardVariants}
         initial="hidden"
@@ -193,7 +193,7 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
           />
 
           {/* Product Label Badge - Replaces Series/NaN */}
-          <motion.div 
+          <motion.div
             className="absolute top-4 left-4 z-10"
             variants={badgeVariants}
             initial="hidden"
@@ -211,11 +211,10 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
           {/* Wishlist Button */}
           <motion.button
             onClick={handleWishlistToggle}
-            className={`absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center transition-all duration-300 bg-white shadow-md ${
-              isWishlisted 
-              ? 'bg-[#C9A03D] text-white' 
-              : 'text-[#1A2A4F] hover:bg-[#C9A03D] hover:text-white'
-            }`}
+            className={`absolute top-4 right-4 z-10 w-9 h-9 flex items-center justify-center  transition-all duration-300 shadow-md ${isWishlisted
+                ? 'bg-[#C9A03D] text-white'
+                : 'bg-white text-[#1A2A4F] hover:bg-[#C9A03D] hover:text-white'
+              }`}
             variants={buttonVariants}
             initial="initial"
             whileHover="hover"
@@ -228,14 +227,14 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
           {/* Hover Overlay - Product Specs */}
           <AnimatePresence>
             {isHovered && (
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 bg-black/70 flex flex-col justify-end p-5"
                 variants={overlayVariants}
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
               >
-                <motion.div 
+                <motion.div
                   className="space-y-2"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -266,9 +265,8 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
                 <motion.button
                   key={i}
                   onClick={(e) => handleImageChange(i, e)}
-                  className={`h-0.5 transition-all ${
-                    currentImage === i ? 'w-6 bg-[#C9A03D]' : 'w-2 bg-white/60'
-                  }`}
+                  className={`h-0.5 transition-all ${currentImage === i ? 'w-6 bg-[#C9A03D]' : 'w-2 bg-white/60'
+                    }`}
                   whileHover={{ scale: 1.2 }}
                   aria-label={`View image ${i + 1}`}
                 />
@@ -285,15 +283,15 @@ const ProductCard = React.memo(({ product, index = 0 }) => {
               {product.category || 'Furniture'}
             </span>
           </div>
-          
+
           {/* Product Name */}
-          <motion.h3 
+          <motion.h3
             className="text-base font-semibold text-[#1A2A4F] tracking-tight group-hover:text-[#C9A03D] transition-colors duration-300"
             whileHover={{ x: 2 }}
           >
             {product.name}
           </motion.h3>
-          
+
           {/* Product Meta - Finish & Lead Time */}
           <div className="flex items-center gap-2 mt-1.5 mb-3">
             <span className="text-[8px] font-medium text-gray-400 uppercase tracking-wider">
