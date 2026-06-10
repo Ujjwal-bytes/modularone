@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -21,4 +21,234 @@
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+ -->
 
+
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Modular One - We are currently undergoing scheduled maintenance to improve our services. We'll be back online shortly." />
+    <meta name="keywords" content="modular kitchen, wardrobes, office interior, furniture, interior design, India, luxury furniture" />
+    <link rel="canonical" href="https://modularone.in" />
+    <title>Modular One | Under Maintenance</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/samarkan" rel="stylesheet">
+
+    <!-- Exact UI Match Stylesheet -->
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: 'Montserrat', sans-serif;
+        background-color: #ededed; /* Soft gray background like the image */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      /* Main Card Container */
+      .card {
+        background: #ffffff;
+        width: 100%;
+        max-width: 380px; /* Exact card proportion */
+        border-radius: 40px; /* Highly rounded corners */
+        padding: 35px 30px 30px 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+        position: relative;
+      }
+
+      /* Top Section: Logo & Status Badge */
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 25px;
+      }
+  .logo-container {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 1px solid #eaeaea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Clips the image into a perfect circle */
+  background: #fff;
+}
+.logo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Forces the image to expand and fill the box completely */
+}
+      /* Alternative Text Logo if img fails */
+      .logo-placeholder {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #1a1a1a;
+      }
+
+      /* Exact Top Right Saved Badge Style */
+      .status-badge {
+        background-color: #e0e0e0;
+        color: #1a1a1a;
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .status-badge svg {
+        width: 10px;
+        height: 10px;
+        fill: #1a1a1a;
+      }
+
+      /* Main Text Elements */
+      .company-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 4px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .time-stamp {
+        font-size: 0.75rem;
+        color: #a0a0a0;
+        font-weight: 500;
+      }
+      .main-heading {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 18px 0;
+        line-height: 1.2;
+      }
+
+      /* Pill Tags */
+      .tags-container {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 45px;
+      }
+      .tag {
+        background-color: #f0f0f0;
+        color: #4a4a4a;
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      /* Divider Line */
+      .divider {
+        height: 1px;
+        background-color: #ededed;
+        width: 100%;
+        margin-bottom: 25px;
+      }
+
+      /* Bottom Action Row */
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-left {
+        display: flex;
+        flex-direction: column;
+      }
+      .footer-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin: 0 0 2px 0;
+      }
+      .footer-subtitle {
+        font-size: 0.75rem;
+        color: #a0a0a0;
+        font-weight: 500;
+      }
+
+      /* Exact Dark Pill Button Style */
+      .action-btn {
+        background-color: #1a1a1a;
+        color: #ffffff;
+        border: none;
+        padding: 14px 24px;
+        border-radius: 14px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+      .action-btn:hover {
+        background-color: #333333;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <!-- UI Card Container -->
+    <div class="card">
+      
+      <!-- Top Row -->
+      <div class="card-header">
+        <div class="logo-container">
+          <!-- Dynamically loads your logo; falls back gracefully if absent -->
+          <img src="/logoss.png" alt="M1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <span class="logo-placeholder" style="display: none;">M1</span>
+        </div>
+        <div class="status-badge">
+          <span>Offline</span>
+          <svg viewBox="0 0 24 24"><path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z"/></svg>
+        </div>
+      </div>
+
+      <!-- Center Typography -->
+      <h2 class="company-name">Modular One <span class="time-stamp">Updates underway</span></h2>
+      <h1 class="main-heading">Under Scheduled Maintenance</h1>
+
+      <!-- Tags Section -->
+      <div class="tags-container">
+        <div class="tag">Upgrading UI</div>
+        <div class="tag">Be Back Soon</div>
+      </div>
+
+      <!-- Divider line -->
+      <div class="divider"></div>
+
+      <!-- Bottom Row -->
+      <div class="card-footer">
+        <div class="footer-left">
+          <h3 class="footer-title">Coming Back</h3>
+          <span class="footer-subtitle">India Standard Time</span>
+        </div>
+        <button class="action-btn" onclick="window.location.reload();">Refresh Page</button>
+      </div>
+
+    </div>
+
+    <!-- React App temporarily commented out -->
+    <!-- 
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script> 
+    -->
+  </body>
+</html>
