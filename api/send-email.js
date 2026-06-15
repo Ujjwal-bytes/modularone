@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-
+import {  MdVerified } from "react-icons/md";
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
@@ -286,7 +286,7 @@ export default async function handler(req, res) {
 
   try {
     await transporter.sendMail({
-      from: `"Modular One" <${process.env.SMTP_USER}>`,
+      from: `"Modular One ${MdVerified()} <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_EMAIL || process.env.SMTP_USER,
       subject: subject,
       html: htmlContent,
