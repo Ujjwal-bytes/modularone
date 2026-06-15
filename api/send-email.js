@@ -40,7 +40,7 @@ export default async function handler(req, res) {
       <title>${subject}</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       
       <style type="text/css">
         body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
@@ -62,7 +62,7 @@ export default async function handler(req, res) {
         }
       </style>
     </head>
-    <body style="margin: 0; padding: 20px 12px; background-color: #f8fafc; font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;">
+    <body style="margin: 0; padding: 20px 12px; background-color: #f8fafc; font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;">
 
       <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
@@ -70,15 +70,18 @@ export default async function handler(req, res) {
             
             <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="560" style="background-color: #ffffff; border-radius: 20px; box-shadow: 0px 6px 24px rgba(148, 163, 184, 0.1); width: 100%; max-width: 560px; overflow: hidden; border-collapse: separate !important;">
               
+              <!-- COMPACT HEADER BAR -->
               <tr>
                 <td class="header-cell" style="background: ${BRAND_COLOR}; padding: 20px 24px;">
                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
+                      <!-- Pinned left on both screen formats -->
                       <td class="mobile-left" align="left" valign="middle">
                         <img src="${logoUrl}" alt="Modular One" style="height: 26px; width: auto; display: inline-block; vertical-align: middle;">
                       </td>
+                      <!-- Pinned right on both screen formats -->
                       <td class="mobile-right" align="right" valign="middle">
-                        <span style="font-size: 11px; font-weight: 700; color: #ffffff; background-color: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 100px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; vertical-align: middle;">
+                        <span style="font-size: 11px; font-weight: 700; color: #ffffff; background-color: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 100px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; vertical-align: middle; font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;">
                           ${isQuote ? 'Quote Request' : 'New Lead'}
                         </span>
                       </td>
@@ -87,6 +90,7 @@ export default async function handler(req, res) {
                 </td>
               </tr>
 
+              <!-- COMPACT CONTENT SECTION -->
               <tr>
                 <td class="responsive-padding" style="padding: 24px 32px;">
                   
@@ -94,8 +98,10 @@ export default async function handler(req, res) {
                     New Client Enquiry
                   </h2>
 
+                  <!-- TWO-COLUMN GRID TO DECREASE HEIGHT -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
+                      <!-- LEFT COLUMN -->
                       <td width="48%" valign="top">
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                           <tr>
@@ -121,8 +127,10 @@ export default async function handler(req, res) {
                         </table>
                       </td>
                       
+                      <!-- SPACER -->
                       <td width="4%">&nbsp;</td>
                       
+                      <!-- RIGHT COLUMN -->
                       <td width="48%" valign="top">
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                           ${service ? `
@@ -146,6 +154,7 @@ export default async function handler(req, res) {
                     </tr>
                   </table>
 
+                  <!-- COMPACT MESSAGE BOX -->
                   ${message ? `
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 16px;">
                     <tr>
@@ -161,19 +170,23 @@ export default async function handler(req, res) {
                   </table>
                   ` : ''}
 
+                  <!-- HORIZONTAL PILL BUTTONS (SAVES VERTICAL SPACE) -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
                     <tr>
                       <td align="left">
                         <table border="0" cellpadding="0" cellspacing="0">
                           <tr>
+                            <!-- CALL BUTTON -->
                             <td bgcolor="${BRAND_COLOR}" style="border-radius: 10px;">
-                              <a href="tel:${cleanPhone}" style="font-size: 13px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 10px 18px; display: block; text-align: center;">
+                              <a href="tel:${cleanPhone}" style="font-size: 13px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 10px 18px; display: block; text-align: center; font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;">
                                 Call Client
                               </a>
                             </td>
+                            <!-- GAP -->
                             <td width="12">&nbsp;</td>
+                            <!-- WHATSAPP BUTTON -->
                             <td bgcolor="#ffffff" style="border-radius: 10px; border: 1.5px solid #e2e8f0;">
-                              <a href="https://wa.me/${whatsappPhone}" style="font-size: 13px; font-weight: 700; color: #0f172a; text-decoration: none; padding: 8.5px 18px; display: block; text-align: center;">
+                              <a href="https://wa.me/${whatsappPhone}" style="font-size: 13px; font-weight: 700; color: #0f172a; text-decoration: none; padding: 8.5px 18px; display: block; text-align: center; font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;">
                                 WhatsApp Chat
                               </a>
                             </td>
@@ -186,6 +199,7 @@ export default async function handler(req, res) {
                 </td>
               </tr>
 
+              <!-- COMPACT FOOTER -->
               <tr>
                 <td class="footer-cell" style="padding: 12px 32px 24px 32px; text-align: center; background-color: #ffffff;">
                   <div style="background: #e2e8f0; height: 1px; font-size: 1px; line-height: 1px; margin-bottom: 16px; width: 100%;">&nbsp;</div>
