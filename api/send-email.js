@@ -30,7 +30,7 @@ export default async function handler(req, res) {
   const cleanPhone = phone ? phone.replace(/[^0-9+]/g, '') : '';
   const whatsappPhone = cleanPhone.replace('+', '');
 
-  // COMPACT & PREMIUM BRANDED EMAIL TEMPLATE
+  // COMPACT & PREMIUM BRANDED EMAIL TEMPLATE (FLAT EDGES)
   const htmlContent = `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -68,21 +68,18 @@ export default async function handler(req, res) {
         <tr>
           <td align="center">
             
-            <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="560" style="background-color: #ffffff; border-radius: 20px; box-shadow: 0px 6px 24px rgba(148, 163, 184, 0.1); width: 100%; max-width: 560px; overflow: hidden; border-collapse: separate !important;">
+            <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="560" style="background-color: #ffffff; box-shadow: 0px 6px 24px rgba(148, 163, 184, 0.1); width: 100%; max-width: 560px; overflow: hidden; border-collapse: separate !important;">
               
-              <!-- COMPACT HEADER BAR -->
               <tr>
                 <td class="header-cell" style="background: ${BRAND_COLOR}; padding: 20px 24px;">
                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
-                      <!-- Pinned left on both screen formats -->
                       <td class="mobile-left" align="left" valign="middle">
                         <img src="${logoUrl}" alt="Modular One" style="height: 26px; width: auto; display: inline-block; vertical-align: middle;">
                       </td>
-                      <!-- Pinned right on both screen formats -->
                       <td class="mobile-right" align="right" valign="middle">
-                        <span style="font-size: 11px; font-weight: 700; color: #ffffff; background-color: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 100px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; vertical-align: middle; font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;">
-                          ${isQuote ? 'Quote Request' : 'New Lead'}
+                        <span style="font-size: 12px; font-weight: 500; color: #ffffff; background-color: rgba(255,255,255,0.15); padding: 4px 12px; display: inline-block; vertical-align: middle; font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;">
+                          ${isQuote ? 'Quote request' : 'New lead'}
                         </span>
                       </td>
                     </tr>
@@ -90,7 +87,6 @@ export default async function handler(req, res) {
                 </td>
               </tr>
 
-              <!-- COMPACT CONTENT SECTION -->
               <tr>
                 <td class="responsive-padding" style="padding: 24px 32px;">
                   
@@ -98,10 +94,8 @@ export default async function handler(req, res) {
                     New Client Enquiry
                   </h2>
 
-                  <!-- TWO-COLUMN GRID TO DECREASE HEIGHT -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
-                      <!-- LEFT COLUMN -->
                       <td width="48%" valign="top">
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                           <tr>
@@ -127,10 +121,8 @@ export default async function handler(req, res) {
                         </table>
                       </td>
                       
-                      <!-- SPACER -->
                       <td width="4%">&nbsp;</td>
                       
-                      <!-- RIGHT COLUMN -->
                       <td width="48%" valign="top">
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                           ${service ? `
@@ -154,13 +146,12 @@ export default async function handler(req, res) {
                     </tr>
                   </table>
 
-                  <!-- COMPACT MESSAGE BOX -->
                   ${message ? `
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 16px;">
                     <tr>
                       <td>
-                        <div style="background-color: #f8fafc; border-radius: 12px; padding: 12px 16px;">
-                          <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Client Message</div>
+                        <div style="background-color: #f8fafc; padding: 12px 16px;">
+                          <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 4px;">Client message</div>
                           <div style="font-size: 13px; color: #334155; line-height: 1.5; font-style: italic;">
                             "${message.substring(0, 300)}${message.length > 300 ? '...' : ''}"
                           </div>
@@ -170,22 +161,18 @@ export default async function handler(req, res) {
                   </table>
                   ` : ''}
 
-                  <!-- HORIZONTAL PILL BUTTONS (SAVES VERTICAL SPACE) -->
                   <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
                     <tr>
                       <td align="left">
                         <table border="0" cellpadding="0" cellspacing="0">
                           <tr>
-                            <!-- CALL BUTTON -->
-                            <td bgcolor="${BRAND_COLOR}" style="border-radius: 10px;">
+                            <td bgcolor="${BRAND_COLOR}">
                               <a href="tel:${cleanPhone}" style="font-size: 13px; font-weight: 700; color: #ffffff; text-decoration: none; padding: 10px 18px; display: block; text-align: center; font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;">
                                 Call Client
                               </a>
                             </td>
-                            <!-- GAP -->
                             <td width="12">&nbsp;</td>
-                            <!-- WHATSAPP BUTTON -->
-                            <td bgcolor="#ffffff" style="border-radius: 10px; border: 1.5px solid #e2e8f0;">
+                            <td bgcolor="#ffffff" style="border: 1.5px solid #e2e8f0;">
                               <a href="https://wa.me/${whatsappPhone}" style="font-size: 13px; font-weight: 700; color: #0f172a; text-decoration: none; padding: 8.5px 18px; display: block; text-align: center; font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;">
                                 WhatsApp Chat
                               </a>
@@ -199,7 +186,6 @@ export default async function handler(req, res) {
                 </td>
               </tr>
 
-              <!-- COMPACT FOOTER -->
               <tr>
                 <td class="footer-cell" style="padding: 12px 32px 24px 32px; text-align: center; background-color: #ffffff;">
                   <div style="background: #e2e8f0; height: 1px; font-size: 1px; line-height: 1px; margin-bottom: 16px; width: 100%;">&nbsp;</div>
