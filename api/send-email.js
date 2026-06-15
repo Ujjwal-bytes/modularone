@@ -48,9 +48,17 @@ export default async function handler(req, res) {
         body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; background-color: #f8fafc; }
 
         @media screen and (max-width: 600px) {
+          body { padding: 10px 4px !important; }
           .wrapper-table { width: 100% !important; max-width: 100% !important; }
-          .responsive-padding { padding: 24px 16px !important; }
-          .mobile-center { text-align: center !important; }
+          
+          /* Tight padding for mobile view corner layout */
+          .header-cell { padding: 14px 14px !important; }
+          .responsive-padding { padding: 20px 14px !important; }
+          .footer-cell { padding: 12px 14px 20px 14px !important; }
+          
+          /* Prevents centering or collapsing; keeps elements pinned to corners */
+          .mobile-left { text-align: left !important; }
+          .mobile-right { text-align: right !important; }
         }
       </style>
     </head>
@@ -63,14 +71,14 @@ export default async function handler(req, res) {
             <table class="wrapper-table" border="0" cellpadding="0" cellspacing="0" width="560" style="background-color: #ffffff; border-radius: 20px; box-shadow: 0px 6px 24px rgba(148, 163, 184, 0.1); width: 100%; max-width: 560px; overflow: hidden; border-collapse: separate !important;">
               
               <tr>
-                <td style="background: ${BRAND_COLOR}; padding: 20px 24px;">
+                <td class="header-cell" style="background: ${BRAND_COLOR}; padding: 20px 24px;">
                   <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
-                      <td class="mobile-center" align="left">
-                        <img src="${logoUrl}" alt="Modular One" style="height: 28px; width: auto; display: inline-block; vertical-align: middle;">
+                      <td class="mobile-left" align="left" valign="middle">
+                        <img src="${logoUrl}" alt="Modular One" style="height: 26px; width: auto; display: inline-block; vertical-align: middle;">
                       </td>
-                      <td class="mobile-center" align="right" style="padding-top: 4px;">
-                        <span style="font-size: 11px; font-weight: 700; color: #ffffff; background-color: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 100px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block;">
+                      <td class="mobile-right" align="right" valign="middle">
+                        <span style="font-size: 11px; font-weight: 700; color: #ffffff; background-color: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 100px; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; vertical-align: middle;">
                           ${isQuote ? 'Quote Request' : 'New Lead'}
                         </span>
                       </td>
@@ -179,7 +187,7 @@ export default async function handler(req, res) {
               </tr>
 
               <tr>
-                <td style="padding: 12px 32px 24px 32px; text-align: center; background-color: #ffffff;">
+                <td class="footer-cell" style="padding: 12px 32px 24px 32px; text-align: center; background-color: #ffffff;">
                   <div style="background: #e2e8f0; height: 1px; font-size: 1px; line-height: 1px; margin-bottom: 16px; width: 100%;">&nbsp;</div>
                   <div style="font-size: 11px; color: #94a3b8; letter-spacing: 0.1px; line-height: 1.4;">
                     Modular One • Golani Naka, Vasai East • <a href="mailto:support@modularone.com" style="color: ${BRAND_COLOR}; text-decoration: none; font-weight: 600;">support@modularone.com</a>
