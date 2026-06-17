@@ -5,6 +5,13 @@
     scroll-behavior: smooth;
   }
 
+  @font-face {
+  font-family: 'Saman';
+  src: url('/fonts/SAMAN___.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}  
+
   body {
     font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
     background-color: #FFFFFF;

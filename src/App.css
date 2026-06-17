@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Saman';
+  src: url('/fonts/SAMAN___.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @theme {
   --font-sans: 'Montserrat', system-ui, -apple-system, sans-serif;
   --color-bg-base: #ffffff;
