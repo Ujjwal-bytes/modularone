@@ -180,11 +180,3 @@ Update the colors in `tailwind.config.js` under the `theme.extend.colors` sectio
 ## License
 
 This project is proprietary software for Modular One.
-
-## Contact
-
-For support or inquiries, contact:
-- **Owner**: N Jha
-- **Location**: Gokhiware, Vasai, Palghar, Maharashtra
-- **Email**: info@modularone.com
-- **Phone**: +91 98765 43210
